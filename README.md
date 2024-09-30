@@ -1,3 +1,5 @@
+![norminette](https://github.com/FxmousKid/42Cursus-minishell/workflows/CI/badge.svg)
+
 # Minishell
 
 ## About
