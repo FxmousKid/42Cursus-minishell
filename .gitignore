@@ -1,8 +1,20 @@
+# dev env
+**.compile_commands.json
+**.vscode/
+**.idea/
+**.vgcore*
+
+# build
+./build/
+minishell
+
+#------------- template .gitignore file C projects. -------------
+
 # Prerequisites
-*.d
+***.d
 
 # Object files
-*.o
+***.o
 *.ko
 *.obj
 *.elf
@@ -30,7 +42,7 @@
 
 # Executables
 *.exe
-*.out
+***.out
 *.app
 *.i*86
 *.x86_64
