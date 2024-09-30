@@ -17,9 +17,9 @@ jobs:
         run: pip install norminette
       - name: Run norminette
         run: |
-          export NORM_EXIT_CODE=$(norminette src/ > /dev/null)
           norminette src/ | grep Error
-          exit $NORM_EXIT_CODE
+          norminette src/ > /dev/null
+          exit $?
   
   make-check:
     runs-on: ubuntu-latest
