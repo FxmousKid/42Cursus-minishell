@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_manager.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/09/30 15:29:47 by inazaria         ###   ########.fr       */
+/*   Created: 2024/09/30 15:09:45 by inazaria          #+#    #+#             */
+/*   Updated: 2024/09/30 15:23:01 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERROR_MANAGER_H
+# define ERROR_MANAGER_H
 
-int	main(void)
-{
-	printf("prompt preview : \n");
-	if (1)
-		debug(DBG("Failed to fill condition"));
-	return (0);
-}
+# define STRINGIFY(x) #x
+# define TOSTRING(x) STRINGIFY(x)
+
+// Debug Helping
+# define DBG(reason) reason " at line " \
+TOSTRING(__LINE__) " in file " __FILE__ "\n"
+
+// Error Handling
+
+
+// Debugging
+void		debug(char *str);
+
+#endif

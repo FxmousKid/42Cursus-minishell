@@ -13,9 +13,13 @@ jobs:
       - uses: actions/checkout@main
         with:
           submodules: true 
-      - uses: alexandregv/norminette-action@v3.3.53
-        with:
-          flags: '.'
+      - name: Install norminette
+        run: pip install norminette
+      - name: Run norminette
+        run: |
+          export NORM_EXIT_CODE=$(norminette src/ > /dev/null)
+          norminette . | grep Error
+          exit $NORM_EXIT_CODE
   
   make-check:
     runs-on: ubuntu-latest
@@ -25,4 +29,5 @@ jobs:
       - uses: actions/checkout@main
         with:
           submodules: true
-      -  run: make
+      - name: Check make
+        run: make
