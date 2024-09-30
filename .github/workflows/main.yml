@@ -18,7 +18,7 @@ jobs:
       - name: Run norminette
         run: |
           export NORM_EXIT_CODE=$(norminette src/ > /dev/null)
-          norminette . | grep Error
+          norminette src/ | grep Error
           exit $NORM_EXIT_CODE
   
   make-check:
