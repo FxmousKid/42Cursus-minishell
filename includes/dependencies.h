@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:36:36 by inazaria          #+#    #+#             */
-/*   Updated: 2024/09/29 16:03:26 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:18:30 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
