@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "norm job triggered by a ${{ github.event_name }} event by ${{ github.actor }}"
-      - run: echo "Running norminette on all files"
+      - run: echo "Running norminette on all files except headers"
       - uses: actions/checkout@main
         with:
           submodules: true 
