@@ -11,14 +11,23 @@ jobs:
       - run: echo "norm job triggered by a ${{ github.event_name }} event by ${{ github.actor }}"
       - run: echo "Running norminette on all files"
       - uses: actions/checkout@main
-      - uses: alexandregv/norminette-action@v3.5.53
         with:
-          flags: '.'
+          submodules: true 
+      - name: Install norminette
+        run: pip install norminette
+      - name: Run norminette
+        run: |
+          export NORM_EXIT_CODE=$(norminette src/ > /dev/null)
+          norminette . | grep Error
+          exit $NORM_EXIT_CODE
   
   make-check:
     runs-on: ubuntu-latest
     steps:
       - run: echo "make-check job triggered by a ${{ github.event_name }} event by ${{ github.actor }}"
       - run: echo "Running make check"
-      -  uses: actions/checkout@main
-      -  run: make
+      - uses: actions/checkout@main
+        with:
+          submodules: true
+      - name: Check make
+        run: make

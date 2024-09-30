@@ -6,7 +6,7 @@
 #    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/09/30 14:17:43 by inazaria         ###   ########.fr        #
+#    Updated: 2024/09/30 15:38:48 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ all : $(NAME)
 
 debug : $(OBJ_FILES)
 	@$(ECHO) "$(RED)[DBG] Making in DEBUG MODE...$(NC)"
-	@$(RM) $(DEBUG_BUILD_PATH)
+	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
 	@$(ECHO) "$(BROWN)[BLD] Building executable...$(NC)"
 	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME)

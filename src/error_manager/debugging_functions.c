@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2024/09/29 16:06:26 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:30:04 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 
 void	debug(char *str)
 {
-	printf_clr(RED_TXT, str);
+	printf("%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
 }
-
 
 #else
 
