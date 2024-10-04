@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/02 23:50:13 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/04 22:15:23 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,16 @@ typedef struct s_env_pair
 	char	*value;
 }			t_env_pair;
 
+typedef struct s_data
+{
+	char	**env;
+	t_ast	*ast;
+}				t_data;
+
+/* BUILD IN */
+int		buildin_pwd(int	i);
+int		buildin_echo(char **arg);
+void	ft_putstr_fd(char *s, int fd);
+int		buildin_cd(char *path);
 
 #endif

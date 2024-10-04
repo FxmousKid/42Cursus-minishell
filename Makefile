@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
+#    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/09/30 17:02:22 by inazaria         ###   ########.fr        #
+#    Updated: 2024/10/04 21:43:11 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ DEBUG_FILE_PATH = ./src/error_manager/debugging_functions
 DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
-SRC_FILES_NAMES = main.c
+SRC_FILES_NAMES	= main.c
+SRC_FILES_NAMES	+= buildin.c
+SRC_FILES_NAMES += ft_putstr_fd.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -37,7 +39,7 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 
 NAME := minishell
 CC := clang
-CFLAGS := -g3 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
+CFLAGS := -g3 -Wall -Wextra -Werror -I$(INC_DIR) -MMD -MP
 MKDIR := mkdir -p
 RM_RF := rm -rf
 ECHO  := echo -e
@@ -85,12 +87,14 @@ debug : $(OBJ_FILES)
 	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
 
-clean : 
+clean :
+	@$(MAKE) --no-print-directory -s -C ./libft clean
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object and dependency files...$(NC)"
 	@$(RM) $(DEP_FILES) $(OBJ_FILES) $(DEBUG_BUILD_PATH).[od]
 	@$(ECHO) "$(GREEN)[CLN] Clean complete.$(NC)"
 
-fclean : 
+fclean :
+	@$(MAKE) --no-print-directory -s -C ./libft fclean
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object, dependency files, and executable...$(NC)"
 	@$(RM_RF) $(BUILD_DIR) $(NAME)
 	@$(ECHO) "$(GREEN)[CLN] Clean complete.$(NC)"
