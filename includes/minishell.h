@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/09/30 15:11:33 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:50:13 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "dependencies.h"
 # include "error_manager.h"
+# include "lexer.h"
 
 # define RED_TXT		"\e[0;31m"
 # define GREEN_TXT		"\e[0;32m"
@@ -33,13 +34,17 @@
 
 
 # define PROMPT "\e[0;35m❯\e[0m "
+# define SH_NAME "cash"
 # define MAX_PATH 4096
 # define MAX_CMD 256
+# define MAX_ARG 4096
+# define MAX_TOKEN 4096
 
-typedef struct s_env
+typedef struct s_env_pair
 {
-	char	*key;
+	char	key[4096];
 	char	*value;
-}			t_env;
+}			t_env_pair;
+
 
 #endif
