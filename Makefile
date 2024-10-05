@@ -6,7 +6,7 @@
 #    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/09/30 17:02:22 by inazaria         ###   ########.fr        #
+#    Updated: 2024/10/05 20:23:12 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,10 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
+SRC_FILES_NAMES += prompt.c
+
+SRC_FILES_NAMES += lexer/lexer.c
+
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -38,6 +42,7 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 NAME := minishell
 CC := clang
 CFLAGS := -g3 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
+LFLAGS := libft/libft.a -lreadline
 MKDIR := mkdir -p
 RM_RF := rm -rf
 ECHO  := echo -e
@@ -69,10 +74,10 @@ $(NAME) : $(OBJ_FILES)
 	@$(ECHO) "$(BROWN)[BLD] Building libft static library...$(NC)"
 	@$(MAKE) --no-print-directory -s -C ./libft all
 	@$(ECHO) "$(GREEN)[BLD] successfully built libft.$(NC)"	
-	@$(ECHO) "$(BROWN)[BLD] Building minishell executable...$(NC)"
+	@$(ECHO) "$(BROWN)[BLD] Building $(NAME) executable...$(NC)"
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
-	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME)
+	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
 
 all : $(NAME) 
@@ -82,7 +87,7 @@ debug : $(OBJ_FILES)
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
 	@$(ECHO) "$(BROWN)[BLD] Building executable...$(NC)"
-	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
 
 clean : 

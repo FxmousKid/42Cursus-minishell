@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:36:36 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/02 19:47:38 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/05 20:29:37 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define DEPENDENCIES_H
 
 # include "../libft/includes/libft.h"
+# include <readline/readline.h>
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>

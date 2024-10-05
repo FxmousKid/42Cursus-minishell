@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/02 23:50:13 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/05 23:58:14 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 
 # define PROMPT "\e[0;35m❯\e[0m "
 # define SH_NAME "cash"
+# define PROMPT_SH_NAME "\e[0;32mca\e[0m@\e[0;32msh\e[0m"
 # define MAX_PATH 4096
 # define MAX_CMD 256
 # define MAX_ARG 4096
@@ -46,5 +47,7 @@ typedef struct s_env_pair
 	char	*value;
 }			t_env_pair;
 
+
+void	print_prompt(void);
 
 #endif
