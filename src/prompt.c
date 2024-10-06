@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 23:15:24 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/05 23:59:43 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/06 00:14:51 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ static int	reduce_home_into_tilde(char *cwd, char *new_cwd)
 {
 	int	len_home;
 
-	(void) new_cwd;
-
 	if (strncmp(cwd, "/home/", 6))
-		return (0) ;
+		return (0);
 	len_home = ft_strlen_till_char(cwd + 6, '/');
 	new_cwd[0] = '~';
 	ft_strlcpy(new_cwd + 1, cwd + 6 + len_home, MAX_PATH);
 	return (1);
-	
 }
 
 void	print_prompt(void)

@@ -24,8 +24,6 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += prompt.c
 
-# SRC_FILES_NAMES += lexer/lexer.c
-
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
