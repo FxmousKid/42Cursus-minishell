@@ -6,7 +6,7 @@
 #    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/06 00:10:39 by inazaria         ###   ########.fr        #
+#    Updated: 2024/10/06 13:03:25 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 # .c files for source code
 SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += prompt.c
-
 
 
 # Full path to .c files
