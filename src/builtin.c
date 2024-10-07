@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin.c                                          :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 20:51:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/04 22:47:27 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/07 15:38:29 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	buildin_echo(char **arg)
+int	builtin_echo(char **arg)
 {
 	if (arg[1] == NULL)
 	{
@@ -29,7 +29,7 @@ int	buildin_echo(char **arg)
 	return (1);
 }
 
-int	buildin_pwd(int	i)
+int	builtin_pwd(int	i)
 {
 	char	buf[i];
 
@@ -37,7 +37,7 @@ int	buildin_pwd(int	i)
 	{
 		if (errno == ERANGE)
 		{
-			buildin_pwd(i + 1);
+			builtin_pwd(i + 1);
 			return (1);
 		}
 		return (debug(DBG("Failed to get the path of the working directory")), 0 );
@@ -47,7 +47,7 @@ int	buildin_pwd(int	i)
 	return (1);
 }
 
-int	buildin_cd(char *path)
+int	builtin_cd(char *path)
 {
 	if (chdir(path) == -1)
 		return (debug(DBG("Failed to cd into the path")), 0);
