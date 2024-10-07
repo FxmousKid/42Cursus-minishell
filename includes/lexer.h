@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/04 18:29:39 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:33:22 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 # include "minishell.h"
 
+# define MAX_TOKEN 4096
+
 typedef enum e_token
 {
 	CMD, // 'ls'
 	F_NAME, // 'file.txt'
-	WORD, // 'ABC'
+	WORD, // 'ABC' or command for all we know at the lexing stage
 	PIPE, // '|'
 	REDIR_IN, // '<'
 	REDIR_OUT, // '>'
@@ -35,6 +37,24 @@ typedef enum e_token
 	AND, // '&&'
 	
 }	t_token;
+
+typedef struct s_lexem
+{
+	t_token token;
+	char	*value;
+}			t_lexem;
+
+typedef struct s_lexer
+{
+	char	*line;
+	int		idx;
+	int		mayb_word;
+	int		open_double_q;
+	int		open_single_q;
+	int		open_paren;
+	int		close_paren;
+	t_lexem	*lexems[MAX_TOKEN];
+}			t_lexer;
 
 typedef struct s_ast t_ast ;
 
@@ -57,8 +77,7 @@ struct t_ast
 
 
 
-
-
+void	lexer(t_lexer *lex, char *str);
 
 
 #endif
