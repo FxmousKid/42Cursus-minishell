@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/07 15:37:55 by ptheo            ###   ########.fr        #
+#    Updated: 2024/10/07 15:48:46 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,10 @@ DEBUG_FILE_PATH = ./src/error_manager/debugging_functions
 DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
-SRC_FILES_NAMES	= main.c
-SRC_FILES_NAMES	+= builtin.c
+SRC_FILES_NAMES = main.c
+SRC_FILES_NAMES += prompt.c
+SRC_FILES_NAMES += builtin.c
+
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -38,7 +40,8 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 
 NAME := minishell
 CC := clang
-CFLAGS := -g3 -Wall -Wextra -Werror -I$(INC_DIR) -MMD -MP
+CFLAGS := -g3 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
+LFLAGS := libft/libft.a -lreadline
 MKDIR := mkdir -p
 RM_RF := rm -rf
 ECHO  := echo -e
@@ -70,10 +73,10 @@ $(NAME) : $(OBJ_FILES)
 	@$(ECHO) "$(BROWN)[BLD] Building libft static library...$(NC)"
 	@$(MAKE) --no-print-directory -s -C ./libft all
 	@$(ECHO) "$(GREEN)[BLD] successfully built libft.$(NC)"	
-	@$(ECHO) "$(BROWN)[BLD] Building minishell executable...$(NC)"
+	@$(ECHO) "$(BROWN)[BLD] Building $(NAME) executable...$(NC)"
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
-	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME)
+	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
 
 all : $(NAME) 
@@ -83,17 +86,15 @@ debug : $(OBJ_FILES)
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
 	@$(ECHO) "$(BROWN)[BLD] Building executable...$(NC)"
-	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
 
-clean :
-	@$(MAKE) --no-print-directory -s -C ./libft clean
+clean : 
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object and dependency files...$(NC)"
 	@$(RM) $(DEP_FILES) $(OBJ_FILES) $(DEBUG_BUILD_PATH).[od]
 	@$(ECHO) "$(GREEN)[CLN] Clean complete.$(NC)"
 
-fclean :
-	@$(MAKE) --no-print-directory -s -C ./libft fclean
+fclean : 
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object, dependency files, and executable...$(NC)"
 	@$(RM_RF) $(BUILD_DIR) $(NAME)
 	@$(ECHO) "$(GREEN)[CLN] Clean complete.$(NC)"
