@@ -16,12 +16,7 @@ jobs:
       - name: Install norminette
         run: pip install norminette
       - name: Run norminette
-        run: |
-          export EX_CODE=$(norminette src/)
-          if [[ $EX_CODE -ne 0 ]]; then
-            norminette src/ | grep Error
-            exit 1
-          fi
+        run: norminette src/
   
   make-check:
     runs-on: ubuntu-latest

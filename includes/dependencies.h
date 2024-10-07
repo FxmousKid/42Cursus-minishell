@@ -6,7 +6,11 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:36:36 by inazaria          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/04 21:31:14 by ptheo            ###   ########.fr       */
+=======
+/*   Updated: 2024/10/05 20:29:37 by inazaria         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +18,7 @@
 # define DEPENDENCIES_H
 
 # include "../libft/includes/libft.h"
+# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
