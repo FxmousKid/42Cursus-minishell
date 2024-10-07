@@ -6,11 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/10/07 15:48:46 by ptheo            ###   ########.fr        #
-=======
-#    Updated: 2024/10/06 13:03:25 by inazaria         ###   ########.fr        #
->>>>>>> main
+#    Updated: 2024/10/07 17:49:18 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +23,7 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 # .c files for source code
 SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += prompt.c
-<<<<<<< HEAD
 SRC_FILES_NAMES += builtin.c
-=======
->>>>>>> main
 
 
 # Full path to .c files
