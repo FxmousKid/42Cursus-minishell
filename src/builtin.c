@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 20:51:58 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/08 15:30:50 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/09 16:17:53 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_echo(char **arg)
 	return (1);
 }
 
-int	builtin_pwd(int	i)
+int	builtin_pwd(void)
 {
 	char	buf[4096];
 
@@ -49,6 +49,11 @@ int	builtin_pwd(int	i)
 int	builtin_cd(char *path)
 {
 	if (chdir(path) == -1)
-		return (perror(""), debug(DBG("Failed to chdir()")), 0);
+	{
+		ft_putstr_fd("cd: No such file or directory: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd("\n", 2);
+		return (debug(DBG("Failed to chdir()")), 0);
+	}
 	return (0);
 }

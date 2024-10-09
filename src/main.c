@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/08 15:30:41 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/09 16:40:05 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 int	main(int ac, char **av)
 {
 	(void)ac;
+	(void)av;
 	//printf("prompt preview : \n");
 	if (1)
 		debug(DBG("Failed to fill condition"));
-	builtin_pwd(1);
-	builtin_cd(av[1]);
-	builtin_pwd(1);
+	print_start_text();
+	print_prompt();
+	builtin_cd("..");
+	printf("\n");
+	print_prompt();
 	return (0);
 }

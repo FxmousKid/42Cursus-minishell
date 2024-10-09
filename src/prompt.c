@@ -6,11 +6,21 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 23:15:24 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/07 17:49:06 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/09 19:55:31 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_start_text(void)
+{
+	printf("%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s", START_TEXT_1,
+		START_TEXT_2, START_TEXT_3, START_TEXT_4, START_TEXT_5, START_TEXT_6,
+		START_TEXT_7, START_TEXT_8, START_TEXT_9, START_TEXT_10, START_TEXT_11,
+		START_TEXT_12, START_TEXT_13, START_TEXT_14, START_TEXT_15, START_TEXT_16,
+		START_TEXT_17, START_TEXT_18, START_TEXT_19, START_TEXT_20, START_TEXT_21,
+		START_TEXT_22, START_TEXT_23, START_TEXT_24);
+}
 
 static int	reduce_home_into_tilde(char *cwd, char *new_cwd)
 {
