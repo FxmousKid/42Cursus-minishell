@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 23:15:24 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/10 02:02:25 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/10 02:04:32 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	print_start_text(void)
 		START_TEXT56, START_TEXT57, START_TEXT58, START_TEXT59, START_TEXT60,
 		START_TEXT61, START_TEXT62);
 	printf("%s%s%s", START_TEXT63, START_TEXT64, START_TEXT65);
-	
 }
 
 static int	reduce_home_into_tilde(char *cwd, char *new_cwd)
