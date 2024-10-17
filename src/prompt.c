@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 23:15:24 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/06 00:14:51 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:22:22 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	print_prompt(void)
 		printf("%s%s%s%s", BLUE_TXT, cwd, "\n", END_TXT);
 	else
 		printf("%s%s%s%s", BLUE_TXT, tilde_cwd, "\n", END_TXT);
-	printf("%s %s", PROMPT_SH_NAME, PROMPT);
+	// printf("%s", PROMPT_LINE);
 }
