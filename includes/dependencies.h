@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:36:36 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/05 20:29:37 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:04:12 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DEPENDENCIES_H
 
 # include "../libft/includes/libft.h"
-# include <readline/readline.h>
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -22,18 +22,23 @@
 # include <string.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <sys/time.h>
-# include <sys/resource.h>
 # include <signal.h>
 # include <dirent.h>
 # include <limits.h>
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
-# include <sys/ioctl.h>
 # include <termios.h>
+
+# include <readline/readline.h>
+# include <readline/rltypedefs.h>
+# include <readline/history.h>
+
+# include <sys/types.h>
+# include <sys/ioctl.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <sys/time.h>
+# include <sys/resource.h>
 
 #endif
