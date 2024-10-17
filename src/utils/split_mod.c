@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 18:42:38 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/17 15:59:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/17 23:44:17 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ char	**split_mod(char *str, char *sep)
 	while (*str)
 	{
 		break;
-		
 	}
-	
 	return (NULL);
 }

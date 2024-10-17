@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:54:47 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/17 23:38:00 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/17 23:43:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline bool	is_escaped(char *str)
 static inline void	quote_conditiions(char c, bool *in_dq, bool *in_sq)
 {
 	if (c == '"' && !*in_dq && !*in_sq)
-		*in_dq = true;	
+		*in_dq = true;
 	else if (c == '"' && *in_dq)
 		*in_dq = false;
 	if (c == '\'' && !*in_dq && *in_sq)
@@ -46,7 +46,6 @@ int	count_words_mod(char *str, char *sep)
 	in_sq = false;
 	while (*str)
 	{
-
 		wc += (fchange && !is_occ_aux(*str, sep));
 		fchange = (is_occ_aux(*str, sep) && !in_dq && !in_sq);
 		quote_conditiions(*str, &in_dq, &in_sq);
