@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/07 17:49:18 by ptheo            ###   ########.fr        #
+#    Updated: 2024/10/18 18:59:39 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += prompt.c
 SRC_FILES_NAMES += builtin.c
-
+SRC_FILES_NAMES += exec.c
+SRC_FILES_NAMES += process.c
+SRC_FILES_NAMES += test.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))

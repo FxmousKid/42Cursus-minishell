@@ -6,17 +6,33 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 22:38:55 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/13 21:03:51 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/18 18:59:23 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	find_access(t_data *data, char *cmd)
+char	*find_access(t_data *data, char *cmd)
 {
 	char	*path;
-	char	*tmp;
-	int		j;
+	int		i;
+
+	i = 0;
+	path = NULL;
+	while (data->path_arg[i])
+	{
+		path = ft_strjoin(data->path_arg[i], cmd);
+		if (access(path, X_OK) == 0)
+			return (path);
+		free(path);
+		path = NULL;
+		i++;
+	}
+	return (NULL);
+}
+
+int	create_path(t_data *data)
+{
 	int		i;
 
 	i = 0;
@@ -27,16 +43,14 @@ int	find_access(t_data *data, char *cmd)
 			break ;
 		i++;
 	}
-	j = 0;
-	while (data->env->value[i][j])
+	data->path_arg = ft_split(data->env->value[i], ':');
+	i = 0;
+	while (data->path_arg[i])
 	{
-		path = ft_strjoin(data->env->value[i][j], cmd);
-		if (access(path, X_OK) == 0)
-			return (tmp = cmd, cmd = path, free(tmp), 0);
-		free(path);
-		j++;
+		data->path_arg[i] = ft_strjoin(data->path_arg[i], "/");
+		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 int	find_process(t_data *data, t_ast *pro)
@@ -45,7 +59,7 @@ int	find_process(t_data *data, t_ast *pro)
 		return (cmd_process(data, pro));
 	if (pro->token == PIPE)
 		return (pipe_process(data, pro));
-	if (pro->token == REDIR_IN)
+/*	if (pro->token == REDIR_IN)
 		return (redirin_process(data, pro));
 	if (pro->token == REDIR_OUT)
 		return (redirout_process(data, pro));
@@ -54,10 +68,10 @@ int	find_process(t_data *data, t_ast *pro)
 	if (pro->token == HEREDOC)
 		return (heredoc_process(data, pro));
 	if (pro->token == EQUAL)
-		return (equal_process(data, pro));
+		return (equal_process(data, pro));*/
 	if (pro->token == OR)
 		return (or_process(data, pro));
 	if (pro->token == AND)
 		return (and_process(data, pro));
-	return (0);
+	return (-1);
 }

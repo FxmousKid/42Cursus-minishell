@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/13 21:04:09 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/18 19:33:37 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 typedef struct s_env_pair
 {
-	char	key[4096];
+	char	*key[4096];
 	char	**value;
 }			t_env_pair;
 
@@ -52,7 +52,9 @@ typedef struct s_data
 	int			pipe[2];
 	int			cmd_count;
 	int			*tab_fd;
-	int			fd;
+	int			fd[2];
+	char		**envir;
+	char		**path_arg;
 }				t_data;
 
 /* BUILD IN */
@@ -66,7 +68,16 @@ void	print_start_text(void);
 
 /* EXEC */
 int		exec_cmd(t_data *data, t_ast *cmd);
+int		create_path(t_data *data);
+t_ast	*test_cmd(t_data *data, t_ast *ast);
+void	print_ast(t_ast *ast);
+char	*find_access(t_data *data, char *cmd);
+
+/* PROCESS */
 int		cmd_process(t_data *data, t_ast *cmd);
 int		find_process(t_data *data, t_ast *pro);
+int		pipe_process(t_data *data, t_ast *pipe);
+int		or_process(t_data *data, t_ast *or);
+int		and_process(t_data *data, t_ast *and);
 
 #endif

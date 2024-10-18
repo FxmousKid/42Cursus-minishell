@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/04 23:06:29 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/18 17:14:55 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_ast
 	enum e_token token;
 	union
 	{
-		struct ast_cmd {char *cmd; char *cmd_args;} ast_cmd;
+		struct ast_cmd {char *cmd; char **cmd_args; int in_fd; int out_fd;} ast_cmd;
 		struct ast_file {char *filename;} ast_file;
 		struct ast_pipe {t_ast *left; t_ast *right;} ast_pipe;
 		struct ast_redir_in {t_ast *left; t_ast *right;} ast_redin_in;
