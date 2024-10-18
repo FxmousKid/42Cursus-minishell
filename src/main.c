@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/18 19:34:57 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/18 21:02:46 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	data.envir = env;
-	data.fd[0] = 0;
 	data.env = create_env(env);
 	create_path(&data);
 	ast = test_cmd(&data, ast);

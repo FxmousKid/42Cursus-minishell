@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:57:26 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/18 19:39:13 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/18 22:47:36 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 int	cmd_process(t_data *data, t_ast *cmd)
 {
 	pid_t	pid;
-
-	printf("fd[0] : %d\n", data->fd[0]);
+	
 	if (cmd->ast_cmd.in_fd == -1 && cmd->ast_cmd.out_fd == -1)
 	{
-		pipe(data->pipe);
 		cmd->ast_cmd.out_fd = data->pipe[1];
-		cmd->ast_cmd.in_fd = data->fd[0];
+		cmd->ast_cmd.in_fd = data->pipe[0];
 	}
 	if (cmd->ast_cmd.in_fd == -1)
-		cmd->ast_cmd.in_fd = data->fd[0];
-	printf("cmd : %s : in_fd = %d out_fd = %d\n", cmd->ast_cmd.cmd, cmd->ast_cmd.in_fd, cmd->ast_cmd.out_fd);
+		cmd->ast_cmd.in_fd = data->pipe[0];
+	//printf("cmd : %s : in_fd = %d out_fd = %d\n", cmd->ast_cmd.cmd, cmd->ast_cmd.in_fd, cmd->ast_cmd.out_fd);
 	pid = fork();
 	if (pid < 0)
 		return (perror(""), debug(DBG("Error pid cmd_process()")), -1);
@@ -33,13 +31,16 @@ int	cmd_process(t_data *data, t_ast *cmd)
 	{
 		dup2(cmd->ast_cmd.in_fd, STDIN_FILENO);
 		dup2(cmd->ast_cmd.out_fd, STDOUT_FILENO);
+		close(data->pipe[0]);
+		close(data->pipe[1]);
 		if (exec_cmd(data, cmd) == -1)
 			return (-1);
+		exit(0);
 	}
 	else
 	{
-		data->fd[0] = data->pipe[0];
-		data->fd[1] = data->pipe[1];
+		close(data->pipe[0]);
+		close(data->pipe[1]);
 		waitpid(pid, NULL, 0);
 	}
 	return (0);
@@ -56,23 +57,31 @@ int	exec_cmd(t_data *data, t_ast *cmd)
 				debug(DBG("Failed to find the cmd")), 0);
 	}
 	execve(cmd->ast_cmd.cmd, cmd->ast_cmd.cmd_args, data->envir);
-	return (perror(""), debug(DBG("function execve failed")), 0);
+	return (perror("execve"), debug(DBG("function execve() failed")), 0);
 }
 
-int	pipe_process(t_data *data, t_ast *pipe)
+int	pipe_process(t_data *data, t_ast *p)
 {
 	pid_t	pid;
 
+	pipe(data->pipe);
 	pid = fork();
 	if (pid < 0)
 		return (perror(""), debug(DBG("Error pid pipe_process()")), -1);
 	if (pid == 0)
 	{
-		find_process(data, pipe->ast_pipe.left);
+		find_process(data, p->ast_pipe.left);
+		//printf("%s\n", get_next_line(data->pipe[0]));
+		close(data->pipe[0]);
+		close(data->pipe[1]);
+		exit(0);
 	}
 	else
 	{
-		find_process(data, pipe->ast_pipe.right);
+		find_process(data, p->ast_pipe.right);
+		printf("pipe[] : %d %d\n", data->pipe[0], data->pipe[1]);
+		close(data->pipe[0]);
+		close(data->pipe[1]);
 		waitpid(pid, NULL, 0);
 	}
 	return (0);
