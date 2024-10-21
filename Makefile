@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/18 18:59:39 by ptheo            ###   ########.fr        #
+#    Updated: 2024/10/21 16:26:49 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 #<><><><><><><> Variables <><><><><><><><><><><><><><><><><>
 
 NAME := minishell
-CC := clang
-CFLAGS := -g3 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
+CC := gcc
+CFLAGS := -gdwarf-4 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
 LFLAGS := libft/libft.a -lreadline
 MKDIR := mkdir -p
 RM_RF := rm -rf
