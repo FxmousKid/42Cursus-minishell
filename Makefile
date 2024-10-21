@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/21 16:26:49 by ptheo            ###   ########.fr        #
+#    Updated: 2024/10/21 19:17:22 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC_FILES_NAMES += builtin.c
 SRC_FILES_NAMES += exec.c
 SRC_FILES_NAMES += process.c
 SRC_FILES_NAMES += test.c
+SRC_FILES_NAMES += signal.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))

@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/18 19:33:37 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/21 19:52:19 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,9 @@ int		find_process(t_data *data, t_ast *pro);
 int		pipe_process(t_data *data, t_ast *pipe);
 int		or_process(t_data *data, t_ast *or);
 int		and_process(t_data *data, t_ast *and);
+
+/* SIGNAL */
+void	sigint_handler(int signum);
+void	sigpipe_handler(int signum);
 
 #endif

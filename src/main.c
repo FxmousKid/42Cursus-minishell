@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/18 21:02:46 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/21 19:52:12 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	main(int ac, char **av, char **env)
 	ast = NULL;
 	(void)ac;
 	(void)av;
+	signal(SIGINT, &sigint_handler);
+	signal(SIGPIPE, &sigpipe_handler);
 	data.envir = env;
 	data.env = create_env(env);
 	create_path(&data);
