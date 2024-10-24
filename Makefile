@@ -6,7 +6,7 @@
 #    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/06 13:03:25 by inazaria         ###   ########.fr        #
+#    Updated: 2024/10/24 20:27:28 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,17 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += prompt.c
 
+SRC_FILES_NAMES += lexer/lexer.c
+SRC_FILES_NAMES += lexer/lex_utils.c
+SRC_FILES_NAMES += lexer/lex_meta_chars.c
+SRC_FILES_NAMES += lexer/split_cl.c
+
+
+
+
+SRC_FILES_NAMES += utils/is_occ.c
+SRC_FILES_NAMES += utils/print_split.c
+SRC_FILES_NAMES += utils/quote_utils.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))

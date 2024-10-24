@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_mod_aux.c                                    :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:54:47 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/17 23:43:47 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/24 20:27:07 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
 #include "minishell.h"
+#include <stdbool.h>
 
-static inline bool	is_escaped(char *str)
+bool	is_escaped(char *str)
 {
 	if (str[0] == '\\' && str[1] == '\'')
 		return (true);
@@ -21,7 +23,7 @@ static inline bool	is_escaped(char *str)
 	return (false);
 }
 
-static inline void	quote_conditiions(char c, bool *in_dq, bool *in_sq)
+void	quote_conditions(char c, bool *in_dq, bool *in_sq)
 {
 	if (c == '"' && !*in_dq && !*in_sq)
 		*in_dq = true;
@@ -36,7 +38,7 @@ static inline void	quote_conditiions(char c, bool *in_dq, bool *in_sq)
 int	count_words_mod(char *str, char *sep)
 {
 	int		wc;
-	int		fchange;
+	bool	fchange;
 	bool	in_dq;
 	bool	in_sq;
 
@@ -48,7 +50,9 @@ int	count_words_mod(char *str, char *sep)
 	{
 		wc += (fchange && !is_occ_aux(*str, sep));
 		fchange = (is_occ_aux(*str, sep) && !in_dq && !in_sq);
-		quote_conditiions(*str, &in_dq, &in_sq);
+		quote_conditions(*str, &in_dq, &in_sq);
+		if (!*(str + 1))
+			wc += fchange && is_occ_aux(*str, sep);
 		if (is_escaped(str))
 			str++;
 		str++;

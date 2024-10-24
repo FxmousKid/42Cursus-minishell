@@ -5,6 +5,7 @@
 **.idea/
 **.vgcore*
 **.clangd
+modeling/
 
 # build
 ./build/

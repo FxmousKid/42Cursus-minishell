@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/17 15:55:36 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/24 21:00:55 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_env_pair
 bool	is_occ(char *str, char *sep);
 bool	is_occ_aux(char c, char *sep);
 void	print_split(char **split);
-char	**split_mod(char *str, char *sep);
 int		count_words_mod(char *str, char *sep);
 
 
