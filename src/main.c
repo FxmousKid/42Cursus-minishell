@@ -6,17 +6,15 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/16 18:45:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 00:05:11 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/history.h>
-#include <readline/readline.h>
 
 void	init_readline()
 {
- 	rl_bind_key('\t', rl_insert);
+ 	// rl_bind_key('\t', rl_insert);
 	rl_bind_key('!', rl_insert);
 	using_history();
 }
@@ -38,8 +36,8 @@ int	minishell(void)
 		if (!cmd)
 			break;
 		lexer(&lex, cmd);
-		// dislay_lexem(&lex);
-		// free_lex(&lex);
+		dislay_lexem(&lex);
+		free_lex(&lex);
 		ft_bzero(&lex, sizeof(t_lexer));
 		add_history(cmd);
 		history_count++;
