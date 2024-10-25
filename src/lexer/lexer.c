@@ -11,16 +11,41 @@
 #include "lexer.h"
 #include "minishell.h"
 #include <stdbool.h>
+#include <string.h>
 
+static inline void	set_lexems_count(t_lexer *lex)
+{
+	int	lexem_count;
+
+	lexem_count = 0;
+	while (lex->words[lexem_count])
+		lexem_count++;
+	lex->lexem_count = lexem_count;
+}
+
+/* We start at the 3rd lexem :
+   x | y
+       ^ we start here and do backwards check */
+
+void	lex_commands_after_pipe(t_lexer *lex)
+{
+	size_t	lex_idx;
+
+	lex_idx = 1;
+	while (++lex_idx < lex->lexem_count)
+	{
+		if (lex->lexems[lex_idx - 1].token == PIPE)
+			lex->lexems[lex_idx].token = CMD;
+	}
+}
 
 /* We start at the second lexem because i do backwards check */
-
-bool	lex_files_and_heredoc(t_lexer *lex)
+void	lex_files_and_heredoc(t_lexer *lex)
 {
-	int	lex_idx;
+	size_t	lex_idx;
 
 	lex_idx = 0;
-	while (lex->words[++lex_idx])
+	while (++lex_idx < lex->lexem_count)
 	{
 		if (lex->lexems[lex_idx - 1].token == REDIR_IN)
 			lex->lexems[lex_idx].token = F_NAME;
@@ -31,26 +56,23 @@ bool	lex_files_and_heredoc(t_lexer *lex)
 		else if (lex->lexems[lex_idx - 1].token == HEREDOC)
 			lex->lexems[lex_idx].token = LIMITER;
 	}
-	return (true);
 }
 
-bool	lex_general(t_lexer *lex)
+void	lex_general(t_lexer *lex)
 {
-	int	lex_idx;
+	size_t	lex_idx;
 
-	// to add builtin-recognition
 	if (*lex->words[0] == '$')
 		fill_lexem(&lex->lexems[0], lex->words[0], ENV_VAR, false);	
 	else
 		fill_lexem(&lex->lexems[0], lex->words[0], CMD, false);	
 	lex_idx = 0;
-	while (lex->words[++lex_idx])
+	while (++lex_idx < lex->lexem_count)
 	{
 		if (lex_if_meta_chars(&lex->lexems[lex_idx], lex->words[lex_idx]))
 			continue;
 		fill_lexem(&lex->lexems[lex_idx], lex->words[lex_idx], WORD, false);
 	}
-	return (true);
 }
 
 bool	lexer(t_lexer *lex, char *str)
@@ -59,14 +81,12 @@ bool	lexer(t_lexer *lex, char *str)
 		return (debug(DBG("Empty string")), false);
 	if (!split_cl(str, lex))
 		return (debug(DBG("Failed to split_cl()")), false);
+	set_lexems_count(lex);
+	lex_general(lex);
+	lex_files_and_heredoc(lex);
+	lex_commands_after_pipe(lex);
+
 	print_split(lex->words);
-
-	if (!lex_general(lex))
-		return (debug(DBG("Failed to lex_general()")), false);
-
-	if (!lex_files_and_heredoc(lex))
-		return (debug(DBG("Failed to lex_files_and_heredoc()")), false);
-	
 	print_lexems(lex);
 	return (true);
 }

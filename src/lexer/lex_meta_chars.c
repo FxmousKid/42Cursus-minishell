@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:42:28 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 12:10:48 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:32:08 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,15 @@ int is_meta_char(char *str)
 	else if (!ft_strncmp("|", str, 1))
 		return (1);
 	return (0);
-
-
 }
 
 static inline bool	is_meta_char_only(char *str)
 {
 	bool	is_meta;
 
-	is_meta = ft_strlen(str) == 1;
-	is_meta &= is_occ_aux(*str, META_CHARACTERS);
+	if (ft_strlen(str) > 3)
+		return (false);
+	is_meta = is_occ_aux(*str, META_CHARACTERS);
 	return (is_meta);
 }
 
@@ -55,7 +54,6 @@ bool	lex_if_meta_chars(t_lexem *lexem, char *str)
 {
 	if (!is_meta_char_only(str))
 		return (false);
-	printf("lex_if_meta_chars(%s)\n", str);
 	if (!ft_strncmp("&&", str, 2) && ft_strlen(str) == 2)
 		fill_lexem(lexem, "&&", AND, true);
 	else if (!ft_strncmp("||", str, 2) && ft_strlen(str) == 2)

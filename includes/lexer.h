@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 12:09:37 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:44:02 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ typedef struct s_lexer
 {
 	char	*words[MAX_TOKEN];
 	t_lexem	lexems[MAX_TOKEN];
-	// int		open_double_q;
-	// int		open_single_q;
-	// int		open_paren;
-	// int		closed_paren;
+	size_t	lexem_count;
 }			t_lexer;
 
 typedef struct s_ast	t_ast;
