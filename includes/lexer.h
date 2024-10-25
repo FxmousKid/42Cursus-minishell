@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/24 20:58:54 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:09:37 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef enum e_token
 	ERROR,
 	CMD, // 'ls'
 	F_NAME, // 'file.txt'
+	LIMITER, // << 'EOF'	
 	SINGLE_QUOTE, // '
 	DOUBLE_QUOTE, // "
 	ENV_VAR, // $ABC
@@ -120,7 +121,7 @@ int		is_meta_char(char *str);
 bool	split_cl(char *str, t_lexer *lex);
 void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
-void	dislay_lexem(t_lexer *lex);
+void	print_lexems(t_lexer *lex);
 
 // Lex
 bool	lexer(t_lexer *lex, char *str);

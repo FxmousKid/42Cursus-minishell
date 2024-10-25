@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 00:06:51 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:13:53 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,36 @@ void	free_lex(t_lexer *lex)
 		free(words[idx++]);
 }
 
-static inline void	display_lexem_aux(t_token token)
+static inline int	display_lexem_aux(t_token token)
 {
 	if (token == PIPE)
-		printf("[%sPIPE%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sPIPE%s]\n", GREEN_TXT, END_TXT));
 	else if (token == AND)
-		printf("[%sAND%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sAND%s]\n", GREEN_TXT, END_TXT));
 	else if (token == OR)
-		printf("[%sOR%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sOR%s]\n", GREEN_TXT, END_TXT));
 	else if (token == REDIR_APPEND)
-		printf("[%sREDIR_APPEND%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sREDIR_APPEND%s]\n", GREEN_TXT, END_TXT));
 	else if (token == REDIR_OUT)
-		printf("[%sREDIR_OUT%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sREDIR_OUT%s]\n", GREEN_TXT, END_TXT));
 	else if (token == REDIR_IN)
-		printf("[%sREDIR_IN%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sREDIR_IN%s]\n", GREEN_TXT, END_TXT));
 	else if (token == HEREDOC)
-		printf("[%sHEREDOC%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sHEREDOC%s]\n", GREEN_TXT, END_TXT));
 	else if (token == HERESTRING)
-		printf("[%sHERESTRING%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sHERESTRING%s]\n", GREEN_TXT, END_TXT));
 	else if (token == CMD)
-		printf("[%sCMD%s]\n", GREEN_TXT, END_TXT);
+		return(printf("[%sCMD%s]\n", GREEN_TXT, END_TXT));
 	else if (token == WORD)
-		printf("[%sWORD%s]\n", GREEN_TXT, END_TXT);
-	else
-		printf("[%sERROR%s]\n", RED_TXT, END_TXT);
+		return(printf("[%sWORD%s]\n", GREEN_TXT, END_TXT));
+	else if (token == F_NAME)
+		return(printf("[%sF_NAME%s]\n", GREEN_TXT, END_TXT));
+	else if (token == LIMITER)
+		return(printf("[%sLIMITER%s]\n", GREEN_TXT, END_TXT));
+	return(printf("[%sERROR%s]\n", RED_TXT, END_TXT));
 }
 
-void	dislay_lexem(t_lexer *lex)
+void	print_lexems(t_lexer *lex)
 {
 	int	i;
 

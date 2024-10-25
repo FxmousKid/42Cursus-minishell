@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 00:05:11 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:35:39 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	minishell(void)
 		if (!cmd)
 			break;
 		lexer(&lex, cmd);
-		dislay_lexem(&lex);
 		free_lex(&lex);
 		ft_bzero(&lex, sizeof(t_lexer));
 		add_history(cmd);

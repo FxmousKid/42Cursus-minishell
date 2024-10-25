@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:42:28 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/24 21:00:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:10:48 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 #include "minishell.h"
 #include <stdbool.h>
 
+/*
+ * The order of the comparison is important because it will match 
+ * shorter first, so always compare first, because '<<' is a prefix of '<<<'
+ * */
+
 int is_meta_char(char *str)
 {
-	if (!ft_strncmp("&&", str, 2)) 
+	if (!ft_strncmp("<<<", str, 3))
+		return (3);
+	else if (!ft_strncmp("&&", str, 2)) 
 		return (2);
 	else if (!ft_strncmp("||", str, 2))
 		return (2);
@@ -24,8 +31,6 @@ int is_meta_char(char *str)
 		return (2);
 	else if (!ft_strncmp("<<", str, 2))
 		return (2);
-	else if (!ft_strncmp("<<<", str, 3))
-		return (3);
 	else if (!ft_strncmp(">", str, 1))
 		return (1);
 	else if (!ft_strncmp("<", str, 1))
@@ -50,6 +55,7 @@ bool	lex_if_meta_chars(t_lexem *lexem, char *str)
 {
 	if (!is_meta_char_only(str))
 		return (false);
+	printf("lex_if_meta_chars(%s)\n", str);
 	if (!ft_strncmp("&&", str, 2) && ft_strlen(str) == 2)
 		fill_lexem(lexem, "&&", AND, true);
 	else if (!ft_strncmp("||", str, 2) && ft_strlen(str) == 2)

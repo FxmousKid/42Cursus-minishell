@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 19:21:40 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 00:04:58 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:29:10 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 bool	is_escaped(char *str);
 void	quote_conditions(char c, bool *in_dq, bool *in_sq);
-
 
 static inline void	get_len_word(char *str, int *len)
 {
@@ -74,32 +73,8 @@ bool	split_mod(char *str, char **words)
 	return (true);
 }
 
-void	clean_space_tabs(char *str)
-{
-	int	idx;
-	int	rm_flag;
-
-	rm_flag = 0;
-	idx = -1;
-	while (str[++idx])
-	{
-		if (is_occ_aux(str[idx], " \t") && rm_flag)
-		{
-			ft_memmove(str + idx - 1, str + idx, ft_strlen(str + idx) + 1);
-			idx--;
-		}
-		rm_flag = is_occ_aux(str[idx], " \t");
-	}
-	if (is_occ_aux(str[0], " \t"))
-		ft_memmove(str, str + 1, ft_strlen(str));
-	if (is_occ_aux(str[ft_strlen(str) - 1], " \t"))
-		str[ft_strlen(str) - 1] = '\0';
-}
-
 bool	split_cl(char *str, t_lexer *lex)
 {
-	// clean_space_tabs(str);
-	// printf("cleaned str: [%s]\n", str);
 	if (!split_mod(str, lex->words))
 		return (debug(DBG("Failed to split_mod()")), false);
 	return (true);
