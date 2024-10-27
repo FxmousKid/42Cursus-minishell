@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 19:21:40 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 16:13:09 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:57:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,43 @@
 bool	is_escaped(char *str);
 void	quote_conditions(char c, bool *in_dq, bool *in_sq);
 
+static inline int	get_len_word_aux(char *str, bool *in_sq, bool *in_dq)
+{
+	int	len_w;
+
+	len_w = 0;
+	while (str[len_w])
+	{
+		quote_conditions(str[len_w], in_dq, in_sq);
+		if (is_escaped(str + len_w))
+		{
+			len_w += 2;
+			continue ;
+		}
+		if (!*in_sq && !*in_dq && str[len_w] == ' ')
+		{
+			break ;
+		}
+		if (is_meta_char(str + len_w) && !len_w && !*in_dq && !*in_sq)
+		{
+			len_w += is_meta_char(str + len_w);
+			break ;
+		}
+		else if (is_meta_char(str + len_w) && !*in_dq && !*in_sq)
+			break ;
+		len_w++;
+	}
+	return (len_w);
+}
+
 static inline void	get_len_word(char *str, int *len)
 {
-	int		len_w;
 	bool	in_sq;
 	bool	in_dq;
 
 	in_dq = false;
 	in_sq = false;
-	len_w = 0;
-	while (str[len_w])
-	{
-		quote_conditions(str[len_w], &in_dq, &in_sq);
-		if (is_escaped(str + len_w))
-		{
-			len_w += 2;
-			continue;
-		}
-		if (!in_sq && !in_dq && str[len_w] == ' ')
-			break;
-		if (is_meta_char(str + len_w) && !len_w && !in_dq && !in_sq)
-		{
-			len_w += is_meta_char(str + len_w);
-			break;
-		}
-		else if (is_meta_char(str + len_w) && !in_dq && !in_sq)
-			break;
-		len_w++;
-	}
-	*len = len_w;
+	*len = get_len_word_aux(str, &in_sq, &in_dq);
 }
 
 bool	split_mod(char *str, char **words)
@@ -60,7 +68,7 @@ bool	split_mod(char *str, char **words)
 		{
 			str++;
 			len_max--;
-			continue;
+			continue ;
 		}
 		*words = (char *) ft_calloc(len_word + 1, sizeof(char));
 		if (!*words)

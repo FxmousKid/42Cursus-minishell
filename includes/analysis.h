@@ -6,15 +6,14 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 17:55:17 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:17:16 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef ANALYSIS_H
+# define ANALYSIS_H
 
 # include "minishell.h"
-#include <stdbool.h>
 
 # define MAX_TOKEN 4096
 # define META_CHARACTERS "()<>&|;\n\t "
@@ -140,6 +139,5 @@ void	print_lexems(t_lexer *lex);
 // Lex
 bool	lexer(t_lexer *lex, char *str);
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
-
 
 #endif

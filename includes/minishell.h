@@ -32,8 +32,6 @@
 # define HIDDEN_TXT		"\e[8m"
 # define END_TXT		"\e[0m"
 
-
-
 # define SH_NAME "cash"
 # define PROMPT "\e[0;35m❯\e[0m "
 # define PROMPT_SH_NAME "\e[0;32mca\e[0m@\e[0;32msh\e[0m 💵"
@@ -53,7 +51,6 @@ bool	is_occ(char *str, char *sep);
 bool	is_occ_aux(char c, char *sep);
 void	print_split(char **split);
 int		count_words_mod(char *str, char *sep);
-
 
 // Prompt
 typedef struct s_data

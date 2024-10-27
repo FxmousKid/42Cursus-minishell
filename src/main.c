@@ -47,7 +47,7 @@ int	minishell(void)
  	return (0);
 }
 
-/*
+
 int	main(void)
 {
 	int	minishell_status;
@@ -55,8 +55,9 @@ int	main(void)
 	minishell_status = minishell();
 	return (minishell_status);
 }
-*/
 
+
+/*
 t_env_pair	*create_env(char **env)
 {
 	t_env_pair	*envir;
@@ -92,6 +93,11 @@ int	main(int ac, char **av, char **env)
 	ast = test_cmd(&data, ast);
 	print_ast(ast);
 	find_process(&data, ast);
+	return (0);
+}
+*/
+
+
 /*
 	if (1)
 		debug(DBG("Failed to fill condition"));
@@ -100,5 +106,3 @@ int	main(int ac, char **av, char **env)
 	builtin_cd("..");
 	printf("\n");
 	print_prompt();*/
-	return (0);
-}

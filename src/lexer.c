@@ -1,14 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 11:00:58 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 11:30:05 by inazaria         ###   ########.fr       */
+/*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
+/*   Updated: 2024/10/27 21:27:41 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <string.h>
 
 static inline void	set_lexems_count(t_lexer *lex)
 {
@@ -67,7 +70,7 @@ void	lex_general(t_lexer *lex)
 	while (++lex_idx < lex->lexem_count)
 	{
 		if (lex_if_meta_chars(&lex->lexems[lex_idx], lex->words[lex_idx]))
-			continue;
+			continue ;
 		fill_lexem(&lex->lexems[lex_idx], lex->words[lex_idx], WORD, false);
 	}
 }

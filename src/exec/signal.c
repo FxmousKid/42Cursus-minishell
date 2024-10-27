@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:15:11 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/24 14:55:36 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/27 21:59:45 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	sig_handler(int signum)
 
 void	sigint_handler(int signum)
 {
-	(void)signum;
+	(void) signum;
 	printf("exit cash\n");
 	exit(1);
 }
 
 void	sigpipe_handler(int signum)
 {
-	(void)signum;
+	(void) signum;
 	fprintf(stdout, "catch SIGPIPE\n");
 }
