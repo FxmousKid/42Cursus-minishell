@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   analysis.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/26 18:37:31 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 17:55:17 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ struct s_ast
 		struct s_ast_cmd
 		{
 			char	*cmd;
-			char	*cmd_args;
+			char	**cmd_args;
+			int		fd_in;
+			int		fd_out;
 		}	ast_cmd;
 		struct s_ast_pipe
 		{
@@ -105,11 +107,26 @@ struct s_ast
 			t_ast	*left;
 			t_ast	*right;
 		}	ast_equal;
-		struct s_ast_dollar_sign
+		// struct s_ast_dollar_sign
+		// {
+		// 	t_ast	*left;
+		// 	t_ast	*right;
+		// }	ast_dollar_sign;
+		struct s_ast_herestring
 		{
 			t_ast	*left;
 			t_ast	*right;
-		}	ast_dollar_sign;
+		}	ast_herestring;
+		struct s_ast_and
+		{
+			t_ast	*left;
+			t_ast	*right;
+		}	ast_and;
+		struct s_ast_or
+		{
+			t_ast	*left;
+			t_ast	*right;
+		}	ast_or;
 	};
 };
 

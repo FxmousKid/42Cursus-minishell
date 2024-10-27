@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:57:26 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/24 15:04:09 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/27 18:00:33 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ int	cmd_process(t_data *data, t_ast *cmd)
 {
 	pid_t	pid;
 	
-	if (cmd->ast_cmd.in_fd == -1 && cmd->ast_cmd.out_fd == -1)
+	if (cmd->ast_cmd.fd_in == -1 && cmd->ast_cmd.fd_out == -1)
 	{
-		cmd->ast_cmd.out_fd = data->pipe[1];
-		cmd->ast_cmd.in_fd = data->pipe[0];
+		cmd->ast_cmd.fd_out = data->pipe[1];
+		cmd->ast_cmd.fd_in = data->pipe[0];
 	}
-	if (cmd->ast_cmd.in_fd == -1)
-		cmd->ast_cmd.in_fd = data->pipe[0];
-	//printf("cmd : %s : in_fd = %d out_fd = %d\n", cmd->ast_cmd.cmd, cmd->ast_cmd.in_fd, cmd->ast_cmd.out_fd);
+	if (cmd->ast_cmd.fd_in == -1)
+		cmd->ast_cmd.fd_in = data->pipe[0];
+	//printf("cmd : %s : fd_in = %d fd_out = %d\n", cmd->ast_cmd.cmd, cmd->ast_cmd.in_fd, cmd->ast_cmd.out_fd);
 	pid = fork();
 	if (pid < 0)
 		return (perror(""), debug(DBG("Error close()")), -1);
 	if (pid == 0)
 	{
-		dup2(cmd->ast_cmd.in_fd, STDIN_FILENO);
-		dup2(cmd->ast_cmd.out_fd, STDOUT_FILENO);
+		dup2(cmd->ast_cmd.fd_in, STDIN_FILENO);
+		dup2(cmd->ast_cmd.fd_out, STDOUT_FILENO);
 		if (close(data->pipe[0]) != 0)
 			return (perror(""), debug(DBG("Error child cmd_process()")), -1);
 		if (close(data->pipe[1]) != 0)
