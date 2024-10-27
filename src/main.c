@@ -13,9 +13,8 @@
 
 #include "minishell.h"
 
-void	init_readline()
+void	init_readline(void)
 {
- 	// rl_bind_key('\t', rl_insert);
 	rl_bind_key('!', rl_insert);
 	using_history();
 }
@@ -24,7 +23,7 @@ int	minishell(void)
 {
 	char	*cmd;
 	int		history_count;
-	t_lexer lex;
+	t_lexer	lex;
 
 	history_count = 0;
 	init_readline();
@@ -35,7 +34,7 @@ int	minishell(void)
 		print_prompt();
 		cmd = readline(PROMPT_LINE);
 		if (!cmd)
-			break;
+			break ;
 		lexer(&lex, cmd);
 		free_lex(&lex);
 		ft_bzero(&lex, sizeof(t_lexer));
@@ -44,9 +43,8 @@ int	minishell(void)
 		free(cmd);
 	}
 	clear_history();
- 	return (0);
+	return (0);
 }
-
 
 int	main(void)
 {
@@ -55,54 +53,3 @@ int	main(void)
 	minishell_status = minishell();
 	return (minishell_status);
 }
-
-
-/*
-t_env_pair	*create_env(char **env)
-{
-	t_env_pair	*envir;
-	char		**s;
-	int			i;
-
-	i = 0;
-	envir = malloc(sizeof(t_env_pair) * 1);
-	envir->value = malloc(sizeof(char *) * 4096);
-	while (env[i])
-	{
-		s = ft_split(env[i], '=');
-		envir->key[i] = s[0];
-		envir->value[i] = s[1];
-		i++;
-	}
-	return (envir);
-}
-
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
-	t_ast	*ast;
-
-	ast = NULL;
-	(void)ac;
-	(void)av;
-	signal(SIGINT, &sig_handler);
-	signal(SIGPIPE, &sig_handler);
-	data.envir = env;
-	data.env = create_env(env);
-	create_path(&data);
-	ast = test_cmd(&data, ast);
-	print_ast(ast);
-	find_process(&data, ast);
-	return (0);
-}
-*/
-
-
-/*
-	if (1)
-		debug(DBG("Failed to fill condition"));
-	print_start_text();
-	print_prompt();
-	builtin_cd("..");
-	printf("\n");
-	print_prompt();*/
