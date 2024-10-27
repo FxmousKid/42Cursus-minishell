@@ -23,9 +23,7 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
-SRC_FILES_NAMES += parser.c
 SRC_FILES_NAMES += lexer.c
-SRC_FILES_NAMES += exec.c
 
 SRC_FILES_NAMES += lexer/lex_utils.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
@@ -35,11 +33,6 @@ SRC_FILES_NAMES += utils/prompt.c
 SRC_FILES_NAMES += utils/is_occ.c
 SRC_FILES_NAMES += utils/print_split.c
 SRC_FILES_NAMES += utils/quote_utils.c
-
-SRC_FILES_NAMES += exec/builtin.c
-SRC_FILES_NAMES += exec/process.c
-SRC_FILES_NAMES += exec/test.c
-SRC_FILES_NAMES += exec/signal.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
