@@ -6,13 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:54:47 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/24 20:27:07 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:13:22 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "minishell.h"
-#include <stdbool.h>
 
 bool	is_escaped(char *str)
 {
