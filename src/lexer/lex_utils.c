@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 18:38:02 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:12:49 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "minishell.h"
 
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta)

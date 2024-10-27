@@ -8,10 +8,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "minishell.h"
-#include <stdbool.h>
-#include <string.h>
 
 static inline void	set_lexems_count(t_lexer *lex)
 {
