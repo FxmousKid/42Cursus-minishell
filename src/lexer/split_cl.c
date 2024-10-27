@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 19:21:40 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/25 11:29:10 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:13:09 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
 #include "minishell.h"
 
 bool	is_escaped(char *str);
