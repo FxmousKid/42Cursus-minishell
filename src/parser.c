@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 17:06:10 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:59:24 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,4 @@
  *    user to finish them : echo |
  *    pipe> 
  * 3) Fill the AST for the execution
- * */
-
-
-/* 
  * */

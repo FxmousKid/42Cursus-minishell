@@ -3,10 +3,11 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+         #
+#    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
 #    Updated: 2024/10/27 16:07:57 by inazaria         ###   ########.fr        #
+#    Updated: 2024/10/21 19:17:22 by ptheo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,21 +23,23 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
-SRC_FILES_NAMES += prompt.c
+SRC_FILES_NAMES += parser.c
+SRC_FILES_NAMES += lexer.c
+SRC_FILES_NAMES += exec.c
 
-SRC_FILES_NAMES += lexer/lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
-SRC_FILES_NAMES += parser/parser.c
-
-
-
-
+SRC_FILES_NAMES += utils/prompt.c
 SRC_FILES_NAMES += utils/is_occ.c
 SRC_FILES_NAMES += utils/print_split.c
 SRC_FILES_NAMES += utils/quote_utils.c
+
+SRC_FILES_NAMES += exec/builtin.c
+SRC_FILES_NAMES += exec/process.c
+SRC_FILES_NAMES += exec/test.c
+SRC_FILES_NAMES += exec/signal.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -51,8 +54,8 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 #<><><><><><><> Variables <><><><><><><><><><><><><><><><><>
 
 NAME := minishell
-CC := clang
-CFLAGS := -g3 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
+CC := gcc
+CFLAGS := -gdwarf-4 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
 LFLAGS := libft/libft.a -lreadline
 MKDIR := mkdir -p
 RM_RF := rm -rf

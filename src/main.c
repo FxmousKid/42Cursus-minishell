@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
 /*   Updated: 2024/10/25 18:41:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:49:56 by ptheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +47,7 @@ int	minishell(void)
  	return (0);
 }
 
+
 int	main(void)
 {
 	int	minishell_status;
@@ -53,3 +55,54 @@ int	main(void)
 	minishell_status = minishell();
 	return (minishell_status);
 }
+
+
+/*
+t_env_pair	*create_env(char **env)
+{
+	t_env_pair	*envir;
+	char		**s;
+	int			i;
+
+	i = 0;
+	envir = malloc(sizeof(t_env_pair) * 1);
+	envir->value = malloc(sizeof(char *) * 4096);
+	while (env[i])
+	{
+		s = ft_split(env[i], '=');
+		envir->key[i] = s[0];
+		envir->value[i] = s[1];
+		i++;
+	}
+	return (envir);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	t_data	data;
+	t_ast	*ast;
+
+	ast = NULL;
+	(void)ac;
+	(void)av;
+	signal(SIGINT, &sig_handler);
+	signal(SIGPIPE, &sig_handler);
+	data.envir = env;
+	data.env = create_env(env);
+	create_path(&data);
+	ast = test_cmd(&data, ast);
+	print_ast(ast);
+	find_process(&data, ast);
+	return (0);
+}
+*/
+
+
+/*
+	if (1)
+		debug(DBG("Failed to fill condition"));
+	print_start_text();
+	print_prompt();
+	builtin_cd("..");
+	printf("\n");
+	print_prompt();*/

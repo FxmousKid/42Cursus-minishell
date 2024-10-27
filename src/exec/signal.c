@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_manager.h                                    :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 15:09:45 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:17:32 by inazaria         ###   ########.fr       */
+/*   Created: 2024/10/21 19:15:11 by ptheo             #+#    #+#             */
+/*   Updated: 2024/10/27 21:59:45 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MANAGER_H
-# define ERROR_MANAGER_H
+#include "minishell.h"
 
-# define STRINGIFY(x) #x
-# define TOSTRING(x) STRINGIFY(x)
+void	sig_handler(int signum)
+{
+	if (signum == SIGINT)
+		return (sigint_handler(signum));
+	if (signum == SIGPIPE)
+		return (sigpipe_handler(signum));
+}
 
-// Debug Helping
-# define DBG(reason) reason " at line " \
-TOSTRING(__LINE__) " in file " __FILE__ "\n"
+void	sigint_handler(int signum)
+{
+	(void) signum;
+	printf("exit cash\n");
+	exit(1);
+}
 
-// Freeing functions
-
-// Error Handling
-
-// Debugging
-void		debug(char *str);
-
-#endif
+void	sigpipe_handler(int signum)
+{
+	(void) signum;
+	fprintf(stdout, "catch SIGPIPE\n");
+}
