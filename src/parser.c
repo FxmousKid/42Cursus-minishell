@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:59:24 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:48:00 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,12 @@
  *    pipe> 
  * 3) Fill the AST for the execution
  * */
+
+bool	parser(t_data *data, t_lexer *lex)
+{
+	(void) data;
+
+	if (!search_parse_error(lex))
+		return (debug(DBG("Failed to search_parse_error()")), false);
+	return (true);
+}

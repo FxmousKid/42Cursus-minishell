@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:17:16 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:47:35 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ANALYSIS_H
 
 # include "minishell.h"
+#include <stdbool.h>
 
 # define MAX_TOKEN 4096
 # define META_CHARACTERS "()<>&|;\n\t "
@@ -129,6 +130,8 @@ struct s_ast
 	};
 };
 
+typedef struct s_data t_data;
+
 // Lex Utils
 int		is_meta_char(char *str);
 bool	split_cl(char *str, t_lexer *lex);
@@ -136,8 +139,13 @@ void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
 void	print_lexems(t_lexer *lex);
 
-// Lex
+// Lexer
 bool	lexer(t_lexer *lex, char *str);
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
+
+// Parser
+bool	parser(t_data *data, t_lexer *lex);
+bool	search_parse_error(t_lexer *lex);
+
 
 #endif

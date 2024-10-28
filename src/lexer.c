@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:27:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:21:32 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ bool	lexer(t_lexer *lex, char *str)
 	lex_commands_after_pipe(lex);
 
 	print_split(lex->words);
-	print_lexems(lex);
 	return (true);
 }
 

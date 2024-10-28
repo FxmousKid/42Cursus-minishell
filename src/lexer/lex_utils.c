@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:58:52 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:25:57 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,9 @@ void	print_lexems(t_lexer *lex)
 {
 	int	i;
 
-	printf("\n%s===Lexing Status===%s\n===\n", YELLOW_TXT, END_TXT);
+	printf("\n%s===Lexing Status %s", YELLOW_TXT, END_TXT);
+	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
-	printf("%sLexem count%s : %zu\n===\n", YELLOW_TXT, END_TXT, \
-		lex->lexem_count);
 	while (lex->words[++i + 1])
 	{
 		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
@@ -82,5 +81,5 @@ void	print_lexems(t_lexer *lex)
 	}
 	printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
 	display_lexem_aux(lex->lexems[i].token);
-	printf("===\n%s===Lexing Status===%s\n", YELLOW_TXT, END_TXT);
+	printf("%s===Lexing Status===%s\n\n", YELLOW_TXT, END_TXT);
 }

@@ -52,6 +52,8 @@ bool	is_occ_aux(char c, char *sep);
 void	print_split(char **split);
 int		count_words_mod(char *str, char *sep);
 
+typedef struct s_ast t_ast;
+
 // Prompt
 typedef struct s_data
 {

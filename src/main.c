@@ -11,7 +11,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
+#include <stdbool.h>
 
 void	init_readline()
 {
@@ -20,28 +22,45 @@ void	init_readline()
 	using_history();
 }
 
+bool	analysis(char *input)
+{
+	t_lexer lex;
+	t_data	data;
+
+	ft_bzero(&lex, sizeof(t_lexer));
+	lexer(&lex, input);
+	print_lexems(&lex);
+	ft_bzero(&data, sizeof(t_data));
+	if (!parser(&data, &lex))
+		return (debug(DBG("Failed to parser()")), false);
+	free_lex(&lex);
+
+	//free_ast(&data->ast);
+	//free_data(&data);
+	//close_data(&data);
+	
+	return (true);
+}
+
 int	minishell(void)
 {
-	char	*cmd;
+	char	*input;
 	int		history_count;
-	t_lexer lex;
 
-	history_count = 0;
 	init_readline();
-	ft_bzero(&lex, sizeof(t_lexer));
+	history_count = 0;
 	while (history_count < 20)
 	{
 		printf("\n");
 		print_prompt();
-		cmd = readline(PROMPT_LINE);
-		if (!cmd)
+		input = readline(PROMPT_LINE);
+		if (!input)
 			break;
-		lexer(&lex, cmd);
-		free_lex(&lex);
-		ft_bzero(&lex, sizeof(t_lexer));
-		add_history(cmd);
+		add_history(input);
 		history_count++;
-		free(cmd);
+		if (!analysis(input))
+			return (debug(DBG("Failed to analysis()")), 2);
+		free(input);
 	}
 	clear_history();
  	return (0);
