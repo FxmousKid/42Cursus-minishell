@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 #include <string.h>
 
@@ -63,9 +64,10 @@ void	lex_general(t_lexer *lex)
 	size_t	lex_idx;
 
 	if (*lex->words[0] == '$')
-		fill_lexem(&lex->lexems[0], lex->words[0], ENV_VAR, false);	
+		fill_lexem(&lex->lexems[0], lex->words[0], ENV_VAR, false);
 	else
-		fill_lexem(&lex->lexems[0], lex->words[0], CMD, false);	
+		fill_lexem(&lex->lexems[0], lex->words[0], CMD, false);
+	lex_if_meta_chars(&lex->lexems[0], lex->words[0]);
 	lex_idx = 0;
 	while (++lex_idx < lex->lexem_count)
 	{
@@ -85,8 +87,6 @@ bool	lexer(t_lexer *lex, char *str)
 	lex_general(lex);
 	lex_files_and_heredoc(lex);
 	lex_commands_after_pipe(lex);
-
 	print_split(lex->words);
 	return (true);
 }
-
