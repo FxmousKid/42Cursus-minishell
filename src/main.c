@@ -22,56 +22,82 @@ void	init_readline()
 	using_history();
 }
 
-bool	analysis(char *input)
+char	*read_command(void)
 {
-	t_lexer lex;
+	printf("\n");
+	print_formatted_cwd();
+	return (readline(PS1));
+}
+
+// Every return code starting from here and down, will signify a exit code
+
+int	minishell(char *input, t_env *data_env)
+{
+	t_lexer	lex;
 	t_data	data;
 
+	if (*input == '\0')
+		return (0);
 	ft_bzero(&lex, sizeof(t_lexer));
 	lexer(&lex, input);
 	print_lexems(&lex);
 	ft_bzero(&data, sizeof(t_data));
+	data.env = *data_env;
 	if (!parser(&data, &lex))
-		return (debug(DBG("Failed to parser()")), false);
-	free_lex(&lex);
+	{
+		free_lex(&lex);
+		return (debug(DBG("Failed to parser()")), 2);
+	}
 
+	// if (!exec(data))
+	// {
+	//		free(...)
+	//		...
+	//		return (data->exit_code);
+	// }	
+
+	free_lex(&lex);
 	//free_ast(&data->ast);
 	//free_data(&data);
 	//close_data(&data);
 	
-	return (true);
+	return (0);
 }
 
-int	minishell(void)
+int	launch_minishell(char *env[])
 {
+	t_env	*data_env;
 	char	*input;
-	int		history_count;
+	int		sh_st;
 
-	init_readline();
-	history_count = 0;
-	while (history_count < 20)
+	data_env = ft_calloc(sizeof(t_env), 1);
+	init_env(data_env, env);
+	input = read_command();
+	while (input)
 	{
-		printf("\n");
-		print_prompt();
-		input = readline(PROMPT_LINE);
-		if (!input)
-			break;
 		add_history(input);
-		history_count++;
-		if (!analysis(input))
-			return (debug(DBG("Failed to analysis()")), 2);
+		sh_st = minishell(input, data_env);
+		if (sh_st)
+		{
+			free_env(data_env);
+			free(data_env);
+			return (free(input), debug(DBG("Failed to minishell()")), sh_st);
+		}
 		free(input);
+		input = read_command();
 	}
-	clear_history();
- 	return (0);
+ 	return (free_env(data_env), free(data_env), 0);
 }
 
 
-int	main(void)
+int	main(int argc, char *argv[], char *env[])
 {
 	int	minishell_status;
 
-	minishell_status = minishell();
+	(void) argc;
+	(void) argv;
+	init_readline();
+	minishell_status = launch_minishell(env);
 	return (minishell_status);
 }
 

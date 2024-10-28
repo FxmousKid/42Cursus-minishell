@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 14:33:05 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:29:58 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	print_parse_error(t_lexem lexem)
 {
-	printf("%s: parse error near `%s'\n", SH_NAME, lexem.value);
+	printf(PARSE_ERROR);
+	printf("`%s'\n", lexem.value);
 }
 
 bool	verify_meta_char_parse(t_lexer *lex, int idx)
@@ -23,7 +24,10 @@ bool	verify_meta_char_parse(t_lexer *lex, int idx)
 		return (debug(DBG("Forbidden meta char found")), false);
 	else if (idx == 0)
 		return (true);
-
+	if (lex->lexems[idx - 1].is_meta)
+		return (debug(DBG("Two meta chars in a row")), false);
+	if (lex->lexems[idx + 1].is_meta)
+		return (debug(DBG("Two meta chars in a row")), false);
 
 	return (true);
 }
@@ -46,17 +50,13 @@ bool	search_parse_error(t_lexer *lex)
 	parse_status = true;
 	while ((size_t) ++i < lex->lexem_count)
 	{
-		printf("Lexem: %d\n", lex->lexems[i].is_meta);
 		if (lex->lexems[i].is_meta)
 		{
-			parse_status &= verify_meta_char_parse(lex, i);
-			parse_status &= verify_pipe_parse(lex, i);
-			// parse_status &= 
-
+			parse_status = verify_meta_char_parse(lex, i) && \
+			verify_pipe_parse(lex, i);
 		}
 		if (!parse_status)
-			print_parse_error(lex->lexems[i]);
-		
+			return (print_parse_error(lex->lexems[i]), false);
 	}
 	return (parse_status);
 }

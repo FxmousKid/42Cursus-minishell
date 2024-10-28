@@ -42,17 +42,17 @@ static int	reduce_home_into_tilde(char *cwd, char *new_cwd)
 		return (0);
 	len_home = ft_strlen_till_char(cwd + 6, '/');
 	new_cwd[0] = '~';
-	ft_strlcpy(new_cwd + 1, cwd + 6 + len_home, MAX_PATH);
+	ft_strlcpy(new_cwd + 1, cwd + 6 + len_home, PATH_MAX);
 	return (1);
 }
 
-void	print_prompt(void)
+void	print_formatted_cwd(void)
 {
-	char	cwd[MAX_PATH];
-	char	tilde_cwd[MAX_PATH];
+	char	cwd[PATH_MAX];
+	char	tilde_cwd[PATH_MAX];
 
-	ft_bzero(cwd, MAX_PATH * sizeof(char));
-	if (!getcwd(cwd, MAX_PATH))
+	ft_bzero(cwd, PATH_MAX * sizeof(char));
+	if (!getcwd(cwd, PATH_MAX))
 		debug(DBG("get the current path"));
 	if (!reduce_home_into_tilde(cwd, tilde_cwd))
 		printf("%s%s%s%s", BLUE_TXT, cwd, "\n", END_TXT);

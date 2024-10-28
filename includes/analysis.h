@@ -19,8 +19,14 @@
 # define META_CHARACTERS "()<>&|;\n\t "
 # define META_CHARACTERS_NO_SPACE "()<>&|;\n\t"
 
+# define PARSE_ERROR SH_NAME": syntax error near unexpected token "
+
+/* Error as the 1st token is important because it will be the default one 
+ * on initialization */
+
 typedef enum e_token
 {
+	ERROR,
 	HEREDOC, // '<<'
 	HERESTRING, // '<<<'
 	REDIR_IN, // '<'
@@ -35,7 +41,6 @@ typedef enum e_token
 	WORD, // hello
 	DQ_WORD, // "hello"
 	SQ_WORD, // 'hello'
-	ERROR,
 	CMD, // 'ls'
 	F_NAME, // 'file.txt'
 	LIMITER, // << 'EOF'	

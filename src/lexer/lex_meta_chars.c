@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:42:28 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:25:43 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:50:11 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_meta_char(char *str)
 {
 	if (!ft_strncmp("<<<", str, 3))
 		return (3);
-	else if (!ft_strncmp("&&", str, 2))
+	else if (!ft_strncmp("&&", str, 2)) 
 		return (2);
 	else if (!ft_strncmp("||", str, 2))
 		return (2);

@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 11:25:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:13:22 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta)
@@ -21,21 +22,41 @@ void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta)
 
 void	free_lex(t_lexer *lex)
 {
-	int		idx;
-	t_lexem	lexem;
+	size_t	idx;
 	char	**words;
+	t_lexem	*lexems;
 
+	lexems = lex->lexems;
 	idx = 0;
-	lexem = lex->lexems[idx];
-	while (lexem.value)
+	while (idx < lex->lexem_count)
 	{
-		free(lexem.value);
-		lexem = lex->lexems[++idx];
+		free(lexems[idx].value);
+		lexems[idx++].value = NULL;
 	}
 	words = lex->words;
 	idx = 0;
 	while (words[idx])
-		free(words[idx++]);
+	{
+		free(words[idx]);
+		words[idx++] = NULL;
+	}
+}
+
+static inline int	display_lexem_aux_2(t_token token)
+{
+	if (token == HERESTRING)
+		return (printf("[%sHERESTRING%s]\n", GREEN_TXT, END_TXT));
+	else if (token == CMD)
+		return (printf("[%sCMD%s]\n", GREEN_TXT, END_TXT));
+	else if (token == WORD)
+		return (printf("[%sWORD%s]\n", GREEN_TXT, END_TXT));
+	else if (token == F_NAME)
+		return (printf("[%sF_NAME%s]\n", GREEN_TXT, END_TXT));
+	else if (token == LIMITER)
+		return (printf("[%sLIMITER%s]\n", GREEN_TXT, END_TXT));
+	else if (token == ENV_VAR)
+		return (printf("[%sENV_VAR%s]\n", GREEN_TXT, END_TXT));
+	return (printf("[%sERROR%s]\n", RED_TXT, END_TXT));
 }
 
 static inline int	display_lexem_aux(t_token token)
@@ -54,17 +75,7 @@ static inline int	display_lexem_aux(t_token token)
 		return (printf("[%sREDIR_IN%s]\n", GREEN_TXT, END_TXT));
 	else if (token == HEREDOC)
 		return (printf("[%sHEREDOC%s]\n", GREEN_TXT, END_TXT));
-	else if (token == HERESTRING)
-		return (printf("[%sHERESTRING%s]\n", GREEN_TXT, END_TXT));
-	else if (token == CMD)
-		return (printf("[%sCMD%s]\n", GREEN_TXT, END_TXT));
-	else if (token == WORD)
-		return (printf("[%sWORD%s]\n", GREEN_TXT, END_TXT));
-	else if (token == F_NAME)
-		return (printf("[%sF_NAME%s]\n", GREEN_TXT, END_TXT));
-	else if (token == LIMITER)
-		return (printf("[%sLIMITER%s]\n", GREEN_TXT, END_TXT));
-	return (printf("[%sERROR%s]\n", RED_TXT, END_TXT));
+	return (display_lexem_aux_2(token));
 }
 
 void	print_lexems(t_lexer *lex)
@@ -74,7 +85,7 @@ void	print_lexems(t_lexer *lex)
 	printf("\n%s===Lexing Status %s", YELLOW_TXT, END_TXT);
 	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
-	while (lex->words[++i + 1])
+	while ((size_t) ++i < lex->lexem_count - 1)
 	{
 		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
 		display_lexem_aux(lex->lexems[i].token);

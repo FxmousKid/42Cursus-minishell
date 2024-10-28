@@ -17,6 +17,7 @@
 # include "dependencies.h"
 # include "error_manager.h"
 # include "analysis.h"
+#include <string.h>
 
 # define RED_TXT		"\e[0;31m"
 # define GREEN_TXT		"\e[0;32m"
@@ -33,31 +34,31 @@
 # define END_TXT		"\e[0m"
 
 # define SH_NAME "cash"
-# define PROMPT "\e[0;35m❯\e[0m "
-# define PROMPT_SH_NAME "\e[0;32mca\e[0m@\e[0;32msh\e[0m 💵"
-# define PROMPT_LINE "\e[0;32mca\e[0m@\e[0;32msh\e[0m 💵 \e[0;35m❯\e[0m " 
-# define MAX_PATH 4096
-# define MAX_CMD 256
-# define MAX_ARG 4096
+# define SH_NAME_FANCY "\e[0;32mca\e[0m@\e[0;32msh\e[0m 💵"
+# define PS1 SH_NAME_FANCY" \e[0;35m❯\e[0m " 
+
+# define PATH_MAX 4096
+# define ENV_MAX 4096
+# define CMD_MAX 256
+# define ARG_MAX 4096
 
 typedef struct s_env_pair
 {
-	char	*key[4096];
-	char	**value;
+	char	*key;
+	char	*value;
 }			t_env_pair;
 
-// Utils
-bool	is_occ(char *str, char *sep);
-bool	is_occ_aux(char c, char *sep);
-void	print_split(char **split);
-int		count_words_mod(char *str, char *sep);
+typedef struct s_env
+{
+	t_env_pair	env_pairs[ENV_MAX];
+	int			env_len;
+}				t_env;
 
 typedef struct s_ast t_ast;
 
-// Prompt
 typedef struct s_data
 {
-	t_env_pair	*env;
+	t_env		env;
 	t_ast		*ast;
 	int			pipe[2];
 	int			cmd_count;
@@ -67,30 +68,64 @@ typedef struct s_data
 	char		**path_arg;
 }				t_data;
 
-/* BUILD IN */
+/* Utils functions */
+bool	is_occ(char *str, char *sep);
+bool	is_occ_aux(char c, char *sep);
+void	print_split(char **split);
+int		count_words_mod(char *str, char *sep);
+int		strcmp_ex(const char *s1, const char *s2);
+
+// Environnement
+
+/* fills up out custom made structure with the system provided env */
+bool	init_env(t_env *data_env, char *env[]);
+
+/* Free the key and value of each env entry in the passed t_env */
+void	free_env(t_env *env);
+
+/* Returns the ptr to the value of the key if found, else returns NULL */
+char	*access_env_value(t_env env, char *key);
+
+/* if key already is a env entry key, then overwrites existing value with 
+ * passed value, leaves total entry count the same
+ * else append a new env entry, allocated for key and value with MALLOC, and
+ * increments the total entry counts by 1 */
+void	add_env_entry(t_env *env, char *key, char *value);
+
+/* Takes a key, and removes that entry, and shift everything on the right
+ * of that entry 1 place to the left, to remain contiguous.
+ * Does nothing if key isn't found / valid */
+void	remove_env_entry(t_env *env, char *key);
+
+/* Pretty prints the current state of the passed t_env structure */
+void	print_env(t_env env);
+
+
+// Built in functions
+
 int		builtin_pwd(void);
 int		builtin_echo(char **arg);
 int		builtin_cd(char *path);
 
-/* PRINT */
-void	print_prompt(void);
+/* printing */
+void	print_formatted_cwd(void);
 void	print_start_text(void);
 
-/* EXEC */
+/* execution */
 int		exec_cmd(t_data *data, t_ast *cmd);
 int		create_path(t_data *data);
 t_ast	*test_cmd(t_data *data, t_ast *ast);
 void	print_ast(t_ast *ast);
 char	*find_access(t_data *data, char *cmd);
 
-/* PROCESS */
+/* processes */
 int		cmd_process(t_data *data, t_ast *cmd);
 int		find_process(t_data *data, t_ast *pro);
 int		pipe_process(t_data *data, t_ast *pipe);
 int		or_process(t_data *data, t_ast *or);
 int		and_process(t_data *data, t_ast *and);
 
-/* SIGNAL */
+/* signal */
 void	sig_handler(int signum);
 void	sigint_handler(int signum);
 void	sigpipe_handler(int signum);

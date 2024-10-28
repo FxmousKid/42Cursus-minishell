@@ -6,7 +6,7 @@
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 22:38:55 by ptheo             #+#    #+#             */
-/*   Updated: 2024/10/21 17:23:52 by ptheo            ###   ########.fr       */
+/*   Updated: 2024/10/28 19:02:27 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,27 @@ char	*find_access(t_data *data, char *cmd)
 	return (NULL);
 }
 
-int	create_path(t_data *data)
-{
-	int		i;
+// int	create_path(t_data *data)
+// {
+// 	int		i;
 
-	i = 0;
-	while (data->env->key[i])
-	{
-		if (ft_strncmp(data->env->key[i], "PATH",
-				ft_strlen(data->env->key[i])) == 0)
-			break ;
-		i++;
-	}
-	data->path_arg = ft_split(data->env->value[i], ':');
-	i = 0;
-	while (data->path_arg[i])
-	{
-		data->path_arg[i] = ft_strjoin(data->path_arg[i], "/");
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (data->env->key[i])
+// 	{
+// 		if (ft_strncmp(data->env->key[i], "PATH",
+// 				ft_strlen(data->env->key[i])) == 0)
+// 			break ;
+// 		i++;
+// 	}
+// 	data->path_arg = ft_split(data->env->value[i], ':');
+// 	i = 0;
+// 	while (data->path_arg[i])
+// 	{
+// 		data->path_arg[i] = ft_strjoin(data->path_arg[i], "/");
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	find_process(t_data *data, t_ast *pro)
 {

@@ -6,14 +6,14 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 19:21:40 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:57:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 19:53:22 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_escaped(char *str);
-void	quote_conditions(char c, bool *in_dq, bool *in_sq);
+extern bool	is_escaped(char *str);
+extern void	quote_conditions(char c, bool *in_dq, bool *in_sq);
 
 static inline int	get_len_word_aux(char *str, bool *in_sq, bool *in_dq)
 {
