@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 22:09:49 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:37:13 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 #include <string.h>
 
@@ -66,6 +67,7 @@ void	lex_general(t_lexer *lex)
 		fill_lexem(&lex->lexems[0], lex->words[0], ENV_VAR, false);
 	else
 		fill_lexem(&lex->lexems[0], lex->words[0], CMD, false);
+	lex_if_meta_chars(&lex->lexems[0], lex->words[0]);
 	lex_idx = 0;
 	while (++lex_idx < lex->lexem_count)
 	{
