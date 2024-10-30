@@ -6,23 +6,23 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:19:39 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 22:57:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:10:54 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*access_env_value(t_env env, char *key)
+char	*access_env_value(t_env *env, char *key)
 {
 	int		idx;
 	char	*tmp_key;
 
 	idx = 0;
-	while (idx < env.env_len)
+	while (idx < env->env_len)
 	{
-		tmp_key = env.env_pairs[idx].key;
+		tmp_key = env->env_pairs[idx].key;
 		if (!strcmp_ex(tmp_key, key))
-			return (env.env_pairs[idx].value);
+			return (env->env_pairs[idx].value);
 		idx++;
 	}
 	return (NULL);
@@ -53,7 +53,7 @@ void	remove_env_entry(t_env *env, char *key)
 	int	idx;
 	
 	idx = 0;
-	while (env->env_pairs[idx].key)
+	while (idx < env->env_len)
 	{
 		if (!strcmp_ex(env->env_pairs[idx].key, key))
 		{

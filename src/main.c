@@ -42,7 +42,7 @@ int	minishell(char *input, t_env *data_env)
 	lexer(&lex, input);
 	print_lexems(&lex);
 	ft_bzero(&data, sizeof(t_data));
-	data.env = *data_env;
+	data.env = data_env;
 	if (!parser(&data, &lex))
 	{
 		free_lex(&lex);
@@ -86,6 +86,8 @@ int	launch_minishell(char *env[])
 		free(input);
 		input = read_command();
 	}
+	remove_env_entry(data_env, "P9K_SSH");
+	print_env(*data_env);
  	return (free_env(data_env), free(data_env), 0);
 }
 

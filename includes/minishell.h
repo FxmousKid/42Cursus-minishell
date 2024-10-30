@@ -17,7 +17,6 @@
 # include "dependencies.h"
 # include "error_manager.h"
 # include "analysis.h"
-#include <string.h>
 
 # define RED_TXT		"\e[0;31m"
 # define GREEN_TXT		"\e[0;32m"
@@ -34,8 +33,8 @@
 # define END_TXT		"\e[0m"
 
 # define SH_NAME "cash"
-# define SH_NAME_FANCY "\e[0;32mca\e[0m@\e[0;32msh\e[0m 💵"
-# define PS1 SH_NAME_FANCY" \e[0;35m❯\e[0m " 
+# define SH_NAME_FANCY GREEN_TXT"ca"END_TXT"@"GREEN_TXT"sh 💵 "END_TXT
+# define PS1 SH_NAME_FANCY PURPLE_TXT"❯ "END_TXT
 
 # define PATH_MAX 4096
 # define ENV_MAX 4096
@@ -58,7 +57,7 @@ typedef struct s_ast t_ast;
 
 typedef struct s_data
 {
-	t_env		env;
+	t_env		*env;
 	t_ast		*ast;
 	int			pipe[2];
 	int			cmd_count;
@@ -84,7 +83,7 @@ bool	init_env(t_env *data_env, char *env[]);
 void	free_env(t_env *env);
 
 /* Returns the ptr to the value of the key if found, else returns NULL */
-char	*access_env_value(t_env env, char *key);
+char	*access_env_value(t_env *env, char *key);
 
 /* if key already is a env entry key, then overwrites existing value with 
  * passed value, leaves total entry count the same
