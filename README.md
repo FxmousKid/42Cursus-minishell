@@ -50,8 +50,6 @@ on fedora based systems:
 on debian based systems:
 ```sudo apt-get install lib32readline-dev lib32readline-dev```
 
-you might need to add this include in the readline/rltypedegfs.h file:
-```#include <bits/types/FILE.h>```
 
 
 Use the provided Makefile to compile the project:
