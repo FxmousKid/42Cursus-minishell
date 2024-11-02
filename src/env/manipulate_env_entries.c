@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:19:39 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/30 16:10:54 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/02 15:36:09 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void	add_env_entry(t_env *env, char *key, char *value)
 	int		idx;
 
 	idx = 0;
+	if (access_env_value(env, key) == NULL)
+	{
+		env->env_pairs[idx].key = ft_strdup(key);
+		env->env_pairs[idx].value = ft_strdup(value);
+		env->env_len++;
+		return ;
+	}
 	while (env->env_pairs[idx].key)
 	{
 		if (!strcmp_ex(env->env_pairs[idx].key, key))
@@ -43,9 +50,6 @@ void	add_env_entry(t_env *env, char *key, char *value)
 		}
 		idx++;
 	}
-	env->env_pairs[idx].key = ft_strdup(key);
-	env->env_pairs[idx].value = ft_strdup(value);
-	env->env_len++;
 }
 
 void	remove_env_entry(t_env *env, char *key)
