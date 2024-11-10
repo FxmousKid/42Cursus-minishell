@@ -6,23 +6,13 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 16:01:53 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:38:23 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
 #include "minishell.h"
 #include <string.h>
-
-static inline void	set_lexems_count(t_lexer *lex)
-{
-	int	lexem_count;
-
-	lexem_count = 0;
-	while (lex->words[lexem_count])
-		lexem_count++;
-	lex->lexem_count = lexem_count;
-}
 
 /* We start at the 3rd lexem :
    x | y
@@ -55,7 +45,12 @@ void	lex_files_and_heredoc(t_lexer *lex)
 		else if (lex->lexems[lex_idx - 1].token == REDIR_APPEND)
 			lex->lexems[lex_idx].token = F_NAME;
 		else if (lex->lexems[lex_idx - 1].token == HEREDOC)
-			lex->lexems[lex_idx].token = LIMITER;
+		{
+			if (lex->lexems[lex_idx].value[0] == '"')
+				lex->lexems[lex_idx].token = Q_LIMITER;
+			else
+				lex->lexems[lex_idx].token = LIMITER;
+		}
 	}
 }
 
@@ -85,7 +80,9 @@ bool	lexer(t_lexer *lex, char *str)
 		return (debug(DBG("Empty string")), false);
 	if (!split_cl(str, lex))
 		return (debug(DBG("Failed to split_cl()")), false);
-	set_lexems_count(lex);
+	// To potientially fill the (partially quoted) lexems
+	
+	// 
 	lex_general(lex);
 	lex_files_and_heredoc(lex);
 	lex_commands_after_pipe(lex);

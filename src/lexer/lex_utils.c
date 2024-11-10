@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 19:13:22 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/10 20:21:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static inline int	display_lexem_aux(t_token token)
 		return (printf("[%sREDIR_IN%s]\n", GREEN_TXT, END_TXT));
 	else if (token == HEREDOC)
 		return (printf("[%sHEREDOC%s]\n", GREEN_TXT, END_TXT));
+	else if (token == Q_LIMITER)
+		return (printf("[%sQ_LIMITER%s]\n", GREEN_TXT, END_TXT));
 	return (display_lexem_aux_2(token));
 }
 

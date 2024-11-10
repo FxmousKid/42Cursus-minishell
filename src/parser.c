@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 18:37:00 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:56:51 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 /* the Goal here is to analyze syntax.
  * 1) Check for definitive syntaxically unfixable tokens : "echo |||"
  *	  cash : parse error near `META_CHARACTER' 
- * 2) Check for wrong but syntaxically fixable tokens, and prompt the
- *    user to finish them : echo |
- *    pipe> 
- * 3) Fill the AST while specifically filling in env vars for the execution 
+ * 2) Read heredocs 
+ * 3) Fill command structures
  * 
  * */
 
 
 bool	parser(t_data *data, t_lexer *lex)
 {
-	(void) data;
+	(void)	data;
+	char	*heredocs_content[MAX_HEREDOCS];
 
 	if (!search_parse_error(lex))
-		return (debug(DBG("Failed to search_parse_error()")), false);
+		return (debug(DBG("Failed to search_parse_error()")), false);	
+	if (!read_heredocs(lex, heredocs_content))
+		return (debug(DBG("Failed to read_heredocs()")), false);
 	return (true);
 }

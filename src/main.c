@@ -86,8 +86,6 @@ int	launch_minishell(char *env[])
 		free(input);
 		input = read_command();
 	}
-	remove_env_entry(data_env, "P9K_SSH");
-	print_env(*data_env);
  	return (free_env(data_env), free(data_env), 0);
 }
 
@@ -103,27 +101,7 @@ int	main(int argc, char *argv[], char *env[])
 	return (minishell_status);
 }
 
-
 /*
-t_env_pair	*create_env(char **env)
-{
-	t_env_pair	*envir;
-	char		**s;
-	int			i;
-
-	i = 0;
-	envir = malloc(sizeof(t_env_pair) * 1);
-	envir->value = malloc(sizeof(char *) * 4096);
-	while (env[i])
-	{
-		s = ft_split(env[i], '=');
-		envir->key[i] = s[0];
-		envir->value[i] = s[1];
-		i++;
-	}
-	return (envir);
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;

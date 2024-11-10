@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 # define MAX_TOKEN 4096
+# define MAX_HEREDOCS 128
 # define META_CHARACTERS "()<>&|;\n\t "
 # define META_CHARACTERS_NO_SPACE "()<>&|;\n\t"
 
@@ -44,6 +45,7 @@ typedef enum e_token
 	CMD, // 'ls'
 	F_NAME, // 'file.txt'
 	LIMITER, // << 'EOF'	
+	Q_LIMITER, // << "EOF"
 	SINGLE_QUOTE, // '
 	DOUBLE_QUOTE, // "
 	ENV_VAR, // $ABC
@@ -150,6 +152,7 @@ bool	lex_if_meta_chars(t_lexem *lexem, char *str);
 // Parser
 bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
+bool	read_heredocs(t_lexer *lex, char **hd_c);
 
 
 #endif

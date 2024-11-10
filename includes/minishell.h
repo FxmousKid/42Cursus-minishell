@@ -36,6 +36,11 @@
 # define SH_NAME_FANCY GREEN_TXT"ca"END_TXT"@"GREEN_TXT"sh 💵 "END_TXT
 # define PS1 SH_NAME_FANCY PURPLE_TXT"❯ "END_TXT
 
+# define PS2 PURPLE_TXT"❯ "END_TXT
+# define PS2_HDOC "heredoc"PS2
+# define PS2_SQ "squote"PS2
+# define PS2_DQ "dquote"PS2
+
 # define PATH_MAX 4096
 # define ENV_MAX 4096
 # define CMD_MAX 256

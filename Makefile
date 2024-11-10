@@ -6,8 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/27 16:07:57 by inazaria         ###   ########.fr        #
-#    Updated: 2024/10/21 19:17:22 by ptheo            ###   ########.fr        #
+#    Updated: 2024/11/10 20:40:09 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +22,22 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
-SRC_FILES_NAMES += parser.c
-SRC_FILES_NAMES += lexer.c
-SRC_FILES_NAMES += exec.c
 
+SRC_FILES_NAMES += lexer.c
+SRC_FILES_NAMES += lexer/fill_partial_quote.c
 SRC_FILES_NAMES += lexer/lex_utils.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
+SRC_FILES_NAMES += parser.c
 SRC_FILES_NAMES += parser/parse_errors.c
+SRC_FILES_NAMES += parser/heredocs_expansion.c
+
+SRC_FILES_NAMES += exec.c
+SRC_FILES_NAMES += exec/builtin.c
+SRC_FILES_NAMES += exec/process.c
+SRC_FILES_NAMES += exec/test.c
+SRC_FILES_NAMES += exec/signal.c
 
 SRC_FILES_NAMES += env/init_free_env.c
 SRC_FILES_NAMES += env/manipulate_env_entries.c
@@ -42,13 +48,6 @@ SRC_FILES_NAMES += utils/is_occ.c
 SRC_FILES_NAMES += utils/print_split.c
 SRC_FILES_NAMES += utils/quote_utils.c
 SRC_FILES_NAMES += utils/strcmp_ex.c
-
-
-
-SRC_FILES_NAMES += exec/builtin.c
-SRC_FILES_NAMES += exec/process.c
-SRC_FILES_NAMES += exec/test.c
-SRC_FILES_NAMES += exec/signal.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
