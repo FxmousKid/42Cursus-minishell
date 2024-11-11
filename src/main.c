@@ -11,9 +11,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
-#include <stdbool.h>
 
 void	init_readline()
 {
@@ -40,7 +38,6 @@ int	minishell(char *input, t_env *data_env)
 		return (0);
 	ft_bzero(&lex, sizeof(t_lexer));
 	lexer(&lex, input);
-	print_lexems(&lex);
 	ft_bzero(&data, sizeof(t_data));
 	data.env = data_env;
 	if (!parser(&data, &lex))
@@ -48,6 +45,7 @@ int	minishell(char *input, t_env *data_env)
 		free_lex(&lex);
 		return (debug(DBG("Failed to parser()")), 2);
 	}
+	print_lexems(&lex);
 
 	// if (!exec(data))
 	// {
@@ -80,23 +78,25 @@ int	launch_minishell(char *env[])
 		if (sh_st)
 		{
 			free_env(data_env);
-			free(data_env);
-			return (free(input), debug(DBG("Failed to minishell()")), sh_st);
+			return (debug(DBG("Failed to minishell()")), sh_st);
 		}
-		free(input);
 		input = read_command();
 	}
- 	return (free_env(data_env), free(data_env), 0);
+	printf("exit\n");
+ 	return (free_env(data_env), 0);
 }
 
+int g_signal_received = 0;
 
 int	main(int argc, char *argv[], char *env[])
 {
 	int	minishell_status;
 
+	(void) g_signal_received;
 	(void) argc;
 	(void) argv;
 	init_readline();
+	setup_signals();
 	minishell_status = launch_minishell(env);
 	return (minishell_status);
 }

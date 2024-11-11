@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/10 20:38:23 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:24:57 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,13 @@ void	lex_general(t_lexer *lex)
 
 bool	lexer(t_lexer *lex, char *str)
 {
-	if (!*str)
-		return (debug(DBG("Empty string")), false);
-	if (!split_cl(str, lex))
+ 	if (!*str)
+		return (debug(DBG("Null string")), false);
+	lex->input = str;
+	if (!split_cl(lex))
 		return (debug(DBG("Failed to split_cl()")), false);
-	// To potientially fill the (partially quoted) lexems
-	
-	// 
 	lex_general(lex);
 	lex_files_and_heredoc(lex);
 	lex_commands_after_pipe(lex);
-	print_split(lex->words);
 	return (true);
 }

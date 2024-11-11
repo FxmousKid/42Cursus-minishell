@@ -36,7 +36,7 @@
 # define SH_NAME_FANCY GREEN_TXT"ca"END_TXT"@"GREEN_TXT"sh 💵 "END_TXT
 # define PS1 SH_NAME_FANCY PURPLE_TXT"❯ "END_TXT
 
-# define PS2 PURPLE_TXT"❯ "END_TXT
+# define PS2 PURPLE_TXT"> "END_TXT
 # define PS2_HDOC "heredoc"PS2
 # define PS2_SQ "squote"PS2
 # define PS2_DQ "dquote"PS2
@@ -78,6 +78,7 @@ bool	is_occ_aux(char c, char *sep);
 void	print_split(char **split);
 int		count_words_mod(char *str, char *sep);
 int		strcmp_ex(const char *s1, const char *s2);
+void	fill_quotes_states(char *str, bool *dq_sq);
 
 // Environnement
 
@@ -133,5 +134,12 @@ int		and_process(t_data *data, t_ast *and);
 void	sig_handler(int signum);
 void	sigint_handler(int signum);
 void	sigpipe_handler(int signum);
+
+// Signals
+
+/* Restore the behavior of SIGINT and SIGQUIT in the Process that calls it */
+void	restore_signals(void);
+/* Sets up the signal handlers -- to launch in the beginning of main */
+void	setup_signals(void);
 
 #endif

@@ -60,9 +60,11 @@ typedef struct s_lexem
 
 typedef struct s_lexer
 {
+	char	*input;
 	char	*words[MAX_TOKEN];
 	t_lexem	lexems[MAX_TOKEN];
 	size_t	lexem_count;
+	bool	input_joined;
 }			t_lexer;
 
 typedef struct s_ast	t_ast;
@@ -140,7 +142,7 @@ typedef struct s_data t_data;
 
 // Lex Utils
 int		is_meta_char(char *str);
-bool	split_cl(char *str, t_lexer *lex);
+bool	split_cl(t_lexer *lex);
 void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
 void	print_lexems(t_lexer *lex);
@@ -152,7 +154,8 @@ bool	lex_if_meta_chars(t_lexem *lexem, char *str);
 // Parser
 bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
-bool	read_heredocs(t_lexer *lex, char **hd_c);
-
+bool	read_and_expand_heredocs(t_lexer *lex, char **hd_c);
+bool	prompt_for_partial_sq_dq(t_lexer *lex);
+bool	prompt_for_partial_pipe(t_lexer *lex);
 
 #endif

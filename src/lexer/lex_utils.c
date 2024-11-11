@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/10 20:21:47 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/11 02:41:55 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ void	free_lex(t_lexer *lex)
 	while (idx < lex->lexem_count)
 	{
 		free(lexems[idx].value);
-		lexems[idx++].value = NULL;
+		lexems[idx].value = NULL;
+		lexems[idx].is_meta = false;
+		lexems[idx++].token = ERROR;
 	}
+	lex->lexem_count = 0;
 	words = lex->words;
 	idx = 0;
 	while (words[idx])
@@ -40,6 +43,7 @@ void	free_lex(t_lexer *lex)
 		free(words[idx]);
 		words[idx++] = NULL;
 	}
+	free(lex->input);
 }
 
 static inline int	display_lexem_aux_2(t_token token)
@@ -87,12 +91,15 @@ void	print_lexems(t_lexer *lex)
 	printf("\n%s===Lexing Status %s", YELLOW_TXT, END_TXT);
 	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
-	while ((size_t) ++i < lex->lexem_count - 1)
+	while (++i < ((int) lex->lexem_count) - 1)
 	{
 		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
 		display_lexem_aux(lex->lexems[i].token);
 	}
-	printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
-	display_lexem_aux(lex->lexems[i].token);
+	if (lex->lexem_count)
+	{
+		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
+		display_lexem_aux(lex->lexems[i].token);
+	}
 	printf("%s===Lexing Status===%s\n\n", YELLOW_TXT, END_TXT);
 }

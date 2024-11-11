@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/10 20:40:09 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/11 01:58:21 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,17 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
+SRC_FILES_NAMES += signals.c
 
 SRC_FILES_NAMES += lexer.c
-SRC_FILES_NAMES += lexer/fill_partial_quote.c
 SRC_FILES_NAMES += lexer/lex_utils.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
 SRC_FILES_NAMES += parser.c
 SRC_FILES_NAMES += parser/parse_errors.c
+SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
+SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 
 SRC_FILES_NAMES += exec.c
