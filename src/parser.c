@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/11 02:54:28 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:45:20 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ bool	parser(t_data *data, t_lexer *lex)
 
 	ft_bzero(heredocs_content, sizeof(heredocs_content));
 	ft_bzero(tmp, sizeof(tmp));
-	if (!prompt_for_partials(data, lex))
-		return (debug(DBG("Failed to prompt_for_partials()")), false);
 	if (!search_parse_error(lex))
 		return (debug(DBG("Failed to search_parse_error()")), false);	
+	if (!prompt_for_partials(data, lex))
+		return (debug(DBG("Failed to prompt_for_partials()")), false);
 	if (!read_and_expand_heredocs(lex, heredocs_content))
 		return (debug(DBG("Failed to read_heredocs()")), false);
 	return (true);

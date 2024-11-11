@@ -6,12 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/11 02:45:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:03:36 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
 
 extern bool	is_escaped(char *str);
 extern void	quote_conditions(char c, bool *in_dq, bool *in_sq);

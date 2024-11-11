@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:54:47 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 16:13:22 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:47:14 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ int	count_words_mod(char *str, char *sep)
 			str++;
 		str++;
 	}
-	printf("wordcount = %d\n", wc);
 	return (wc);
 }
