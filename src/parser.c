@@ -6,7 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2024/11/11 15:45:20 by inazaria         ###   ########.fr       */
+=======
+/*   Updated: 2024/11/12 17:38:19 by inazaria         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +65,9 @@ bool	parser(t_data *data, t_lexer *lex)
 		return (debug(DBG("Failed to prompt_for_partials()")), false);
 	if (!read_and_expand_heredocs(lex, heredocs_content))
 		return (debug(DBG("Failed to read_heredocs()")), false);
+
+
+	print_split(data->env->paths);
+
 	return (true);
 }

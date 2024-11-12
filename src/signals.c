@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/10 23:20:43 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:42:42 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ static void	signal_handler(int signo)
 	g_signal_received = signo;
 	if (signo == SIGINT)
 	{
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
+		if (isatty(STDIN_FILENO))
+		{
+			ft_err("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			rl_redisplay();
+		}
 	}
 	else if (signo == SIGQUIT)
 		rl_redisplay();
