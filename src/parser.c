@@ -6,15 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-/*   Updated: 2024/11/11 15:45:20 by inazaria         ###   ########.fr       */
-=======
-/*   Updated: 2024/11/12 17:38:19 by inazaria         ###   ########.fr       */
->>>>>>> Stashed changes
-=======
-/*   Updated: 2024/11/12 16:16:43 by inazaria         ###   ########.fr       */
->>>>>>> restore-last-commit
+/*   Updated: 2024/11/12 18:04:14 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
