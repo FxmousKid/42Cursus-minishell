@@ -6,56 +6,62 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 16:20:13 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:20:46 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_parse_error(t_lexem lexem)
+void	print_parse_error(char *unexpected_token)
 {
 	printf(PARSE_ERROR);
-	printf("`%s'\n", lexem.value);
+	printf("`%s'\n", unexpected_token);
 }
 
-bool	verify_meta_char_parse(t_lexer *lex, int idx)
+bool	verify_meta_char_parse(t_lexer *lex, int idx, char *unexpected_token)
 {
 	if (idx == 0 && lex->lexems[idx].token != REDIR_IN)
 		return (debug(DBG("Forbidden meta char found")), false);
 	else if (idx == 0)
 		return (true);
-	if (lex->lexems[idx - 1].is_meta)
-		return (debug(DBG("Two meta chars in a row")), false);
 	if (lex->lexems[idx + 1].is_meta)
+	{
+		unexpected_token = lex->lexems[idx + 1].value;
 		return (debug(DBG("Two meta chars in a row")), false);
-	return (true);
+	}
+	return ((void) unexpected_token, true); 
 }
 
-bool	verify_pipe_parse(t_lexer *lex, int idx)
+bool	verify_pipe_parse(t_lexer *lex, int idx, char *unexpected_token)
 {
 	if (lex->lexems[idx].token != PIPE)
 		return (true);
 	if (idx == 0)
+	{
+		unexpected_token = lex->lexems[idx].value;
 		return (debug(DBG("Pipe not allowed in beginning")), false);
-	return (true); 
+	}
+	return ((void) unexpected_token, true); 
 }
 
 bool	search_parse_error(t_lexer *lex)
 {
 	int		i;
 	bool	parse_status;
+	char	*unexpected_tok;
 
 	i = -1;
 	parse_status = true;
+	unexpected_tok = NULL;
 	while ((size_t) ++i < lex->lexem_count)
 	{
 		if (lex->lexems[i].is_meta)
 		{
-			parse_status = verify_meta_char_parse(lex, i) && \
-			verify_pipe_parse(lex, i);
+			parse_status = verify_meta_char_parse(lex, i, unexpected_tok) && \
+			verify_pipe_parse(lex, i, unexpected_tok);
 		}
 		if (!parse_status)
-			return (print_parse_error(lex->lexems[i]), false);
+			return (print_parse_error(unexpected_tok), false);
 	}
 	return (parse_status);
 }
