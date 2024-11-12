@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2024/09/30 15:30:04 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:35:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,8 @@ void	debug(char *str)
 	(void) str;
 }
 #endif
+
+void	ft_err(char *str)
+{
+	ft_putstr_fd(str, STDERR_FILENO);
+}

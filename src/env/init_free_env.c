@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:45:09 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/10 22:31:17 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:40:20 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ static inline char	*join_value_strings(char **env_line)
 	while (*++env_line)
 		ft_strlcat(values, *env_line, ARG_MAX);	
 	return (ft_strdup(values));
+}
+
+void	fill_paths_env(t_env *env)
+{
+	char	*paths;
+	char	**array_paths;
+	int		idx;
+
+	idx = -1;
+	while (++idx < 128)
+		ft_bzero(env->paths[idx], sizeof(env->paths[idx]));
+	paths = access_env_value(env, "PATH");
+	if (!paths)
+		return ;
+	array_paths = ft_split(paths, ':');
+	idx = -1;
+	while (array_paths[++idx])
+	{
+		env->paths[idx] = ft_strdup(array_paths[idx]);
+		free(array_paths[idx]);
+	}
+	free(array_paths);
 }
 
 // *++env_line to ignore 1st elem (the key)
@@ -43,6 +65,7 @@ bool	init_env(t_env *data_env, char *env[])
 		i++;
 	}
 	data_env->env_len = i;
+	fill_paths_env(data_env);
 	return (true);
 }
 
@@ -57,6 +80,12 @@ void	free_env(t_env *env)
 	{
 		free(env->env_pairs[idx].key);
 		free(env->env_pairs[idx].value);
+		idx++;
+	}
+	idx = 0;
+	while (idx < 128 && env->paths[idx])
+	{
+		free(env->paths[idx]);
 		idx++;
 	}
 	free(env);

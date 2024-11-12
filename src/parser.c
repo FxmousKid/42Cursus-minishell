@@ -6,24 +6,19 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 /*   Updated: 2024/11/11 15:45:20 by inazaria         ###   ########.fr       */
 =======
 /*   Updated: 2024/11/12 17:38:19 by inazaria         ###   ########.fr       */
 >>>>>>> Stashed changes
+=======
+/*   Updated: 2024/11/12 16:16:43 by inazaria         ###   ########.fr       */
+>>>>>>> restore-last-commit
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* the Goal here is to analyze syntax.
- * 1) Check for definitive syntaxically unfixable tokens : "echo |||"
- *	  cash : parse error near `META_CHARACTER' 
- * 2) Fill partially filled single/double quotes, and pipes
- * 3) Read heredocs 
- * 4) Fill command structures
- * 
- * */
 
 static void	handle_partial_quote_or_pipe(t_lexer *lex)
 {
@@ -35,7 +30,7 @@ static void	handle_partial_quote_or_pipe(t_lexer *lex)
 	lexer(lex, ft_strdup(tmp));
 }
 
-bool	prompt_for_partials(t_data *data, t_lexer *lex)
+static bool	prompt_for_partials(t_data *data, t_lexer *lex)
 {
 	if (prompt_for_partial_sq_dq(lex))
 	{
@@ -50,6 +45,15 @@ bool	prompt_for_partials(t_data *data, t_lexer *lex)
 	return (true);
 }
 
+/* the Goal here is to analyze syntax.
+ * 1) Check for definitive syntaxically unfixable tokens : "echo |||"
+ *	  cash : parse error near `META_CHARACTER' 
+ * 2) Fill partially filled single/double quotes, and pipes
+ *	  "echo |", echo "aaa
+ * 3) Read heredocs
+ * 4) expand variables
+ * 5) Fill command structures
+ * */
 
 bool	parser(t_data *data, t_lexer *lex)
 {

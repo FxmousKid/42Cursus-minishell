@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/11 01:58:21 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/12 16:38:05 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ SRC_FILES_NAMES += exec.c
 SRC_FILES_NAMES += exec/builtin.c
 SRC_FILES_NAMES += exec/process.c
 SRC_FILES_NAMES += exec/test.c
-SRC_FILES_NAMES += exec/signal.c
 
 SRC_FILES_NAMES += env/init_free_env.c
 SRC_FILES_NAMES += env/manipulate_env_entries.c

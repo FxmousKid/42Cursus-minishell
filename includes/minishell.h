@@ -56,6 +56,7 @@ typedef struct s_env
 {
 	t_env_pair	env_pairs[ENV_MAX];
 	int			env_len;
+	char		*paths[128];
 }				t_env;
 
 typedef struct s_ast t_ast;
@@ -130,10 +131,6 @@ int		pipe_process(t_data *data, t_ast *pipe);
 int		or_process(t_data *data, t_ast *or);
 int		and_process(t_data *data, t_ast *and);
 
-/* signal */
-void	sig_handler(int signum);
-void	sigint_handler(int signum);
-void	sigpipe_handler(int signum);
 
 // Signals
 

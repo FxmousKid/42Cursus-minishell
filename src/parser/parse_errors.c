@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 16:29:58 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:20:13 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ bool	verify_meta_char_parse(t_lexer *lex, int idx)
 		return (debug(DBG("Two meta chars in a row")), false);
 	if (lex->lexems[idx + 1].is_meta)
 		return (debug(DBG("Two meta chars in a row")), false);
-
 	return (true);
 }
 
