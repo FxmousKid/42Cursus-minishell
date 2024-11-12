@@ -152,7 +152,7 @@ bool	lexer(t_lexer *lex, char *str);
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
 
 // Parser
-bool	parser(t_data *data, t_lexer *lex);
+int		parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
 bool	read_and_expand_heredocs(t_lexer *lex, char **hd_c);
 bool	prompt_for_partial_sq_dq(t_lexer *lex);

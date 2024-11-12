@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/12 16:38:05 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/12 22:50:20 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
-SRC_FILES_NAMES += signals.c
 
 SRC_FILES_NAMES += lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
@@ -45,10 +44,12 @@ SRC_FILES_NAMES += env/manipulate_env_entries.c
 SRC_FILES_NAMES += env/print_env.c
 
 SRC_FILES_NAMES += utils/prompt.c
-SRC_FILES_NAMES += utils/is_occ.c
-SRC_FILES_NAMES += utils/print_split.c
-SRC_FILES_NAMES += utils/quote_utils.c
-SRC_FILES_NAMES += utils/strcmp_ex.c
+SRC_FILES_NAMES += utils/signals.c
+SRC_FILES_NAMES += utils/readline_utils.c
+SRC_FILES_NAMES += utils/functions/is_occ.c
+SRC_FILES_NAMES += utils/functions/print_split.c
+SRC_FILES_NAMES += utils/functions/quote_utils.c
+SRC_FILES_NAMES += utils/functions/strcmp_ex.c
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))

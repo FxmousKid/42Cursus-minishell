@@ -6,12 +6,13 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 16:42:42 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:58:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
+#include <unistd.h>
 
 extern int g_signal_received;
 
@@ -34,9 +35,19 @@ static void	signal_handler(int signo)
 			rl_replace_line("", 0);
 			rl_redisplay();
 		}
+		else
+			ft_err("^C");
 	}
 	else if (signo == SIGQUIT)
-		rl_redisplay();
+	{
+		if (isatty(STDIN_FILENO))
+		{
+			printf("\n");
+			rl_on_new_line();
+			rl_redisplay();
+		}
+			
+	}
 }
 
 void	setup_signals(void)
