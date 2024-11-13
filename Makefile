@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/12 22:50:20 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/13 01:48:09 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,16 @@ SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 
-SRC_FILES_NAMES += exec.c
-SRC_FILES_NAMES += exec/builtin.c
-SRC_FILES_NAMES += exec/process.c
-SRC_FILES_NAMES += exec/test.c
+# SRC_FILES_NAMES += exec.c
+# SRC_FILES_NAMES += exec/builtin.c
+# SRC_FILES_NAMES += exec/process.c
+# SRC_FILES_NAMES += exec/test.c
 
 SRC_FILES_NAMES += env/init_free_env.c
 SRC_FILES_NAMES += env/manipulate_env_entries.c
 SRC_FILES_NAMES += env/print_env.c
 
+SRC_FILES_NAMES += utils/prepare_t_data.c
 SRC_FILES_NAMES += utils/prompt.c
 SRC_FILES_NAMES += utils/signals.c
 SRC_FILES_NAMES += utils/readline_utils.c
@@ -107,12 +108,25 @@ $(NAME) : $(OBJ_FILES)
 all : $(NAME) 
 
 debug : $(OBJ_FILES)
+	CFLAGS -= -Werror -Wextra Werror
 	@$(ECHO) "$(RED)[DBG] Making in DEBUG MODE...$(NC)"
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
 	@$(ECHO) "$(BROWN)[BLD] Building executable...$(NC)"
 	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
+
+force : $(OBJ_FILES)
+	@$(ECHO) "$(RED)[DBG] Making in FORCED mode...$(NC)"
+	@$(ECHO) "$(BROWN)[BLD] Building libft static library...$(NC)"
+	@$(MAKE) --no-print-directory -s -C ./libft all
+	@$(ECHO) "$(GREEN)[BLD] successfully built libft.$(NC)"	
+	@$(ECHO) "$(BROWN)[BLD] Building $(NAME) executable...$(NC)"
+	@$(MKDIR) ./build/error_manager/
+	@$(CC) $(CFLAGS) -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
+	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
+	@$(ECHO) "$(GREEN)[BLD] Executable built in FORCED mode successfully.$(NC)"
+
 
 clean : 
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object and dependency files...$(NC)"

@@ -11,54 +11,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
-
-void	init_readline()
-{
- 	// rl_bind_key('\t', rl_insert);
-	rl_bind_key('!', rl_insert);
-	using_history();
-}
-
-char	*read_command(void)
-{
-	printf("\n");
-	print_formatted_cwd();
-	return (readline(PS1));
-}
 
 // Every return code starting from here and down, will signify a exit code
 
-int	minishell(char *input, t_env *data_env)
+int	minishell(char *readline_input, t_env *data_env)
 {
-	t_lexer	lex;
-	t_data	data;
+	static t_data	data = {0};
 
-	if (*input == '\0')
-		return (0);
-	ft_bzero(&lex, sizeof(t_lexer));
-	lexer(&lex, input);
-	ft_bzero(&data, sizeof(t_data));
+	if (!readline_input || !*readline_input)
+		return (debug(DBG("Received null in readline")), 0);
+	free_and_init_data(&data, NULL);
+	lexer(&data.lex, readline_input);
 	data.env = data_env;
-	if (!parser(&data, &lex))
+	if (!parser(&data, &data.lex))
 	{
-		free_lex(&lex);
-		return (debug(DBG("Failed to parser()")), 2);
+		free_and_init_data(&data, readline_input);
+		data.exit_code = 2;
+		return (debug(DBG("Failed to parse")), 0);
 	}
-	print_lexems(&lex);
-
-	// if (!exec(data))
-	// {
-	//		free(...)
-	//		...
-	//		return (data->exit_code);
-	// }	
-
-	free_lex(&lex);
-	//free_ast(&data->ast);
-	//free_data(&data);
-	//close_data(&data);
-	
+	print_lexems(&data.lex);
+	free_and_init_data(&data, readline_input);
 	return (0);
 }
 
@@ -66,7 +40,6 @@ int	launch_minishell(char *env[])
 {
 	t_env	*data_env;
 	char	*input;
-	int		sh_st;
 
 	data_env = ft_calloc(sizeof(t_env), 1);
 	init_env(data_env, env);
@@ -74,12 +47,7 @@ int	launch_minishell(char *env[])
 	while (input)
 	{
 		add_history(input);
-		sh_st = minishell(input, data_env);
-		if (sh_st)
-		{
-			free_env(data_env);
-			return (debug(DBG("Failed to minishell()")), sh_st);
-		}
+		minishell(input, data_env);
 		input = read_command();
 	}
 	printf("exit\n");

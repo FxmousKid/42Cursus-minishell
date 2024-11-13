@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/11 16:03:36 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:36:08 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "macros.h"
 #include "minishell.h"
 
 extern bool	is_escaped(char *str);
@@ -91,7 +92,6 @@ bool	prompt_for_partial_sq_dq(t_lexer *lex)
 	bool	dq_sq[2];
 	char	partial_fill[4096];
 	char	*line;
-	char	*tmp;
 
 	ft_bzero(partial_fill, 4096);
 	fill_quotes_states(lex->input, dq_sq);
@@ -99,15 +99,6 @@ bool	prompt_for_partial_sq_dq(t_lexer *lex)
 	p_fill_quote(line, partial_fill, dq_sq, lex);
 	if (!dq_sq[0] && !dq_sq[1])
 		return (false);
-	if (lex->input_joined)
-	{
-		tmp = ft_strdup(lex->input);
-		free(lex->input);
-		lex->input = ft_strjoin(tmp, partial_fill);;
-		free(tmp);
-	}
-	else
-		lex->input = ft_strjoin(lex->input, partial_fill);
-	lex->input_joined = true;
+	ft_strlcat(lex->input, partial_fill, PATH_MAX);
 	return (true);
 }

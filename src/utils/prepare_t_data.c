@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_split.c                                      :+:      :+:    :+:   */
+/*   prepare_t_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 15:57:58 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 02:31:48 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/13 01:22:50 by inazaria          #+#    #+#             */
+/*   Updated: 2024/11/13 11:45:32 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_split(char **split, char *name)
+void	free_data(t_data *data, char *readline_input)
 {
-	int		idx;
+	free(readline_input);
+	free_lex(&data->lex);	
+}
 
-	printf("%s%s%s : [", GREEN_TXT, name, END_TXT);
-	idx = 0;
-	while (split[idx + 1])
-	{
-		printf("%s%s%s, ", YELLOW_TXT, split[idx], END_TXT);
-		idx++;
-	}
-	printf("%s%s%s]\n", YELLOW_TXT, split[idx], END_TXT);
+void	init_t_data(t_data *data)
+{
+	data->env = NULL;
+	ft_bzero(&data->lex, sizeof(t_lexer));
+}
+
+void	free_and_init_data(t_data *data, char *readline_input)
+{
+	free_data(data,	readline_input);
+	init_t_data(data);
 }
