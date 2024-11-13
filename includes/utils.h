@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:35:33 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 02:31:38 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:39:58 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void	fill_quotes_states(char *str, bool *dq_sq);
 void	print_formatted_cwd(void);
 /* prints the multi line ca@sh logo */ 
 void	print_start_text(void);
+/* appends the passed char * with the ~ based cwd, assumes char * is at least
+ * sizeof(PATH_MAX) */
+bool	append_cwd_in_arr(char *cwd);
 
 
 

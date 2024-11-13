@@ -11,6 +11,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "macros.h"
 #include "minishell.h"
 
 void	print_start_text(void)
@@ -34,16 +35,32 @@ void	print_start_text(void)
 	printf("%s%s%s", START_TEXT63, START_TEXT64, START_TEXT65);
 }
 
-static int	reduce_home_into_tilde(char *cwd, char *new_cwd)
+
+/* shortens the /home/user/... cwd with a tilde  ~/... 
+ * if /home/user not found, copies the passed cwd as is */
+static void	reduce_home_into_tilde(char *cwd, char *new_cwd)
 {
 	int	len_home;
 
 	if (strncmp(cwd, "/home/", 6))
-		return (0);
+	{
+		ft_strlcpy(new_cwd, cwd, PATH_MAX);
+		return ;
+	}
 	len_home = ft_strlen_till_char(cwd + 6, '/');
 	new_cwd[0] = '~';
 	ft_strlcpy(new_cwd + 1, cwd + 6 + len_home, PATH_MAX);
-	return (1);
+}
+
+bool	append_cwd_in_arr(char *cwd)
+{
+	char	unshortemed_cwd[PATH_MAX];
+	
+	ft_bzero(unshortemed_cwd, sizeof(char) * PATH_MAX);
+	if (!getcwd(unshortemed_cwd, PATH_MAX))
+		return (debug(DBG("Failed to getcwd")), false);
+	reduce_home_into_tilde(unshortemed_cwd, cwd + ft_strlen(cwd));
+	return (true);
 }
 
 void	print_formatted_cwd(void)
@@ -54,8 +71,6 @@ void	print_formatted_cwd(void)
 	ft_bzero(cwd, PATH_MAX * sizeof(char));
 	if (!getcwd(cwd, PATH_MAX))
 		debug(DBG("get the current path"));
-	if (!reduce_home_into_tilde(cwd, tilde_cwd))
-		printf("%s%s%s%s", BLUE_TXT, cwd, "\n", END_TXT);
-	else
-		printf("%s%s%s%s", BLUE_TXT, tilde_cwd, "\n", END_TXT);
+	reduce_home_into_tilde(cwd, tilde_cwd);
+	printf("%s%s%s%s", BLUE_TXT, tilde_cwd, "\n", END_TXT);
 }

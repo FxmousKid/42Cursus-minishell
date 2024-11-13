@@ -6,11 +6,12 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 21:58:47 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:14:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
 #include <signal.h>
 #include <unistd.h>
 
@@ -24,19 +25,20 @@ void	restore_signals(void)
 
 static void	signal_handler(int signo)
 {
-	
 	g_signal_received = signo;
 	if (signo == SIGINT)
 	{
 		if (isatty(STDIN_FILENO))
 		{
-			ft_err("\n");
-			rl_on_new_line();
 			rl_replace_line("", 0);
+			rl_on_new_line();
+			ft_err("\n");
+			ft_err("\n");
+			print_formatted_cwd();		
 			rl_redisplay();
 		}
 		else
-			ft_err("^C");
+			ft_err("^Caaaa");
 	}
 	else if (signo == SIGQUIT)
 	{

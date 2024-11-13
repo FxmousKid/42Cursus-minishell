@@ -55,11 +55,13 @@ int	launch_minishell(char *env[])
 }
 
 int g_signal_received = 0;
+extern int rl_catch_signals;
 
 int	main(int argc, char *argv[], char *env[])
 {
 	int	minishell_status;
 
+	rl_catch_signals = 0;
 	(void) g_signal_received;
 	(void) argc;
 	(void) argv;

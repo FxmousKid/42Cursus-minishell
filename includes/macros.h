@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 00:53:25 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 12:12:45 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@
 # define ENV_MAX 4096
 # define CMD_MAX 256
 # define ARG_MAX 4096
+# define PROMPT_MAX 4096 + sizeof(PS1)
 
 #endif
