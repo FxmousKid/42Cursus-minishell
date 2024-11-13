@@ -21,24 +21,28 @@
 # include "env.h"
 # include "utils.h"
 
-typedef struct s_ast t_ast;
-typedef struct s_env t_env;
-
 typedef struct s_data
 {
 	t_env		*env;
+	t_lexer		lex;
 	t_ast		*ast;
-	int			pipe[2];
-	int			cmd_count;
-	int			*tab_fd;
-	int			fd[2];
-	char		**envir;
-	char		**path_arg;
+	int			exit_code;
 }				t_data;
 
 
+// Free functions
 
-
+/* Free allocated contents of stack-allocated data. Takes also the
+ * string malloced by readline to free it, if you dont want that, just 
+ * pass NULL as readline_input*/
+void	free_data(t_data *data, char *readline_input);
+/* bzero's the content of the passed *t_data */
+void	init_t_data(t_data *data);
+/* Frees the content of the passed stack-allocated *data, and 
+ * bzero's it to use it again, since it's stack-allocated 
+ * Takes also the string malloced by readline to free it, if you 
+ * dont want that, just pass NULL as readline_input */
+void	free_and_init_data(t_data *data, char *readline_input);
 
 
 // Built in functions

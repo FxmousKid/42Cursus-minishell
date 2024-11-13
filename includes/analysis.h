@@ -13,7 +13,7 @@
 #ifndef ANALYSIS_H
 # define ANALYSIS_H
 
-# include "minishell.h"
+# include "dependencies.h"
 
 # define MAX_TOKEN 4096
 # define MAX_HEREDOCS 128
@@ -44,7 +44,7 @@ typedef enum e_token
 	SQ_WORD, // 'hello'
 	CMD, // 'ls'
 	F_NAME, // 'file.txt'
-	LIMITER, // << 'EOF'	
+	LIMITER, // << 'EOF'
 	Q_LIMITER, // << "EOF"
 	SINGLE_QUOTE, // '
 	DOUBLE_QUOTE, // "
@@ -60,11 +60,10 @@ typedef struct s_lexem
 
 typedef struct s_lexer
 {
-	char	*input;
+	char	input[MAX_TOKEN];
 	char	*words[MAX_TOKEN];
 	t_lexem	lexems[MAX_TOKEN];
 	size_t	lexem_count;
-	bool	input_joined;
 }			t_lexer;
 
 typedef struct s_ast	t_ast;

@@ -6,14 +6,12 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 22:34:26 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:53:25 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
-
-# include "minishell.h"
 
 # define RED_TXT		"\e[0;31m"
 # define GREEN_TXT		"\e[0;32m"

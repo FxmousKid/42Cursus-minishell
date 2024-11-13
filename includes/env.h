@@ -6,14 +6,15 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:04:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 22:34:20 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 00:53:32 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-# include "minishell.h"
+# include "dependencies.h"
+# include "macros.h"
 
 typedef struct s_env_pair
 {
