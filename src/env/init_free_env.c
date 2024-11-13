@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:45:09 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/12 17:40:20 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 01:49:04 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	free_env(t_env *env)
 {
 	int	idx;
 
+	if (!env)
+		return ;
 	idx = 0;
 	while (idx < env->env_len)
 	{

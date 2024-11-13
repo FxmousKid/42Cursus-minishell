@@ -6,12 +6,14 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/11 02:41:55 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:32:59 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
+#include "macros.h"
 #include "minishell.h"
+#include "utils.h"
 
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta)
 {
@@ -26,15 +28,12 @@ void	free_lex(t_lexer *lex)
 	char	**words;
 	t_lexem	*lexems;
 
+	if (!lex)
+		return ;
 	lexems = lex->lexems;
 	idx = 0;
 	while (idx < lex->lexem_count)
-	{
-		free(lexems[idx].value);
-		lexems[idx].value = NULL;
-		lexems[idx].is_meta = false;
-		lexems[idx++].token = ERROR;
-	}
+		free(lexems[idx++].value);
 	lex->lexem_count = 0;
 	words = lex->words;
 	idx = 0;
@@ -43,7 +42,6 @@ void	free_lex(t_lexer *lex)
 		free(words[idx]);
 		words[idx++] = NULL;
 	}
-	free(lex->input);
 }
 
 static inline int	display_lexem_aux_2(t_token token)
@@ -88,7 +86,11 @@ void	print_lexems(t_lexer *lex)
 {
 	int	i;
 
-	printf("\n%s===Lexing Status %s", YELLOW_TXT, END_TXT);
+	printf("\n");
+	printf("%sinput%s : [%s%s%s]\n", GREEN_TXT, END_TXT, YELLOW_TXT, \
+		lex->input, END_TXT);
+	print_split(lex->words, "Words");
+	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
 	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
 	while (++i < ((int) lex->lexem_count) - 1)
