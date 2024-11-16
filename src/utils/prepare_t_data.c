@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 01:22:50 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:45:32 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:44:12 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,10 @@ void	free_and_init_data(t_data *data, char *readline_input)
 {
 	free_data(data,	readline_input);
 	init_t_data(data);
+}
+
+void	free_data_w_env(t_data *data, char *readline_input)
+{
+	free_data(data, readline_input);
+	free_env(data->env);
 }

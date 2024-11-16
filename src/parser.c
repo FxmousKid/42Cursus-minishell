@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:38:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 02:15:16 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ static void	handle_partial_prompt(t_lexer *lex)
 
 	ft_bzero(tmp, sizeof(tmp));
 	ft_strlcpy(tmp, lex->input, PATH_MAX);
-	
-	int c = lex->lexem_count;
-	lex->lexem_count = c + 1;
-	print_lexems(lex);
-	lex->lexem_count = c;
-
 	free_lex(lex);
 	ft_bzero(lex, sizeof(t_lexer));
 
@@ -54,14 +48,16 @@ static bool	prompt_for_partials(t_data *data, t_lexer *lex)
  * e.g. 2 for syntax error.
  * */
 
-int	parser(t_data *data, t_lexer *lex)
+bool	parser(t_data *data, t_lexer *lex)
 {
-	(void)	data;
 	char	*heredocs_content[MAX_HEREDOCS];
 
 	ft_bzero(heredocs_content, sizeof(heredocs_content));
 	if (!search_parse_error(lex))
-		return (debug(DBG("Failed to search_parse_error()")), 2);	
+	{
+		data->exit_code = 2;
+		return (debug(DBG("Failed to search_parse_error()")), false);	
+	}
 	if (!prompt_for_partials(data, lex))
 		return (debug(DBG("Failed to prompt_for_partials()")), false);
 	if (!read_and_expand_heredocs(lex, heredocs_content))

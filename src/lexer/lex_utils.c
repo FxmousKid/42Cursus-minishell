@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:32:59 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:13:23 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void	print_lexems(t_lexer *lex)
 	int	i;
 
 	printf("\n");
+	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
+	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	printf("%sinput%s : [%s%s%s]\n", GREEN_TXT, END_TXT, YELLOW_TXT, \
 		lex->input, END_TXT);
 	print_split(lex->words, "Words");
-	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
-	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
 	while (++i < ((int) lex->lexem_count) - 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:38:08 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 02:07:13 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void	lex_general(t_lexer *lex)
 	}
 }
 
-bool	lexer(t_lexer *lex, char *str)
+bool	lexer(t_lexer *lex, char *input)
 {
- 	if (!*str)
+ 	if (!*input)
 		return (debug(DBG("Null string")), false);
-	ft_strlcpy(lex->input, str, sizeof(lex->input));
+	ft_strlcpy(lex->input, input, sizeof(lex->input));
 	if (!split_cl(lex))
 		return (debug(DBG("Failed to split_cl()")), false);
 	lex_general(lex);

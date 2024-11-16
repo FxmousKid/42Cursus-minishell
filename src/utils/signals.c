@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 13:14:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:38:05 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	signal_handler(int signo)
 			rl_redisplay();
 		}
 		else
-			ft_err("^Caaaa");
+			ft_err("^C");
 	}
 	else if (signo == SIGQUIT)
 	{

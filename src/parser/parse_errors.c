@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 00:20:46 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 02:30:53 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	verify_meta_char_parse(t_lexer *lex, int idx, char *unexpected_token)
 		return (true);
 	if (lex->lexems[idx + 1].is_meta)
 	{
-		unexpected_token = lex->lexems[idx + 1].value;
+		unexpected_token = lex->lexems[idx].value;
 		return (debug(DBG("Two meta chars in a row")), false);
 	}
 	return ((void) unexpected_token, true); 
@@ -43,6 +43,9 @@ bool	verify_pipe_parse(t_lexer *lex, int idx, char *unexpected_token)
 	}
 	return ((void) unexpected_token, true); 
 }
+
+/* parse_status = cond1 && cond2 && ... because it will check for all 
+ * parse error checks until it finds one */
 
 bool	search_parse_error(t_lexer *lex)
 {

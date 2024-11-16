@@ -147,11 +147,11 @@ void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
 void	print_lexems(t_lexer *lex);
 
 // Lexer
-bool	lexer(t_lexer *lex, char *str);
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
+bool	lexer(t_lexer *lex, char *input);
 
 // Parser
-int		parser(t_data *data, t_lexer *lex);
+bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
 bool	read_and_expand_heredocs(t_lexer *lex, char **hd_c);
 bool	prompt_for_partial_sq_dq(t_lexer *lex);

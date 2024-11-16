@@ -28,9 +28,13 @@ int	minishell(char *readline_input, t_env *data_env)
 	if (!parser(&data, &data.lex))
 	{
 		free_and_init_data(&data, readline_input);
-		data.exit_code = 2;
 		return (debug(DBG("Failed to parse")), 0);
 	}
+	// if (!execute(&data))
+	// {
+	// 	free_and_init_data(&data, readline_input);
+	// 	return (debug(DBG("Failed to execute")), 0);
+	// }
 	print_lexems(&data.lex);
 	free_and_init_data(&data, readline_input);
 	return (0);
@@ -40,15 +44,18 @@ int	launch_minishell(char *env[])
 {
 	t_env	*data_env;
 	char	*input;
+	int		status;
 
 	data_env = ft_calloc(sizeof(t_env), 1);
 	init_env(data_env, env);
-	input = read_command();
+	input = read_command(NULL);
 	while (input)
 	{
 		add_history(input);
-		minishell(input, data_env);
-		input = read_command();
+		status = minishell(input, data_env);
+		if (status)
+			break ;
+		input = read_command(NULL);
 	}
 	printf("exit\n");
  	return (free_env(data_env), 0);

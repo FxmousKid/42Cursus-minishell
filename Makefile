@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/13 01:48:09 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/16 02:15:07 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,6 @@ $(NAME) : $(OBJ_FILES)
 all : $(NAME) 
 
 debug : $(OBJ_FILES)
-	CFLAGS -= -Werror -Wextra Werror
 	@$(ECHO) "$(RED)[DBG] Making in DEBUG MODE...$(NC)"
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
