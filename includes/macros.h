@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 12:12:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:41:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@
 # define REVERSE_TXT	"\e[7m"
 # define HIDDEN_TXT		"\e[8m"
 # define END_TXT		"\e[0m"
+
+# define BOLD_RED_TXT		"\e[1;31m"
+# define BOLD_GREEN_TXT		"\e[1;32m"
+# define BOLD_YELLOW_TXT	"\e[1;33m"
+# define BOLD_BLUE_TXT		"\e[1;34m"
+# define BOLD_PURPLE_TXT	"\e[1;35m"
+# define BOLD_CYAN_TXT		"\e[1;36m"
+# define BOLD_GREY_TXT		"\e[1;37m"
+# define BOLD_WHITE_TXT		"\e[1;39m"
 
 # define SH_NAME "cash"
 # define SH_NAME_FANCY GREEN_TXT"ca"END_TXT"@"GREEN_TXT"sh 💵 "END_TXT

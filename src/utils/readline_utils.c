@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:03:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/16 02:46:12 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:42:32 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,31 @@ void	init_readline()
 
 static inline void add_exit_code_to_prompt(char *arr, int code)
 {
-	*arr = ' ';
-	arr++;
+	ft_strlcat(arr, BOLD_PURPLE_TXT, PATH_MAX);
+	arr += ft_strlen(BOLD_PURPLE_TXT);
+	*arr++ = '(';
 	if (code < 10)
 	{
-		*arr = '0' + code;
-		return ;
+		*arr++ = '0' + code;
 	}
-	if (code < 100)
+	else if (code < 100)
 	{
 		*arr++ = code / 10;
-		*arr = code % 10;
-		return ;
+		*arr++ = code % 10;
 	}
-	if (code <= 127)
+	else if (code <= 127)
 	{
 		*arr++ = 1;
 		code -= 100;
 		*arr++ = code / 10;
-		*arr = code % 10;
+		*arr++ = code % 10;
 	}
+	*arr++ = ')';
+	*arr = ' ';
+	ft_strlcat(arr, END_TXT, PATH_MAX);
 }
 
-static void	copy_ps_one_in_array(char *arr, t_data *data)
+static void	copy_ps_one_in_array(char *arr, int exit_code)
 {
 	ft_strlcat(arr, "\n", PATH_MAX);
 	ft_strlcat(arr, BLUE_TXT, PATH_MAX);
@@ -60,21 +62,19 @@ static void	copy_ps_one_in_array(char *arr, t_data *data)
 	ft_strlcat(arr, END_TXT, PATH_MAX);
 	ft_strlcat(arr, "\n", PATH_MAX);
 	ft_strlcat(arr, PS1, PATH_MAX);
-	if (data && data->exit_code)
-		add_exit_code_to_prompt(arr + ft_strlen(arr), data->exit_code);
-	if (data)
-		printf("\nexit code = %d\n", data->exit_code);
+	if (exit_code)
+		add_exit_code_to_prompt(arr + ft_strlen(arr), exit_code);
 }
 
 /* prompts the user for the command, uses readline for entire prompt
  * displaying, return the readline allocated char * .
  * Takes the t_data main DS for non-zero exit code display */
 
-char	*read_command(t_data *data)
+char	*read_command(int exit_code)
 {
 	char	prompt_arr[PROMPT_MAX];
 
 	ft_bzero(prompt_arr, sizeof(char) * PROMPT_MAX);
-	copy_ps_one_in_array(prompt_arr, data);
+	copy_ps_one_in_array(prompt_arr, exit_code);
 	return (readline(prompt_arr));
 }

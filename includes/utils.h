@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:35:33 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/16 02:34:27 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:19:53 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	append_cwd_in_arr(char *cwd);
 /* Initializes some readline parameters, e.g. history, binds, etc...*/
 void	init_readline();
 /* prinpts the prompt, and returns the user input, uses readline() */
-char	*read_command(t_data *data);
+char	*read_command(int exit_code);
 
 // Signals
 

@@ -16,7 +16,7 @@
 
 // Every return code starting from here and down, will signify a exit code
 
-int	minishell(char *readline_input, t_env *data_env)
+int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 {
 	static t_data	data = {0};
 
@@ -28,6 +28,7 @@ int	minishell(char *readline_input, t_env *data_env)
 	if (!parser(&data, &data.lex))
 	{
 		free_and_init_data(&data, readline_input);
+		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parse")), 0);
 	}
 	// if (!execute(&data))
@@ -45,17 +46,19 @@ int	launch_minishell(char *env[])
 	t_env	*data_env;
 	char	*input;
 	int		status;
+	int		exit_code_display;
 
 	data_env = ft_calloc(sizeof(t_env), 1);
 	init_env(data_env, env);
-	input = read_command(NULL);
+	input = read_command(0);
 	while (input)
 	{
+		exit_code_display = 0;
 		add_history(input);
-		status = minishell(input, data_env);
+		status = minishell(input, data_env, &exit_code_display);
 		if (status)
 			break ;
-		input = read_command(NULL);
+		input = read_command(exit_code_display);
 	}
 	printf("exit\n");
  	return (free_env(data_env), 0);
@@ -69,7 +72,6 @@ int	main(int argc, char *argv[], char *env[])
 	int	minishell_status;
 
 	rl_catch_signals = 0;
-	(void) g_signal_received;
 	(void) argc;
 	(void) argv;
 	init_readline();
