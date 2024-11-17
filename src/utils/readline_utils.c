@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:03:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/16 03:42:32 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 02:04:53 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_readline()
 
 static inline void add_exit_code_to_prompt(char *arr, int code)
 {
-	ft_strlcat(arr, BOLD_PURPLE_TXT, PATH_MAX);
-	arr += ft_strlen(BOLD_PURPLE_TXT);
+	ft_strlcat(arr, BOLD_RED_TXT, PATH_MAX);
+	arr += ft_strlen(BOLD_RED_TXT);
 	*arr++ = '(';
 	if (code < 10)
 	{

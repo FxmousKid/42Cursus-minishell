@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_for_partial_pipe.c                          :+:      :+:    :+:   */
+/*   strptr_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 00:07:09 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 01:37:53 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/17 17:14:58 by inazaria          #+#    #+#             */
+/*   Updated: 2024/11/17 17:16:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdio.h>
 
-char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read);
-
-bool	prompt_for_partial_pipe(t_lexer *lex)
+size_t	strptr_len(char **tab, size_t size)
 {
-	char	*line;
+	size_t	len;
 
-	if (lex->lexems[lex->lexem_count - 1].token == PIPE)
-	{
-		line = readline_fancy_ps_two(lex, PS2, true);	 
-		ft_strlcat(lex->input, line, PATH_MAX);
-		free(line);
-		return (true);
-	}
-	return (false);
+	len = 0;
+	while (tab[len] && len < size)
+		len++;
+	return (len);
 }

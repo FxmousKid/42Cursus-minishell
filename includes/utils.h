@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:35:33 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/16 03:19:53 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:17:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	print_split(char **split, char *name);
 int		count_words_mod(char *str, char *sep);
 int		strcmp_ex(const char *s1, const char *s2);
 void	fill_quotes_states(char *str, bool *dq_sq);
+
+/* returns the number of contiguous non-null char * in tab, 
+ * as long len <= size */
+size_t	strptr_len(char **tab, size_t size);
+
+/* free the non-null sub arrays and the passed array of arrays */
+void	free_split(char **split);
+/* only frees the non-null sub arrays */
+void	free_sub_split_only(char **split);
 
 // forward declaration
 typedef struct s_data t_data;

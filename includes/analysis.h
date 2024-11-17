@@ -139,8 +139,17 @@ bool	split_cl(t_lexer *lex);
 void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
 void	print_lexems(t_lexer *lex);
-/* Check the passed lexer structure has a certain token */
-bool	has_token(t_lexer *lex, t_token token);
+/* Check the passed lexer structure has a certain token
+ * takes the lexems array to enable offset checks */
+bool	has_token(t_lexem *lexems, t_token token);
+/* checks if the lexems contain n lexems whose token are the same
+ * as the passed token argument */
+bool	has_n_token(t_lexer *lex, t_token token, size_t n);
+
+/* swap all field values of both lexems at index i and j */
+void	swap_lexems(t_lexer *lex, size_t i, size_t j);
+/* offsets all the lexems on the i-th index, leaving the i-th lexems blank */
+void	offset_lexems_right(t_lexer *lex, size_t i);
 
 // Lexer
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
@@ -151,6 +160,6 @@ bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
 bool	prompt_for_partial_sq_dq(t_lexer *lex);
 bool	prompt_for_partial_pipe(t_lexer *lex);
-bool	prompt_for_heredoc(t_lexer *lex);
+bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq);
 
 #endif

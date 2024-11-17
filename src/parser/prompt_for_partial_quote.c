@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:36:08 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 02:07:44 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_quotes_states(char *str, bool *dq_sq)
 	}
 }
 
-char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two)
+char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read)
 {
 	int		pipe_count;
 	int		idx;
@@ -54,7 +54,9 @@ char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two)
 		&& !strcmp_ex(ps_two, PS2))
 		ps_two_fancy[ft_strlen(ps_two_fancy) - 1] = '\0';
 	ft_strlcat(ps_two_fancy, ps_two, 128);
-	return (readline(ps_two_fancy));
+	if (to_read)
+		return (readline(ps_two_fancy));
+	return (ft_strdup(ps_two_fancy));
 }
 
 void	p_fill_quote(char *line, char *partial_fill, bool dq_sq[2], t_lexer *lex)
@@ -62,25 +64,25 @@ void	p_fill_quote(char *line, char *partial_fill, bool dq_sq[2], t_lexer *lex)
 	strlcat(partial_fill, "\n", 4096);
 	if (dq_sq[0])
 	{
-		line = readline_fancy_ps_two(lex, PS2_DQ);
+		line = readline_fancy_ps_two(lex, PS2_DQ, true);
 		strlcat(partial_fill, line, 4096);
 		while (!is_occ_aux('"', line))
 		{
 			strlcat(partial_fill, "\n", 4096);
 			free(line);
-			line = readline_fancy_ps_two(lex, PS2_DQ);
+			line = readline_fancy_ps_two(lex, PS2_DQ, true);
 			strlcat(partial_fill, line, 4096);
 		}
 	}
 	else if (dq_sq[1])
 	{
-		line = readline_fancy_ps_two(lex, PS2_SQ);
+		line = readline_fancy_ps_two(lex, PS2_SQ, true);
 		strlcat(partial_fill, line, 4096);
 		while (!is_occ_aux('\'', line))
 		{
 			strlcat(partial_fill, "\n", 4096);
 			free(line);
-			line = readline_fancy_ps_two(lex, PS2_SQ);
+			line = readline_fancy_ps_two(lex, PS2_SQ, true);
 			strlcat(partial_fill, line, 4096);
 		}
 	}

@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/17 01:38:59 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/17 17:14:52 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ SRC_FILES_NAMES += utils/functions/is_occ.c
 SRC_FILES_NAMES += utils/functions/print_split.c
 SRC_FILES_NAMES += utils/functions/quote_utils.c
 SRC_FILES_NAMES += utils/functions/strcmp_ex.c
+SRC_FILES_NAMES += utils/functions/free_split.c
+SRC_FILES_NAMES += utils/functions/strptr_len.c
+
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
