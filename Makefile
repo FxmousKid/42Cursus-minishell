@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/16 02:15:07 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/17 01:38:59 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_FILES_NAMES = main.c
 
 SRC_FILES_NAMES += lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
+SRC_FILES_NAMES += lexer/lex_utils_2.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 

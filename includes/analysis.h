@@ -14,13 +14,7 @@
 # define ANALYSIS_H
 
 # include "dependencies.h"
-
-# define MAX_TOKEN 4096
-# define MAX_HEREDOCS 128
-# define META_CHARACTERS "()<>&|;\n\t "
-# define META_CHARACTERS_NO_SPACE "()<>&|;\n\t"
-
-# define PARSE_ERROR SH_NAME": syntax error near unexpected token "
+# include "macros.h"
 
 /* Error as the 1st token is important because it will be the default one 
  * on initialization */
@@ -145,6 +139,8 @@ bool	split_cl(t_lexer *lex);
 void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
 void	print_lexems(t_lexer *lex);
+/* Check the passed lexer structure has a certain token */
+bool	has_token(t_lexer *lex, t_token token);
 
 // Lexer
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);
@@ -153,8 +149,8 @@ bool	lexer(t_lexer *lex, char *input);
 // Parser
 bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
-bool	read_and_expand_heredocs(t_lexer *lex, char **hd_c);
 bool	prompt_for_partial_sq_dq(t_lexer *lex);
 bool	prompt_for_partial_pipe(t_lexer *lex);
+bool	prompt_for_heredoc(t_lexer *lex);
 
 #endif

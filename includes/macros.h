@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/16 03:41:52 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 01:23:48 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,13 @@
 # define CMD_MAX 256
 # define ARG_MAX 4096
 # define PROMPT_MAX 4096 + sizeof(PS1)
+
+# define MAX_TOKEN 4096
+# define MAX_HEREDOCS 128
+# define META_CHARACTERS "()<>&|;\n\t "
+# define META_CHARACTERS_NO_SPACE "()<>&|;\n\t"
+
+# define PARSE_ERROR SH_NAME": syntax error near unexpected token "
+
 
 #endif
