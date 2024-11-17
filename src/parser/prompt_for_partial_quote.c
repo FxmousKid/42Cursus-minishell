@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 02:07:44 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:07:04 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	fill_quotes_states(char *str, bool *dq_sq)
 
 	dq_sq[0] = false;
 	dq_sq[1] = false;
-	idx = -1; 
+	idx = -1;
 	while (str[++idx])
 	{
 		quote_conditions(str[idx], dq_sq, dq_sq + 1);
 		if (is_escaped(str + idx))
 		{
 			idx += 2;
-			continue;
+			continue ;
 		}
 	}
 }
@@ -59,34 +59,33 @@ char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read)
 	return (ft_strdup(ps_two_fancy));
 }
 
-void	p_fill_quote(char *line, char *partial_fill, bool dq_sq[2], t_lexer *lex)
+void	p_fill_quote(char *line, char *p_fill, bool dq_sq[2], t_lexer *lex)
 {
-	strlcat(partial_fill, "\n", 4096);
+	strlcat(p_fill, "\n", 4096);
 	if (dq_sq[0])
 	{
 		line = readline_fancy_ps_two(lex, PS2_DQ, true);
-		strlcat(partial_fill, line, 4096);
+		strlcat(p_fill, line, 4096);
 		while (!is_occ_aux('"', line))
 		{
-			strlcat(partial_fill, "\n", 4096);
+			strlcat(p_fill, "\n", 4096);
 			free(line);
 			line = readline_fancy_ps_two(lex, PS2_DQ, true);
-			strlcat(partial_fill, line, 4096);
+			strlcat(p_fill, line, 4096);
 		}
 	}
 	else if (dq_sq[1])
 	{
 		line = readline_fancy_ps_two(lex, PS2_SQ, true);
-		strlcat(partial_fill, line, 4096);
+		strlcat(p_fill, line, 4096);
 		while (!is_occ_aux('\'', line))
 		{
-			strlcat(partial_fill, "\n", 4096);
+			strlcat(p_fill, "\n", 4096);
 			free(line);
 			line = readline_fancy_ps_two(lex, PS2_SQ, true);
-			strlcat(partial_fill, line, 4096);
+			strlcat(p_fill, line, 4096);
 		}
 	}
-	free(line);
 }
 
 bool	prompt_for_partial_sq_dq(t_lexer *lex)
@@ -99,6 +98,7 @@ bool	prompt_for_partial_sq_dq(t_lexer *lex)
 	fill_quotes_states(lex->input, dq_sq);
 	line = NULL;
 	p_fill_quote(line, partial_fill, dq_sq, lex);
+	free(line);
 	if (!dq_sq[0] && !dq_sq[1])
 		return (false);
 	ft_strlcat(lex->input, partial_fill, PATH_MAX);
