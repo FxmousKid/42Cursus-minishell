@@ -25,17 +25,22 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 	free_and_init_data(&data, NULL);
 	lexer(&data.lex, readline_input);
 	data.env = data_env;
+
+
 	if (!parser(&data, &data.lex))
 	{
 		free_and_init_data(&data, readline_input);
 		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parse")), 0);
 	}
+	
 	// if (!execute(&data))
 	// {
 	// 	free_and_init_data(&data, readline_input);
 	// 	return (debug(DBG("Failed to execute")), 0);
 	// }
+	
+
 	print_lexems(&data.lex);
 	free_and_init_data(&data, readline_input);
 	return (0);
