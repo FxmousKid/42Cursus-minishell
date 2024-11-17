@@ -6,37 +6,43 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:38:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:53:12 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "macros.h"
 #include "minishell.h"
+#include "utils.h"
 
-static void	handle_partial_prompt(t_lexer *lex)
+static void	handle_partial_prompt(t_data *data, t_lexer *lex)
 {
 	char	tmp[PATH_MAX];
 
 	ft_bzero(tmp, sizeof(tmp));
 	ft_strlcpy(tmp, lex->input, PATH_MAX);
-	
-	int c = lex->lexem_count;
-	lex->lexem_count = c + 1;
-	print_lexems(lex);
-	lex->lexem_count = c;
-
 	free_lex(lex);
 	ft_bzero(lex, sizeof(t_lexer));
-
 	lexer(lex, tmp);
+	if (!search_parse_error(lex))
+	{
+		data->exit_code = 2;
+		debug(DBG("Failed to search_parse_error()"));	
+	}
 }
 
-static bool	prompt_for_partials(t_data *data, t_lexer *lex)
+bool	prompt_for_partials_and_heredoc(t_data *data, t_lexer *lex)
 {
-	if (prompt_for_partial_sq_dq(lex) ^ prompt_for_partial_pipe(lex))
+	if (prompt_for_partial_sq_dq(lex))
 	{
-		handle_partial_prompt(lex);
-		return (parser(data, lex));
+		handle_partial_prompt(data, lex);
+		return (prompt_for_partials_and_heredoc(data, lex));
+	}
+	print_split(data->heredocs, "data->heredocs");
+	prompt_for_heredocs(lex, data->heredocs, data->heredocs_dq);
+	if (prompt_for_partial_pipe(lex))
+	{
+		handle_partial_prompt(data, lex);
+		return (prompt_for_partials_and_heredoc(data, lex));
 	}
 	return (true);
 }
@@ -54,17 +60,19 @@ static bool	prompt_for_partials(t_data *data, t_lexer *lex)
  * e.g. 2 for syntax error.
  * */
 
-int	parser(t_data *data, t_lexer *lex)
+bool	parser(t_data *data, t_lexer *lex)
 {
-	(void)	data;
-	char	*heredocs_content[MAX_HEREDOCS];
-
-	ft_bzero(heredocs_content, sizeof(heredocs_content));
 	if (!search_parse_error(lex))
-		return (debug(DBG("Failed to search_parse_error()")), 2);	
-	if (!prompt_for_partials(data, lex))
+	{
+		data->exit_code = 2;
+		return (debug(DBG("Failed to search_parse_error()")), false);	
+	}
+	if (!prompt_for_partials_and_heredoc(data, lex))
 		return (debug(DBG("Failed to prompt_for_partials()")), false);
-	if (!read_and_expand_heredocs(lex, heredocs_content))
-		return (debug(DBG("Failed to read_heredocs()")), false);
+	
+	printf("\n");
+	print_split(data->heredocs, "data->heredocs");
+	print_split(data->heredocs_dq, "data->heredocs_dq");
+
 	return (true);
 }

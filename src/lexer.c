@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:38:08 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:01:09 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,34 @@ void	lex_general(t_lexer *lex)
 	}
 }
 
-bool	lexer(t_lexer *lex, char *str)
+void	lex_words_into_sq_dq(t_lexer *lex)
 {
- 	if (!*str)
+	size_t	idx;
+
+	idx = 0;
+	while (idx < lex->lexem_count)
+	{
+		if (lex->lexems[idx].token == WORD)
+		{
+			if (lex->lexems[idx].value[0] == '"')
+				lex->lexems[idx].token = DQ_WORD;
+			else if (lex->lexems[idx].value[0] == '\'')
+				lex->lexems[idx].token = SQ_WORD;
+		}
+		idx++;
+	}
+}
+
+bool	lexer(t_lexer *lex, char *input)
+{
+ 	if (!*input)
 		return (debug(DBG("Null string")), false);
-	ft_strlcpy(lex->input, str, sizeof(lex->input));
+	ft_strlcpy(lex->input, input, sizeof(lex->input));
 	if (!split_cl(lex))
 		return (debug(DBG("Failed to split_cl()")), false);
 	lex_general(lex);
 	lex_files_and_heredoc(lex);
 	lex_commands_after_pipe(lex);
+	lex_words_into_sq_dq(lex);
 	return (true);
 }

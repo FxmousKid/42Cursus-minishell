@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 00:53:25 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 01:23:48 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@
 # define HIDDEN_TXT		"\e[8m"
 # define END_TXT		"\e[0m"
 
+# define BOLD_RED_TXT		"\e[1;31m"
+# define BOLD_GREEN_TXT		"\e[1;32m"
+# define BOLD_YELLOW_TXT	"\e[1;33m"
+# define BOLD_BLUE_TXT		"\e[1;34m"
+# define BOLD_PURPLE_TXT	"\e[1;35m"
+# define BOLD_CYAN_TXT		"\e[1;36m"
+# define BOLD_GREY_TXT		"\e[1;37m"
+# define BOLD_WHITE_TXT		"\e[1;39m"
+
 # define SH_NAME "cash"
 # define SH_NAME_FANCY GREEN_TXT"ca"END_TXT"@"GREEN_TXT"sh 💵 "END_TXT
 # define PS1 SH_NAME_FANCY PURPLE_TXT"❯ "END_TXT
@@ -40,5 +49,14 @@
 # define ENV_MAX 4096
 # define CMD_MAX 256
 # define ARG_MAX 4096
+# define PROMPT_MAX 4096 + sizeof(PS1)
+
+# define MAX_TOKEN 4096
+# define MAX_HEREDOCS 128
+# define META_CHARACTERS "()<>&|;\n\t "
+# define META_CHARACTERS_NO_SPACE "()<>&|;\n\t"
+
+# define PARSE_ERROR SH_NAME": syntax error near unexpected token "
+
 
 #endif

@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_for_partial_pipe.c                          :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 00:07:09 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 01:37:53 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/17 03:58:33 by inazaria          #+#    #+#             */
+/*   Updated: 2024/11/17 04:18:00 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read);
-
-bool	prompt_for_partial_pipe(t_lexer *lex)
+void	free_split(char **split)
 {
-	char	*line;
+	int	i;
 
-	if (lex->lexems[lex->lexem_count - 1].token == PIPE)
-	{
-		line = readline_fancy_ps_two(lex, PS2, true);	 
-		ft_strlcat(lex->input, line, PATH_MAX);
-		free(line);
-		return (true);
-	}
-	return (false);
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+void	free_sub_split_only(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
 }

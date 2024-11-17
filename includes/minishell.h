@@ -25,6 +25,8 @@ typedef struct s_data
 {
 	t_env		*env;
 	t_lexer		lex;
+	char		*heredocs[MAX_HEREDOCS];
+	char		*heredocs_dq[MAX_HEREDOCS];
 	t_ast		*ast;
 	int			exit_code;
 }				t_data;
@@ -43,6 +45,8 @@ void	init_t_data(t_data *data);
  * Takes also the string malloced by readline to free it, if you 
  * dont want that, just pass NULL as readline_input */
 void	free_and_init_data(t_data *data, char *readline_input);
+/* free all the allocated char * pointers to store the heredocs */
+void	free_env_heredocs(t_data *data);
 
 
 // Built in functions

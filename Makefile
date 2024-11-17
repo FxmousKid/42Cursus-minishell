@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/13 01:48:09 by inazaria         ###   ########.fr        #
+#    Updated: 2024/11/17 17:14:52 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_FILES_NAMES = main.c
 
 SRC_FILES_NAMES += lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
+SRC_FILES_NAMES += lexer/lex_utils_2.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
@@ -51,6 +52,9 @@ SRC_FILES_NAMES += utils/functions/is_occ.c
 SRC_FILES_NAMES += utils/functions/print_split.c
 SRC_FILES_NAMES += utils/functions/quote_utils.c
 SRC_FILES_NAMES += utils/functions/strcmp_ex.c
+SRC_FILES_NAMES += utils/functions/free_split.c
+SRC_FILES_NAMES += utils/functions/strptr_len.c
+
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -108,7 +112,6 @@ $(NAME) : $(OBJ_FILES)
 all : $(NAME) 
 
 debug : $(OBJ_FILES)
-	CFLAGS -= -Werror -Wextra Werror
 	@$(ECHO) "$(RED)[DBG] Making in DEBUG MODE...$(NC)"
 	@$(MKDIR) ./build/error_manager/
 	@$(CC) $(CFLAGS) -D DEBUG -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o

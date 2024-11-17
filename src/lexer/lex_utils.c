@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 11:32:59 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:02:05 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ static inline int	display_lexem_aux_2(t_token token)
 		return (printf("[%sLIMITER%s]\n", GREEN_TXT, END_TXT));
 	else if (token == ENV_VAR)
 		return (printf("[%sENV_VAR%s]\n", GREEN_TXT, END_TXT));
+	else if (token == SQ_WORD)
+		return (printf("[%sSQ_WORD%s]\n", GREEN_TXT, END_TXT));
+	else if (token == DQ_WORD)
+		return (printf("[%sDQ_WORD%s]\n", GREEN_TXT, END_TXT));
 	return (printf("[%sERROR%s]\n", RED_TXT, END_TXT));
 }
 
@@ -87,20 +91,23 @@ void	print_lexems(t_lexer *lex)
 	int	i;
 
 	printf("\n");
+	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
+	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	printf("%sinput%s : [%s%s%s]\n", GREEN_TXT, END_TXT, YELLOW_TXT, \
 		lex->input, END_TXT);
 	print_split(lex->words, "Words");
-	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
-	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	i = -1;
 	while (++i < ((int) lex->lexem_count) - 1)
 	{
-		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
+		printf("===[%s%s", YELLOW_TXT, lex->lexems[i].value);
+		printf("%s] ----> ", END_TXT);
+
 		display_lexem_aux(lex->lexems[i].token);
 	}
 	if (lex->lexem_count)
 	{
-		printf("===[%s%s%s] ----> ", YELLOW_TXT, lex->words[i], END_TXT);
+		printf("===[%s%s%s] ", YELLOW_TXT, lex->lexems[i].value, END_TXT);
+		printf("----> ");
 		display_lexem_aux(lex->lexems[i].token);
 	}
 	printf("%s===Lexing Status===%s\n\n", YELLOW_TXT, END_TXT);

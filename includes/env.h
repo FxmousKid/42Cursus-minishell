@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:04:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/13 00:53:32 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:07:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ typedef struct s_env
 /* fills up out custom made structure with the system provided env */
 bool	init_env(t_env *data_env, char *env[]);
 
-/* Free the key and value of each env entry in the passed t_env */
+/* Free the key and value of each env entry in the passed t_env and frees
+ * the t_env allocated structure too */
 void	free_env(t_env *env);
 
 /* Returns the ptr to the value of the key if found, else returns NULL */
