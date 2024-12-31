@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:28:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 17:10:06 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/12/18 06:36:40 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,16 @@ void	offset_lexems_right(t_lexer *lex, size_t i)
 		swap_lexems(lex, len, len - 1);
 		len--;
 	}
+}
+
+int	get_token_count(t_lexer lex, t_token token)
+{
+	size_t	idx;
+	size_t	count;
+
+	idx = 0;
+	count = 0;
+	while (idx < lex.lexem_count)
+		count += lex.lexems[idx++].token == token;
+	return (count);
 }

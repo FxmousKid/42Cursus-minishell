@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:35:33 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 17:17:15 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/22 00:59:44 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	print_split(char **split, char *name);
 int		count_words_mod(char *str, char *sep);
 int		strcmp_ex(const char *s1, const char *s2);
 void	fill_quotes_states(char *str, bool *dq_sq);
+
+
+typedef struct s_ast t_ast;
+void print_ast(t_ast *ast);
 
 /* returns the number of contiguous non-null char * in tab, 
  * as long len <= size */

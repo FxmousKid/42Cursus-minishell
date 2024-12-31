@@ -62,22 +62,37 @@ typedef struct s_lexer
 
 typedef struct s_ast	t_ast;
 
+/* AST Explanation
+ *
+ * Only node type is the one that represents a command or a file ;
+ *	s_ast_cmd :
+ *		- char *cmd_name: the name of the executable / builtin 
+ *		'echo', 'cat', 'pwd'...
+ *		- char **cmd_args: by convention all the args including the 
+ *		name to pass to execve :
+ *		{'cat', 'Makefile'}, {'pwd'}, ...
+ *
+ *	s_ast_file :
+ *		-char *file_name: the string containing the file name
+ *
+ * 
+ * */
+
 struct s_ast
 {
 	t_token	token;
+	t_ast	*parent_node;
 	union
 	{
-		struct s_ast_file
-		{
-			char	*filename;
-		}	ast_file;
 		struct s_ast_cmd
 		{
-			char	*cmd;
+			char	*cmd_name;
 			char	**cmd_args;
-			int		fd_in;
-			int		fd_out;
 		}	ast_cmd;
+		struct s_ast_file
+		{
+			char	*file_name;
+		}	ast_file;
 		struct s_ast_pipe
 		{
 			t_ast	*left;
@@ -98,26 +113,6 @@ struct s_ast
 			t_ast	*left;
 			t_ast	*right;
 		}	ast_redir_append;
-		struct s_ast_heredoc
-		{
-			t_ast	*left;
-			t_ast	*right;
-		}	ast_heredoc;
-		struct s_ast_equal
-		{
-			t_ast	*left;
-			t_ast	*right;
-		}	ast_equal;
-		// struct s_ast_dollar_sign
-		// {
-		// 	t_ast	*left;
-		// 	t_ast	*right;
-		// }	ast_dollar_sign;
-		struct s_ast_herestring
-		{
-			t_ast	*left;
-			t_ast	*right;
-		}	ast_herestring;
 		struct s_ast_and
 		{
 			t_ast	*left;
@@ -146,6 +141,11 @@ bool	has_token(t_lexem *lexems, t_token token);
  * as the passed token argument */
 bool	has_n_token(t_lexer *lex, t_token token, size_t n);
 
+/* returns the number of tokens that match the passed token in
+ * the lexems */
+int	get_token_count(t_lexer lex, t_token token);
+
+
 /* swap all field values of both lexems at index i and j */
 void	swap_lexems(t_lexer *lex, size_t i, size_t j);
 /* offsets all the lexems on the i-th index, leaving the i-th lexems blank */
@@ -161,5 +161,14 @@ bool	search_parse_error(t_lexer *lex);
 bool	prompt_for_partial_sq_dq(t_lexer *lex);
 bool	prompt_for_partial_pipe(t_lexer *lex);
 bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq);
+
+// AST
+
+
+/* mallocs the ast, fills it according to the t_data passed
+ * and returns it's pointer */
+bool	init_and_fill_ast(t_data *data);
+
+
 
 #endif

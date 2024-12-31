@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 18:53:12 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/12/31 00:41:05 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	prompt_for_partials_and_heredoc(t_data *data, t_lexer *lex)
 		handle_partial_prompt(data, lex);
 		return (prompt_for_partials_and_heredoc(data, lex));
 	}
-	print_split(data->heredocs, "data->heredocs");
 	prompt_for_heredocs(lex, data->heredocs, data->heredocs_dq);
 	if (prompt_for_partial_pipe(lex))
 	{
@@ -69,7 +68,11 @@ bool	parser(t_data *data, t_lexer *lex)
 	}
 	if (!prompt_for_partials_and_heredoc(data, lex))
 		return (debug(DBG("Failed to prompt_for_partials()")), false);
+
+	if (!init_and_fill_ast(data))
+		return (debug(DBG("Failed to init_ast()")), false);
 	
+
 	printf("\n");
 	print_split(data->heredocs, "data->heredocs");
 	print_split(data->heredocs_dq, "data->heredocs_dq");
