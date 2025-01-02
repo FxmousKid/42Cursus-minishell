@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 17:01:09 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 05:06:35 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
    x | y
        ^ we start here and do backwards check */
 
-void	lex_commands_after_pipe(t_lexer *lex)
+void	lex_commands_after_pipe_and_redir_in_cmd(t_lexer *lex)
 {
 	size_t	lex_idx;
 
-	lex_idx = 1;
+	lex_idx = 0;
 	while (++lex_idx < lex->lexem_count)
 	{
 		if (lex->lexems[lex_idx - 1].token == PIPE)
 			lex->lexems[lex_idx].token = CMD;
+		if (lex->lexems[lex_idx - 1].token == REDIR_IN)
+			lex->lexems[lex_idx + 1].token = CMD;
 	}
 }
 
@@ -101,7 +103,7 @@ bool	lexer(t_lexer *lex, char *input)
 		return (debug(DBG("Failed to split_cl()")), false);
 	lex_general(lex);
 	lex_files_and_heredoc(lex);
-	lex_commands_after_pipe(lex);
+	lex_commands_after_pipe_and_redir_in_cmd(lex);
 	lex_words_into_sq_dq(lex);
 	return (true);
 }

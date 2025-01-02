@@ -102,7 +102,7 @@ struct s_ast
 		{
 			t_ast	*left;
 			t_ast	*right;
-		}	ast_redin_in;
+		}	ast_redir_in;
 		struct s_ast_redir_out
 		{
 			t_ast	*left;
@@ -143,9 +143,11 @@ bool	has_n_token(t_lexer *lex, t_token token, size_t n);
 
 /* returns the number of tokens that match the passed token in
  * the lexems */
-int	get_token_count(t_lexer lex, t_token token);
+int		get_token_count(t_lexer lex, t_token token);
 
-
+/* returns the index of the first lexem of given token, or the next meta if 
+ * given true as last param */
+int		get_next_tok_idx(t_lexem *lexems, t_token token, int start, bool getmeta);
 /* swap all field values of both lexems at index i and j */
 void	swap_lexems(t_lexer *lex, size_t i, size_t j);
 /* offsets all the lexems on the i-th index, leaving the i-th lexems blank */

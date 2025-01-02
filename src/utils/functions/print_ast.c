@@ -6,94 +6,94 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:36:08 by inazaria          #+#    #+#             */
-/*   Updated: 2024/12/31 17:56:49 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 05:32:23 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-void print_ast_indent(int depth) {
+void print_ast_node(t_ast *node, int depth)
+{
+    if (!node)
+        return;
+
+    // Print indentation
     for (int i = 0; i < depth; i++)
         printf("  ");
-}
 
-void print_ast_recursive(t_ast *ast, int depth) {
-    if (!ast) return;
-
-    print_ast_indent(depth);
-    
-    switch (ast->token) {
+    // Print node information based on token type
+    switch (node->token)
+    {
         case CMD:
-            printf("CMD: %s\n", ast->ast_cmd.cmd_name);
-            if (ast->ast_cmd.cmd_args) {
-                print_ast_indent(depth + 1);
-                printf("Args:");
-				for (int i = 0; ast->ast_cmd.cmd_args[i]; i++)
-					printf(" %s", ast->ast_cmd.cmd_args[i]);
+            printf("CMD: %s\n", node->ast_cmd.cmd_name);
+            if (node->ast_cmd.cmd_args)
+            {
+                for (int i = 0; node->ast_cmd.cmd_args[i]; i++)
+                {
+                    for (int j = 0; j < depth + 1; j++)
+                        printf("  ");
+                    printf("arg[%d]: %s\n", i, node->ast_cmd.cmd_args[i]);
+                }
             }
             break;
-			
+        
+        case F_NAME:
+            printf("FILE: %s\n", node->ast_file.file_name);
+            break;
+        
         case PIPE:
-            printf("PIPE |\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_pipe.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_pipe.right, depth + 2);
+            printf("PIPE\n");
+            print_ast_node(node->ast_pipe.left, depth + 1);
+            print_ast_node(node->ast_pipe.right, depth + 1);
             break;
+        
         case REDIR_IN:
-            printf("REDIR IN <\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_redin_in.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_redin_in.right, depth + 2);
+            printf("REDIR_IN\n");
+            print_ast_node(node->ast_redir_in.left, depth + 1);
+            print_ast_node(node->ast_redir_in.right, depth + 1);
             break;
+        
         case REDIR_OUT:
-            printf("REDIR OUT >\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_redir_out.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_redir_out.right, depth + 2);
+            printf("REDIR_OUT\n");
+            print_ast_node(node->ast_redir_out.left, depth + 1);
+            print_ast_node(node->ast_redir_out.right, depth + 1);
             break;
+        
         case REDIR_APPEND:
-            printf("REDIR APPEND >>\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_redir_append.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_redir_append.right, depth + 2);
+            printf("REDIR_APPEND\n");
+            print_ast_node(node->ast_redir_append.left, depth + 1);
+            print_ast_node(node->ast_redir_append.right, depth + 1);
             break;
+        
         case AND:
-            printf("AND &&\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_and.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_and.right, depth + 2);
+            printf("AND\n");
+            print_ast_node(node->ast_and.left, depth + 1);
+            print_ast_node(node->ast_and.right, depth + 1);
             break;
+        
         case OR:
-            printf("OR ||\n");
-            print_ast_indent(depth + 1);
-            printf("Left:\n");
-            print_ast_recursive(ast->ast_or.left, depth + 2);
-            print_ast_indent(depth + 1);
-            printf("Right:\n");
-            print_ast_recursive(ast->ast_or.right, depth + 2);
+            printf("OR\n");
+            print_ast_node(node->ast_or.left, depth + 1);
+            print_ast_node(node->ast_or.right, depth + 1);
             break;
-       default:
-            printf("Unknown token type: %d\n", ast->token);
+		case ERROR:
+			printf("ERROR\n");
+			break;
+        
+        default:
+            printf("UNKNOWN TOKEN: %d\n", node->token);
     }
 }
 
-void print_ast(t_ast *ast) {
-    printf("Abstract Syntax Tree:\n\n");
-    print_ast_recursive(ast, 0);
+void print_ast(t_ast *root)
+{
+    if (!root)
+    {
+        printf("Empty AST\n");
+        return;
+    }
+    printf("\n=== AST Structure ===\n");
+    print_ast_node(root, 0);
+    printf("===================\n\n");
 }

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:28:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/12/18 06:36:40 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 05:16:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,28 @@ bool	has_token(t_lexem *lexems, t_token token)
 	return (false);
 }
 
-bool	has_n_token(t_lexer *lex, t_token token, size_t n)
+int	get_next_tok_idx(t_lexem *lexems, t_token token, int start, bool getmeta)
 {
-	size_t	idx;
-	size_t	count;
+	int	lex_idx;
 
-	idx = 0;
-	count = 0;
-	while (idx < lex->lexem_count)
+	lex_idx = start;
+	if (getmeta)
 	{
-		if (lex->lexems[idx].token == token)
-			count++;
-		idx++;
+		while (lexems[lex_idx].token != ERROR)
+		{
+			if (lexems[lex_idx].is_meta)
+				return (lex_idx);
+			lex_idx++;
+		}
 	}
-	return (count == n);
+	while (lexems[lex_idx].token != ERROR)
+	{
+		if (lexems[lex_idx].token == token)
+			return (lex_idx);
+		lex_idx++;
+	}
+	return (-1);
 }
-
 
 void	swap_lexems(t_lexer *lex, size_t i, size_t j)
 {
