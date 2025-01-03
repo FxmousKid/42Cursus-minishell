@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 05:10:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/03 00:13:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "macros.h"
 #include "minishell.h"
 #include "utils.h"

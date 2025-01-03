@@ -145,9 +145,20 @@ bool	has_n_token(t_lexer *lex, t_token token, size_t n);
  * the lexems */
 int		get_token_count(t_lexer lex, t_token token);
 
+int		get_token_count_to_idx_n(t_lexer lex, int n, t_token tok);
+
+/* returns the index of the 1st lexem that is a metachar (not HEREDOC, 
+ * or HERESTRING) or is a CMD token
+ * else returns -1 if none are found */
+int		get_next_cmd_or_metachar_idx(t_lexem *lexems, int curr_idx);
+
+
 /* returns the index of the first lexem of given token, or the next meta if 
  * given true as last param */
 int		get_next_tok_idx(t_lexem *lexems, t_token token, int start, bool getmeta);
+
+
+
 /* swap all field values of both lexems at index i and j */
 void	swap_lexems(t_lexer *lex, size_t i, size_t j);
 /* offsets all the lexems on the i-th index, leaving the i-th lexems blank */
@@ -166,11 +177,50 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq);
 
 // AST
 
+/* takes a function, and iterates on all children of given node */
+void	iterate_ast(t_ast *ast, void (*f)(t_ast *ast));
+
+/* start_idx is the idx of the CMD lexem, and counts all the arguments of 
+ * that command, so all WORD, SQ_WORD, DQ_WORD of that command */
+int		get_cmd_arg_count(t_lexem *lexems, int start_idx);
+
+/* Takes a allocated t_ast and fill it's command node :
+ * uses malloc to allocate char *cmd_name (null terminated)
+ * uses malloc to allocate char **cmd_args (null terminated) 
+ * takes t_data to access heredocs
+ * return false if any allocation fails */
+bool	fill_cmd_node(t_ast *ast_child, t_data *data, int cmd_idx);
 
 /* mallocs the ast, fills it according to the t_data passed
- * and returns it's pointer */
+ * and returns it's pointer 
+ * return false if any allocation fails */
 bool	init_and_fill_ast(t_data *data);
 
+/* takes a pointer to the allocated left child, allocate the right child using malloc
+ * for the correct struct based on the token tok, and makes the right child's 
+ * parent_node the same as the left child's. and makes the parent_node's
+ * left and right tree link to the left and right children 
+ * P.S. the lchild will point to the right child if the token is :
+ * PIPE, OR, AND. because we expect to fill a command node next.
+ * return fals if any allocation fails*/
+bool	fill_relation(t_ast **lchild, t_lexem *lexems, int idx, t_token tok);
 
+/* returns the root of the given tree by climbing via parent_node
+ * if already at root, returns itself */
+t_ast	*get_root_node(t_ast *ast);
+
+/* takes in a char * and returns a allocated char * using malloc
+ * that expanded the environment variables inside the passed char *
+ */
+char	*expand_env_var_in_str(char *str, t_data *data);
+
+/* if the given lexem has to be expanded then we expand the value of it
+ * else we return a char * containing the original lexem value
+ * both cases return a malloced char *
+ * */
+char	*extract_str_or_env_var(t_lexem lexem, t_data *data);
+
+
+void	free_ast(t_ast *ast);
 
 #endif

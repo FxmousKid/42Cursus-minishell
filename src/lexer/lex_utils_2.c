@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:28:14 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 05:16:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:44:45 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -50,6 +51,24 @@ int	get_next_tok_idx(t_lexem *lexems, t_token token, int start, bool getmeta)
 	}
 	return (-1);
 }
+
+
+int	get_next_cmd_or_metachar_idx(t_lexem *lexems, int curr_idx)
+{
+	while (lexems[curr_idx].token != ERROR)
+	{
+		if (lexems[curr_idx].token == CMD || lexems[curr_idx].is_meta)
+		{		
+			if (lexems[curr_idx].token != HEREDOC \
+				&& lexems[curr_idx].token != HERESTRING)
+				return (curr_idx);
+		}
+		curr_idx++;
+	}
+	return (-1);
+}
+
+
 
 void	swap_lexems(t_lexer *lex, size_t i, size_t j)
 {

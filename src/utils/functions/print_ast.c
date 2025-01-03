@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:36:08 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 05:32:23 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/03 02:08:33 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 #include <stdio.h>
 
@@ -33,7 +34,7 @@ void print_ast_node(t_ast *node, int depth)
                 {
                     for (int j = 0; j < depth + 1; j++)
                         printf("  ");
-                    printf("arg[%d]: %s\n", i, node->ast_cmd.cmd_args[i]);
+                    printf("arg[%d]: [%s]\n", i, node->ast_cmd.cmd_args[i]);
                 }
             }
             break;
@@ -93,6 +94,8 @@ void print_ast(t_ast *root)
         printf("Empty AST\n");
         return;
     }
+	while (root->parent_node)
+		root = root->parent_node;
     printf("\n=== AST Structure ===\n");
     print_ast_node(root, 0);
     printf("===================\n\n");
