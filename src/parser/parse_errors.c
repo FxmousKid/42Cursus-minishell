@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 01:59:09 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:03:29 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	print_parse_error(char *unexpected_token)
 
 bool	verify_meta_char_parse(t_lexer *lex, int idx, char **unexpected_token)
 {
-	if (idx == 0 && lex->lexems[idx].token != REDIR_IN)
+	if (idx == 0 && lex->lexems[idx].token != REDIR_IN \
+		&& lex->lexems[idx].token != HEREDOC \
+		&& lex->lexems[idx].token != HERESTRING)
 		return (debug(DBG("Forbidden meta char found")), false);
+	
 	else if (idx == 0)
 		return (true);
 	if (lex->lexems[idx + 1].is_meta)

@@ -42,6 +42,7 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 	
 
 	print_lexems(&data.lex);
+	print_ast(data.ast);
 	free_and_init_data(&data, readline_input);
 	return (0);
 }

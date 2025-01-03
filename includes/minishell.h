@@ -60,7 +60,6 @@ int		builtin_cd(char *path);
 int		exec_cmd(t_data *data, t_ast *cmd);
 int		create_path(t_data *data);
 t_ast	*test_cmd(t_data *data, t_ast *ast);
-void	print_ast(t_ast *ast);
 char	*find_access(t_data *data, char *cmd);
 
 /* processes */

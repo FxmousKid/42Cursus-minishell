@@ -6,11 +6,12 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:02:06 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 18:58:16 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:08:21 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "analysis.h"
+#include "error_manager.h"
 #include "macros.h"
 #include "minishell.h"
 #include "utils.h"
@@ -36,13 +37,13 @@ char	*trim_limiter_quotes(char *limiter, bool *to_free)
 
 bool	check_if_heredocs_done(t_lexer *lex, char **hdocs, char **hdocs_dq)
 {
-	size_t	len_hdocs;
-	size_t	len_hdocs_dq;
+	int	len_hdocs;
+	int	len_hdocs_dq;
 	
 	len_hdocs = strptr_len(hdocs, MAX_HEREDOCS);
 	len_hdocs_dq = strptr_len(hdocs_dq, MAX_HEREDOCS);
 
-	return (!has_n_token(lex, HEREDOC, len_hdocs_dq + len_hdocs));
+	return (!(get_token_count(*lex, HEREDOC) == len_hdocs_dq + len_hdocs));
 }
 
 
@@ -105,10 +106,10 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq)
 		return (false);
 	idx = 0;
 	start_correct_heredoc(lex, &idx, heredocs, heredocs_dq);
-	while (has_token(lex->lexems + ++idx, HEREDOC))
+	while (has_token(lex->lexems + idx, HEREDOC))
 	{
 		while (lex->lexems[idx].token != HEREDOC)
-			idx++;
+			idx++; 
 		prompt = readline_fancy_ps_two(lex, PS2_HDOC, false);
 		if (!prompt)
 			return (debug(DBG("heredoc prompt is null")), false);
@@ -118,6 +119,7 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq)
 		else
 			read_heredoc(lex->lexems[idx + 1].value, prompt, \
 				heredocs + strptr_len(heredocs, MAX_HEREDOCS));
+		idx += 2;
 	}
 	return (free(prompt), true);
 }

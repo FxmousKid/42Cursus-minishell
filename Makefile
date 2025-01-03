@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/11/17 17:14:52 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/03 01:31:10 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,19 @@ SRC_FILES_NAMES = main.c
 SRC_FILES_NAMES += lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
 SRC_FILES_NAMES += lexer/lex_utils_2.c
+SRC_FILES_NAMES += lexer/lex_utils_3.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
 SRC_FILES_NAMES += parser.c
 SRC_FILES_NAMES += parser/parse_errors.c
-SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
+SRC_FILES_NAMES += parser/init_ast.c
+SRC_FILES_NAMES += parser/free_ast.c
+SRC_FILES_NAMES += parser/init_ast_utils.c
+SRC_FILES_NAMES += parser/ast_utils.c
+SRC_FILES_NAMES += parser/ast_iter.c
 SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
+SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 
 # SRC_FILES_NAMES += exec.c
@@ -54,6 +60,7 @@ SRC_FILES_NAMES += utils/functions/quote_utils.c
 SRC_FILES_NAMES += utils/functions/strcmp_ex.c
 SRC_FILES_NAMES += utils/functions/free_split.c
 SRC_FILES_NAMES += utils/functions/strptr_len.c
+SRC_FILES_NAMES += utils/functions/print_ast.c
 
 
 # Full path to .c files

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:03:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 02:04:53 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:07:34 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	init_readline()
 {
- 	// rl_bind_key('\t', rl_insert);
+ 	rl_bind_key('\t', rl_insert);
 	rl_bind_key('!', rl_insert);
 	using_history();
 }
