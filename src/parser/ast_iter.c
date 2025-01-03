@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 01:13:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 01:18:21 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/03 02:32:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	iterate_ast(t_ast *ast, void (*f)(t_ast *ast))
 {
 	if (!ast)
 		return ;
-	if (ast->token == CMD)
-		f(ast);
 	else if (ast->token == PIPE)
 	{
 		iterate_ast(ast->ast_pipe.left, f);
@@ -56,4 +54,5 @@ void	iterate_ast(t_ast *ast, void (*f)(t_ast *ast))
 	}
 	else
 		iterate_ast_aux(ast, f);
+	f(ast);
 }
