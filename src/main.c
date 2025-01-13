@@ -11,7 +11,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 
 // Every return code starting from here and down, will signify a exit code
@@ -25,24 +24,19 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 	free_and_init_data(&data, NULL);
 	lexer(&data.lex, readline_input);
 	data.env = data_env;
-
-
+	print_lexems(&data.lex, &data);
 	if (!parser(&data, &data.lex))
 	{
 		free_and_init_data(&data, readline_input);
 		*exit_code_dspl = data.exit_code;
-		return (debug(DBG("Failed to parse")), 0);
+		return (debug(DBG("Failed to parser()")), 0);
 	}
-	
-	// if (!execute(&data))
-	// {
-	// 	free_and_init_data(&data, readline_input);
-	// 	return (debug(DBG("Failed to execute")), 0);
-	// }
-	
-
-	print_lexems(&data.lex);
 	print_ast(data.ast);
+	if (!exec(&data))
+	{
+		free_and_init_data(&data, readline_input);
+		return (debug(DBG("Failed to exec()")), 0);
+	}
 	free_and_init_data(&data, readline_input);
 	return (0);
 }
@@ -71,6 +65,8 @@ int	launch_minishell(char *env[])
 }
 
 int g_signal_received = 0;
+
+// Remember what this is for...
 extern int rl_catch_signals;
 
 int	main(int argc, char *argv[], char *env[])
@@ -85,34 +81,3 @@ int	main(int argc, char *argv[], char *env[])
 	minishell_status = launch_minishell(env);
 	return (minishell_status);
 }
-
-/*
-int	main(int ac, char **av, char **env)
-{
-	t_data	data;
-	t_ast	*ast;
-
-	ast = NULL;
-	(void)ac;
-	(void)av;
-	signal(SIGINT, &sig_handler);
-	signal(SIGPIPE, &sig_handler);
-	data.envir = env;
-	data.env = create_env(env);
-	create_path(&data);
-	ast = test_cmd(&data, ast);
-	print_ast(ast);
-	find_process(&data, ast);
-	return (0);
-}
-*/
-
-
-/*
-	if (1)
-		debug(DBG("Failed to fill condition"));
-	print_start_text();
-	print_prompt();
-	builtin_cd("..");
-	printf("\n");
-	print_prompt();*/

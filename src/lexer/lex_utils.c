@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 13:40:15 by inazaria          #+#    #+#             */
-/*   Updated: 2024/12/18 06:37:11 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/03 04:58:09 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,11 @@ static inline int	display_lexem_aux(t_token token)
 	return (display_lexem_aux_2(token));
 }
 
-void	print_lexems(t_lexer *lex)
+void	print_lexems(t_lexer *lex, t_data *data)
 {
 	int	i;
 
-	printf("\n");
-	printf("%s===Lexing Status %s", YELLOW_TXT, END_TXT);
+	printf("\n%s===Lexing Status %s", YELLOW_TXT, END_TXT);
 	printf("[%zu]%s===%s\n", lex->lexem_count, YELLOW_TXT, END_TXT);
 	printf("%sinput%s : [%s%s%s]\n", GREEN_TXT, END_TXT, YELLOW_TXT, \
 		lex->input, END_TXT);
@@ -101,7 +100,6 @@ void	print_lexems(t_lexer *lex)
 	{
 		printf("===[%s%s", YELLOW_TXT, lex->lexems[i].value);
 		printf("%s] ----> ", END_TXT);
-
 		display_lexem_aux(lex->lexems[i].token);
 	}
 	if (lex->lexem_count)
@@ -111,4 +109,6 @@ void	print_lexems(t_lexer *lex)
 		display_lexem_aux(lex->lexems[i].token);
 	}
 	printf("%s===Lexing Status===%s\n\n", YELLOW_TXT, END_TXT);
+	print_split(data->heredocs, "data->heredocs");
+	print_split(data->heredocs_dq, "data->heredocs_dq");
 }

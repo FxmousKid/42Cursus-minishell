@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2024/12/31 02:24:49 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:06:05 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@
 # define CMD_MAX 256
 # define ARG_MAX 4096
 # define PROMPT_MAX 4096 + sizeof(PS1)
+
+# define FD_MAX 4096	
+# define MAX_PIDS 4096
 
 # define MAX_TOKEN 4096
 # define MAX_HEREDOCS 128

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:22:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 00:44:29 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/03 05:09:31 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,8 @@ bool	fill_relation(t_ast **lchild, t_lexem *lexems, int idx, t_token tok)
 		rchild->ast_file.file_name = ft_strdup(lexems[idx + 1].value);
 		*lchild = (*lchild)->parent_node;
 	}
+	if (tok == REDIR_IN)
+		*lchild = (*lchild)->ast_redir_in.left;	
+		
 	return (true);
 }

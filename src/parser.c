@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 00:13:47 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:15:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,8 @@ bool	parser(t_data *data, t_lexer *lex)
 	}
 	if (!prompt_for_partials_and_heredoc(data, lex))
 		return (debug(DBG("Failed to prompt_for_partials()")), false);
-
 	if (!init_and_fill_ast(data))
 		return (debug(DBG("Failed to init_ast()")), false);
-	
-
-	printf("\n");
-	print_split(data->heredocs, "data->heredocs");
-	print_split(data->heredocs_dq, "data->heredocs_dq");
-
+	data->cmd_count = get_token_count(data->lex, CMD);
 	return (true);
 }

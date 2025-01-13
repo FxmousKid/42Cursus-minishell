@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2025/01/03 01:31:10 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/13 17:49:30 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,10 @@ SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
 SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 
-# SRC_FILES_NAMES += exec.c
+SRC_FILES_NAMES += exec.c
+SRC_FILES_NAMES += exec/exec_loop.c
+SRC_FILES_NAMES += exec/exec_cmd.c
+SRC_FILES_NAMES += exec/handle_pipe.c
 # SRC_FILES_NAMES += exec/builtin.c
 # SRC_FILES_NAMES += exec/process.c
 # SRC_FILES_NAMES += exec/test.c

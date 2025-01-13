@@ -75,6 +75,7 @@ typedef struct s_ast	t_ast;
  *	s_ast_file :
  *		-char *file_name: the string containing the file name
  *
+ *	int done : used by the execution process for bookkeeping
  * 
  * */
 
@@ -82,6 +83,7 @@ struct s_ast
 {
 	t_token	token;
 	t_ast	*parent_node;
+	bool	done;
 	union
 	{
 		struct s_ast_cmd
@@ -133,7 +135,7 @@ int		is_meta_char(char *str);
 bool	split_cl(t_lexer *lex);
 void	free_lex(t_lexer *lex);
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta);
-void	print_lexems(t_lexer *lex);
+void	print_lexems(t_lexer *lex, t_data *data);
 /* Check the passed lexer structure has a certain token
  * takes the lexems array to enable offset checks */
 bool	has_token(t_lexem *lexems, t_token token);
@@ -146,6 +148,12 @@ bool	has_n_token(t_lexer *lex, t_token token, size_t n);
 int		get_token_count(t_lexer lex, t_token token);
 
 int		get_token_count_to_idx_n(t_lexer lex, int n, t_token tok);
+
+/* return if tok in (REDIR_IN, REDIR_OUT, REDIR_APPEND) */
+bool	is_tok_redir_type(t_token tok);
+
+/* return if tok in (PIPE, AND, OR) */
+bool	is_tok_dual_cmd_type(t_token tok);
 
 /* returns the index of the 1st lexem that is a metachar (not HEREDOC, 
  * or HERESTRING) or is a CMD token
