@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:04:03 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 02:11:30 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:02:24 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	*expand_env_var_in_str(char *str, t_data *data)
 	int		idx;
 
 	ft_bzero(new_str, sizeof(char) * 4096);
-	printf("str: %s\n", str);
 	idx = 0;
 	while (str[idx])
 	{

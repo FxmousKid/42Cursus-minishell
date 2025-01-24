@@ -6,10 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:55:44 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 04:58:54 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/24 12:01:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "analysis.h"
 #include "minishell.h"
 
 /* before allocating we check if the child has a parent already allocated,
@@ -79,5 +80,6 @@ bool	init_and_fill_ast(t_data *data)
 	data->ast = ast_root;
 	if (!fill_ast(data))
 		return (free(ast_root), debug(DBG("Failed to fill_ast()")), false);
+	set_child_easy_access(ast_root);
 	return (true);
 }

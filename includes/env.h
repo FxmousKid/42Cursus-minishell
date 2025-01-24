@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:04:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 15:07:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:33:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	add_env_entry(t_env *env, char *key, char *value);
  * Does nothing if key isn't found / valid */
 void	remove_env_entry(t_env *env, char *key);
 
+/*  */
+char	**convert_custom_env_to_compliant_env(t_env *env, char ***env_p);
+
 /* Pretty prints the current state of the passed t_env structure */
 void	print_env(t_env env);
 
 #endif
+

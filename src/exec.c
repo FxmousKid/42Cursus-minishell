@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 04:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/13 18:27:09 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:30:19 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	wait_loop(t_data *data)
 	while (idx < data->cmd_count)
 	{
 		waitpid(data->pids[idx], &stat_loc, 0);
-		if (WIFEXITED(stat_loc) && idx == data->cmd_count - 1)
+		printf("\n\n");
+		printf("%d == Process %d exited with status %d\n",getpid(),  data->pids[idx], WEXITSTATUS(stat_loc));
+		if (WIFEXITED(stat_loc))
 			data->exit_code = WEXITSTATUS(stat_loc);
 		idx++;
 	}

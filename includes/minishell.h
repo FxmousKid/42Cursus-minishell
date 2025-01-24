@@ -43,35 +43,22 @@ typedef struct s_data
  * string malloced by readline to free it, if you dont want that, just 
  * pass NULL as readline_input*/
 void	free_data(t_data *data, char *readline_input);
+
+/* frees the allocate env too */
+void	free_data_w_env(t_data *data, char *readline_input);
+
 /* bzero's the content of the passed *t_data */
 void	init_t_data(t_data *data);
+
 /* Frees the content of the passed stack-allocated *data, and 
  * bzero's it to use it again, since it's stack-allocated 
  * Takes also the string malloced by readline to free it, if you 
  * dont want that, just pass NULL as readline_input */
 void	free_and_init_data(t_data *data, char *readline_input);
+
 /* free all the allocated char * pointers to store the heredocs */
 void	free_env_heredocs(t_data *data);
 
 
-// Built in functions
-
-int		builtin_pwd(void);
-int		builtin_echo(char **arg);
-int		builtin_cd(char *path);
-
-
-/* execution */
-int		exec_cmd(t_data *data, t_ast *cmd);
-int		create_path(t_data *data);
-t_ast	*test_cmd(t_data *data, t_ast *ast);
-char	*find_access(t_data *data, char *cmd);
-
-/* processes */
-int		cmd_process(t_data *data, t_ast *cmd);
-int		find_process(t_data *data, t_ast *pro);
-int		pipe_process(t_data *data, t_ast *pipe);
-int		or_process(t_data *data, t_ast *or);
-int		and_process(t_data *data, t_ast *and);
 
 #endif

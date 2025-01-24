@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:03:29 by inazaria          #+#    #+#             */
-/*   Updated: 2024/12/04 16:07:34 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:41:11 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ static inline void add_exit_code_to_prompt(char *arr, int code)
 	}
 	else if (code < 100)
 	{
-		*arr++ = code / 10;
-		*arr++ = code % 10;
+		*arr++ = code / 10 + '0';
+		*arr++ = code % 10 + '0';
 	}
 	else if (code <= 127)
 	{
-		*arr++ = 1;
+		
+		*arr++ = 1 + '0';
 		code -= 100;
-		*arr++ = code / 10;
-		*arr++ = code % 10;
+		*arr++ = code / 10 + '0';
+		*arr++ = code % 10 + '0';
 	}
 	*arr++ = ')';
 	*arr = ' ';

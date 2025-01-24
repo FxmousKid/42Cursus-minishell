@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2025/01/13 17:49:30 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/24 20:38:28 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,17 @@ SRC_FILES_NAMES += parser/ast_iter.c
 SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
 SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
+SRC_FILES_NAMES += parser/set_child_easy_access.c
+
 
 SRC_FILES_NAMES += exec.c
 SRC_FILES_NAMES += exec/exec_loop.c
 SRC_FILES_NAMES += exec/exec_cmd.c
 SRC_FILES_NAMES += exec/handle_pipe.c
+SRC_FILES_NAMES += exec/handle_redir.c
+SRC_FILES_NAMES += exec/handle_dup.c
+SRC_FILES_NAMES += exec/errors.c
+
 # SRC_FILES_NAMES += exec/builtin.c
 # SRC_FILES_NAMES += exec/process.c
 # SRC_FILES_NAMES += exec/test.c
@@ -52,6 +58,8 @@ SRC_FILES_NAMES += exec/handle_pipe.c
 SRC_FILES_NAMES += env/init_free_env.c
 SRC_FILES_NAMES += env/manipulate_env_entries.c
 SRC_FILES_NAMES += env/print_env.c
+SRC_FILES_NAMES += env/convert_env.c
+
 
 SRC_FILES_NAMES += utils/prepare_t_data.c
 SRC_FILES_NAMES += utils/prompt.c

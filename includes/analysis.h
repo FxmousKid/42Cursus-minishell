@@ -83,6 +83,8 @@ struct s_ast
 {
 	t_token	token;
 	t_ast	*parent_node;
+	t_ast	*left;
+	t_ast	*right;
 	bool	done;
 	union
 	{
@@ -154,6 +156,9 @@ bool	is_tok_redir_type(t_token tok);
 
 /* return if tok in (PIPE, AND, OR) */
 bool	is_tok_dual_cmd_type(t_token tok);
+
+/* returns if tok in (REDIR_OUT, REDIR_APPEND) */
+bool	is_tok_redir_out_type(t_token tok);
 
 /* returns the index of the 1st lexem that is a metachar (not HEREDOC, 
  * or HERESTRING) or is a CMD token
@@ -227,6 +232,9 @@ char	*expand_env_var_in_str(char *str, t_data *data);
  * both cases return a malloced char *
  * */
 char	*extract_str_or_env_var(t_lexem lexem, t_data *data);
+
+
+void	set_child_easy_access(t_ast *node);
 
 
 void	free_ast(t_ast *ast);

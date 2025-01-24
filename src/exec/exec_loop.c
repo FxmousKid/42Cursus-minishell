@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/14 00:03:34 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:57:58 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,30 @@
 #include "minishell.h"
 
 
-/* One important thing to check for is the presence of a built-in the child node.
- * Why ? Because we won't fork if it's the case. */
-
 int	handle_node(t_data *data, t_ast *node, t_exec_data *e_data)
 {
-	check_to_open_pipe(node, e_data);
-	// if (cmd_node_is_builtin(node))
-		// data->pids[data->cmd_idx] = fork();
-	data->pids[data->cmd_idx] = fork(); // to remove
- 	if (data->pids[data->cmd_idx] < 0)
+	// if (node->token == PIPE)
+	// 	// to verify later
+	// 	(void) data;
+	// 	// handle_pipe(node, data, e_data);
+	//
+
+	data->pids[data->cmd_idx] = fork();
+	if (data->pids[data->cmd_idx] < 0)
 		return (debug(DBG("Failed to fork()")), false);
-	if (data->pids[data->cmd_idx] != 0) // if not child proc
+	if (data->pids[data->cmd_idx] != 0)
 		return (true);
-	// if we're here it means we're the child proc
-	
 
-
+	// if we're here it means we're in the child
 	
-	check_to_open_files(node, e_data);
-	if (data->cmd_idx == data->cmd_count - 1)
-		exit(1);
-	exit(0);
-	return (true);
+	if (is_tok_redir_type(node->token))
+	{
+		handle_redir(data, node, e_data);
+		node = node->left;
+	}
+	exec_cmd(node, data, e_data);
+	
+	return (1);
 }
 
 int	exec_loop(t_data *data)
@@ -50,13 +51,12 @@ int	exec_loop(t_data *data)
 	if (node->parent_node)
 		node = node->parent_node;
 
-	printf("Hello from exec_loop !\n");
 	
 	while (node)
 	{
 		handle_node(data, node, &exec_data);
-		node = node->parent_node;
 		data->cmd_idx++;
+		node = node->parent_node;
 	}
 
 	return (true);

@@ -24,19 +24,20 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 	free_and_init_data(&data, NULL);
 	lexer(&data.lex, readline_input);
 	data.env = data_env;
-	print_lexems(&data.lex, &data);
+	// print_lexems(&data.lex, &data);
 	if (!parser(&data, &data.lex))
 	{
 		free_and_init_data(&data, readline_input);
 		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parser()")), 0);
 	}
-	print_ast(data.ast);
+	// print_ast(data.ast);
 	if (!exec(&data))
 	{
 		free_and_init_data(&data, readline_input);
 		return (debug(DBG("Failed to exec()")), 0);
 	}
+	*exit_code_dspl = data.exit_code;
 	free_and_init_data(&data, readline_input);
 	return (0);
 }
