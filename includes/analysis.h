@@ -76,6 +76,9 @@ typedef struct s_ast	t_ast;
  *		-char *file_name: the string containing the file name
  *
  *	int done : used by the execution process for bookkeeping
+ *		- if 0, we haen't come across this node yet
+ *		- if 1, we have executed this node once
+ *		- if 2, we are finished with this node
  * 
  * */
 
@@ -85,7 +88,7 @@ struct s_ast
 	t_ast	*parent_node;
 	t_ast	*left;
 	t_ast	*right;
-	bool	done;
+	int		status;
 	union
 	{
 		struct s_ast_cmd

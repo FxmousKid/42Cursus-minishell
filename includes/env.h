@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:04:27 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 15:33:52 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 04:21:25 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*access_env_value(t_env *env, char *key);
 
 /* if key already is a env entry key, then overwrites existing value with 
  * passed value, leaves total entry count the same
- * else append a new env entry, allocated for key and value with MALLOC, and
+ * else append a new env entry, allocates for key and value with MALLOC, and
  * increments the total entry counts by 1 */
 void	add_env_entry(t_env *env, char *key, char *value);
 

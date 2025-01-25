@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2025/01/24 20:38:28 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/25 07:42:14 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
 SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 SRC_FILES_NAMES += parser/set_child_easy_access.c
+SRC_FILES_NAMES += parser/ast_expand_words.c
 
 
 SRC_FILES_NAMES += exec.c
@@ -50,6 +51,14 @@ SRC_FILES_NAMES += exec/handle_pipe.c
 SRC_FILES_NAMES += exec/handle_redir.c
 SRC_FILES_NAMES += exec/handle_dup.c
 SRC_FILES_NAMES += exec/errors.c
+SRC_FILES_NAMES += exec/builtins/builtins.c
+SRC_FILES_NAMES += exec/builtins/export.c
+SRC_FILES_NAMES += exec/builtins/pwd.c
+SRC_FILES_NAMES += exec/builtins/cd.c
+SRC_FILES_NAMES += exec/builtins/unset.c
+SRC_FILES_NAMES += exec/builtins/exit.c
+SRC_FILES_NAMES += exec/builtins/echo.c
+
 
 # SRC_FILES_NAMES += exec/builtin.c
 # SRC_FILES_NAMES += exec/process.c

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 01:22:50 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/13 18:35:50 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 00:31:29 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_t_data(t_data *data)
 	ft_bzero(&data->ast, sizeof(t_ast));
 	data->cmd_idx = 0;
 	data->cmd_count = 0;
-	ft_memset(data->pids, 0, MAX_PIDS);
+	ft_bzero(data->pids, sizeof(data->pids));
 }
 
 void	free_and_init_data(t_data *data, char *readline_input)

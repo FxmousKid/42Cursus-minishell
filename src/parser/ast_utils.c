@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:04:03 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/14 15:02:24 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 07:49:46 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,25 @@ void	handle_dollar_sign(char *new_str, char *str, t_data *data, int *idx)
 char	*expand_env_var_in_str(char *str, t_data *data)
 {
 	char	new_str[4096];
+	bool	in_squotes;
 	int		idx;
 
 	ft_bzero(new_str, sizeof(char) * 4096);
-	idx = 0;
-	while (str[idx])
+	in_squotes = str[0] == '\'';
+	idx = -1;
+	while (str[++idx])
 	{
-		if (str[idx] == '$')
+		if (str[idx] == '$' && !in_squotes)
 			handle_dollar_sign(new_str, str + idx + 1, data, &idx);
 		else
-			new_str[ft_strlen(new_str)] = str[idx++];
+		{
+			if (idx == 0 && (str[idx] == '"' || str[idx] == '\''))
+				continue;
+			if ((size_t) idx == ft_strlen(str) - 1 && \
+				(str[idx] == '"' || str[idx] == '\''))
+				continue;
+			new_str[ft_strlen(new_str)] = str[idx];
+		}
 	}	
 	return ft_strdup(new_str);
 }
@@ -108,9 +117,11 @@ char	*extract_str_or_env_var(t_lexem lexem, t_data *data)
 	if (lexem.token == DQ_WORD \
 		|| lexem.token == ENV_VAR \
 		|| lexem.token == WORD \
+		|| lexem.token == SQ_WORD \
 		|| (lexem.token == CMD && lexem.value[0] == '"'))
 		return (expand_env_var_in_str(lexem.value, data));
-	if (lexem.token == SQ_WORD || lexem.token == CMD)
+	// if (lexem.token == SQ_WORD || lexem.token == CMD)
+	if (lexem.token == CMD)
 		return (ft_strdup(lexem.value));
 	return (NULL);
 

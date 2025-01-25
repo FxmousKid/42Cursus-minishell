@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:19:39 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/02 15:42:19 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 06:28:19 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	add_env_entry(t_env *env, char *key, char *value)
 	idx = 0;
 	if (access_env_value(env, key) == NULL)
 	{
-		env->env_pairs[idx].key = ft_strdup(key);
-		env->env_pairs[idx].value = ft_strdup(value);
+		env->env_pairs[env->env_len].key = ft_strdup(key);
+		env->env_pairs[env->env_len].value = ft_strdup(value);
 		env->env_len++;
 		return ;
 	}

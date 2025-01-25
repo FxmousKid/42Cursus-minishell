@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 20:38:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 21:18:54 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 05:37:05 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,15 @@ int	dup_or_cut_tree(t_ast *node, t_exec_data *e_data)
 	{
 		if (dup2(e_data->fd_in, STDIN_FILENO) < 0) 
 			return (debug(DBG("Failed to dup2 stdout")), false);
+		e_data->fd_in = 0;
 	}
 	else if (is_tok_redir_out_type(node->token))
 	{
 		if (dup2(e_data->fd_out, STDOUT_FILENO) < 0)
 			return (debug(DBG("Failed to dup2 stdout")), false);
+		if (close(e_data->fd_out) < 0)
+			return (debug(DBG("Failed to close fd_out")), false);
+		e_data->fd_out = 0;
 	}
 	return (true);
 }

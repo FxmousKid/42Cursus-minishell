@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 05:06:35 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 07:21:25 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	lex_general(t_lexer *lex)
 {
 	size_t	lex_idx;
 
+	if (!lex->lexem_count)
+		return ;
 	if (*lex->words[0] == '$')
 		fill_lexem(&lex->lexems[0], lex->words[0], ENV_VAR, false);
 	else if (!lex_if_meta_chars(&lex->lexems[0], lex->words[0]))

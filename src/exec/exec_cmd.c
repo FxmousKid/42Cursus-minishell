@@ -6,12 +6,13 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 21:22:53 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/25 06:04:18 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "minishell.h"
+#include "utils.h"
 
 int	find_path(t_env *env_t, char *cmd, char *cmd_path_to_fill)
 {
