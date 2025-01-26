@@ -6,11 +6,12 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 06:04:18 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 03:14:29 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "macros.h"
 #include "minishell.h"
 #include "utils.h"
 
@@ -54,6 +55,35 @@ int	handle_finding_path(t_data *data, char **args, char *cmd_path)
 	return (true);
 }
 
+void	print_old_read_fds(int fds[MAX_PIDS])
+{
+
+	fprintf(stderr, "data->old_read_fds = [");
+	int i = -1;
+	while (++i < MAX_PIDS)
+	{
+		if (fds[i] == 0)
+			continue ;
+		fprintf(stderr, "%d, ", fds[i]);
+	}
+	fprintf(stderr, "]\n");
+}
+
+void	close_old_read_fds(t_exec_data *e_data, t_data *data)
+{
+	fprintf(stderr, "cmd_idx: %d\n", data->cmd_idx);
+	print_old_read_fds(e_data->old_read_fds);
+	if (data->cmd_idx == data->cmd_count - 1)
+	{
+		if (!e_data->old_read_fds[data->cmd_idx - 1])
+			return ;
+		if (close(e_data->old_read_fds[data->cmd_idx - 1]) < 0)
+			debug(DBG("Failed to close old_read_fds"));
+		e_data->old_read_fds[data->cmd_idx - 1] = 0;
+	}
+
+}
+
 void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 {
 	char	**comp_env;
@@ -64,9 +94,11 @@ void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 	args = cmd_node->ast_cmd.cmd_args;
 	if (!handle_finding_path(data, args, e_data->curr_cmd_path))
 	{
+		close_old_read_fds(e_data, data);
 		free_split(comp_env);
 		exit_from_child("Failed to handle_finding_path()", data);
 	}
+	close_old_read_fds(e_data, data);
 	execve(e_data->curr_cmd_path, args, comp_env);
 	free_split(comp_env);
 	exit_from_child("Failed to execve()", data);

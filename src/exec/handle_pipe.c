@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:48:54 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 08:04:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:30:13 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	handle_pipe(t_ast *node, t_data *data, t_exec_data *e_data)
 	{
 		if (close(e_data->pipefd[1]) < 0)
 			return (debug(DBG("Failed to close pipefd[1]")), false);
+		e_data->pipefd[1] = -1;
 		if (node->parent_node && node->parent_node->token == PIPE)
 		{
 			if (pipe(e_data->pipefd) < 0)
@@ -41,6 +42,7 @@ int	handle_pipe(t_ast *node, t_data *data, t_exec_data *e_data)
 		e_data->old_read_fds[data->cmd_idx + 1] = dup(e_data->pipefd[0]);
 		if (close(e_data->pipefd[0]) < 0)
 			return (debug(DBG("Failed to close pipefd[0]")), false); 
+		e_data->pipefd[0] = -1;
 	}
 	return (true);
 }
@@ -79,6 +81,8 @@ int	correct_pipe_dup(t_ast *node, t_data *data, t_exec_data *e_data)
 	
 	if (node->parent_node->status == 0)
 	{
+		if (close(e_data->old_read_fds[data->cmd_idx + 1]) < 0)
+			return (debug(DBG("Failed to close old_read_fds")), false);
 		if (dup2(e_data->pipefd[1], STDOUT_FILENO) < 0)
 			return (debug(DBG("Failed to dup stdin")), false);
 		if (close(e_data->pipefd[1]) < 0)
@@ -89,6 +93,8 @@ int	correct_pipe_dup(t_ast *node, t_data *data, t_exec_data *e_data)
 	// if we're on the right node
 	else if (node->parent_node->status == 1)
 	{
+		if (close(e_data->old_read_fds[data->cmd_idx + 1]) < 0)
+			return (debug(DBG("Failed to close old_read_fds")), false);
 		if (dup2(e_data->old_read_fds[data->cmd_idx], STDIN_FILENO) < 0)
 			return (debug(DBG("Failed to dup stdin")), false);
 		if (close(e_data->old_read_fds[data->cmd_idx]) < 0)

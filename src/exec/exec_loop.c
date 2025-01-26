@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 05:55:15 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:25:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "minishell.h"
 #include <unistd.h>
 
-bool	handle_pipe_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
+bool	handle_pipe_or_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
 {	
 	if ((*node)->token == PIPE)
 	{
@@ -42,7 +42,7 @@ bool	handle_redir_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
 
 	if (is_tok_redir_type((*node)->token) && (*node)->left)
 	{
-		if (check_if_builtin((*node)->left))
+		if (check_if_builtin((*node)->left) != -1)
 		{
 			if (!open_files(*node, e_data))
 				return (debug(DBG("Failed to open_files()")), false);
@@ -65,7 +65,7 @@ bool	handle_redir_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
 
 int	handle_node(t_data *data, t_ast *node, t_exec_data *e_data)
 {
-	if (handle_pipe_builtin(data, &node, e_data))
+	if (handle_pipe_or_builtin(data, &node, e_data))
 		return (true);
 	else if (handle_redir_builtin(data, &node, e_data))
 		return (true);
@@ -96,19 +96,17 @@ int	exec_loop(t_data *data)
 	ft_bzero(&exec_data, sizeof(t_exec_data));
 	if (node->parent_node)
 		node = node->parent_node;
-	while (node)
+	while (node && data->cmd_idx < og_cmd_count)
 	{
 		if (node && node->status == 2)
 			node = node->parent_node;
 		if (!node)
 			break;
 		handle_node(data, node, &exec_data);
+		close_prev_command_fds(&exec_data);
 		data->cmd_idx++;
-		if (data->cmd_idx == og_cmd_count)
-			break;
-
 		if (node)
 			node->status++;
 	}
-	return (true);
+	return (close_e_data(&exec_data), true);
 }

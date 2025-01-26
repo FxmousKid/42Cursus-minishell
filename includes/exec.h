@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 04:49:02 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 06:54:13 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 02:24:28 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	custom_name_perror(char *file);
 void	exit_from_child(char *debug_text, t_data *data);
 
 void	emergency_close_files(t_exec_data *e_data);
+
+void	close_e_data(t_exec_data *e_data);
+
+void	close_prev_command_fds(t_exec_data *e_data);
 
 // BUILT-INS
 

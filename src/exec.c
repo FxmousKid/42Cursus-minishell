@@ -6,11 +6,12 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 04:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 07:19:42 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:48:03 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils.h"
 
 /* The goal is to function in these 3 steps for the execution :
  * 1) iterate over all the nodes / execute them
@@ -41,5 +42,6 @@ int	exec(t_data *data)
 		return (debug(DBG("Failed to exec_loop()")), false);
 	if (!wait_loop(data))
 		return (debug(DBG("Failed to wait_loop()")), false);
+
 	return (true);
 }

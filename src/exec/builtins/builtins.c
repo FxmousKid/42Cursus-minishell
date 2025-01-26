@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:02:36 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 06:54:26 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:48:11 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	check_if_builtin(t_ast *cmd_node)
 		strcmp_ex(cmd_name, "pwd") && strcmp_ex(cmd_name, "env") && \
 		strcmp_ex(cmd_name, "cd"))
 		return (-1);
-
 	return (1);
 }
 

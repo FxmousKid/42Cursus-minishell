@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 05:29:05 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/26 01:35:39 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	handle_redir(t_data *data, t_ast *node, t_exec_data *e_data)
 {
 	if (!open_files(node, e_data))
 		exit_from_child("Failed to open_files()", data);
-
 	if (!dup_or_cut_tree(node, e_data))
 	{
+		fprintf(stderr, "Executingggg\n");
 		emergency_close_files(e_data);
 		exit_from_child("Failed to dup_or_cut_tree()", data);
 	}
