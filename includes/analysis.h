@@ -95,6 +95,7 @@ struct s_ast
 		{
 			char	*cmd_name;
 			char	**cmd_args;
+			bool	is_hdoc;
 		}	ast_cmd;
 		struct s_ast_file
 		{

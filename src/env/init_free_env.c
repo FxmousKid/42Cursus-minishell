@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:45:09 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 07:01:40 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:16:33 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ bool	init_env(t_env *data_env, char *env[])
 	data_env->env_len = i;
 	fill_paths_env(data_env);
 	add_env_entry(data_env, "-", access_env_value(data_env, "PWD"));
+	data_env->global_cmd_number = 0;
 	return (true);
 }
 

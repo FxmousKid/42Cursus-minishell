@@ -56,6 +56,8 @@ void	close_e_data(t_exec_data *e_data);
 
 void	close_prev_command_fds(t_exec_data *e_data);
 
+bool	write_dup_heredoc_stdin(t_ast *cmd_node, t_exec_data *e_data);
+
 // BUILT-INS
 
 int		check_if_builtin(t_ast *cmd_node);

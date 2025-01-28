@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 02:25:15 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:46:00 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,51 @@
 #include "minishell.h"
 #include <unistd.h>
 
-bool	handle_pipe_or_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
+bool	check_and_handle_pipe(t_data *data, t_ast **node, t_exec_data *e_data)
 {	
 	if ((*node)->token == PIPE)
 	{
-		handle_pipe(*node, data, e_data);
+		if (!handle_pipe(*node, data, e_data))
+			return (debug(DBG("Failed to handle_pipe()")), false);
 		if ((*node)->status == 1)
 			*node = (*node)->right;		
 		else
 			*node = (*node)->left;
 	}
-	if ((*node)->token == CMD && check_if_builtin(*node) != -1)
-	{
-		if ((*node)->parent_node && (*node)->parent_node->token == PIPE)
-			correct_pipe_dup(*node, data, e_data);
-		check_and_exec_builtin(*node, data);
-		data->cmd_count--;
-		return (true);
-	}
+	// if ((*node)->token == CMD)
+	// {
+	// 	if ((*node)->parent_node && (*node)->parent_node->token == PIPE)
+	// 		correct_pipe_dup(*node, data, e_data);
+	// 	// check_and_exec_builtin(*node, data);
+	// 	// data->cmd_count--;
+	// 	return (true);
+	// }
 	return (false);
 }
 
-bool	handle_redir_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
+bool	check_and_handle_builtin_w_redir( \
+	t_data *data,	t_ast **node, t_exec_data *e_data)
 {
 	int		og_stdout;
 
 	if (is_tok_redir_type((*node)->token) && (*node)->left)
 	{
-		if (check_if_builtin((*node)->left) != -1)
+		if (check_if_builtin((*node)->left))
 		{
 			if (!open_files(*node, e_data))
 				return (debug(DBG("Failed to open_files()")), false);
 			og_stdout = dup(STDOUT_FILENO);
 			if (!dup_or_cut_tree(*node, e_data))
 			{
+				dup2(og_stdout, STDOUT_FILENO);
+				close(og_stdout);
 				emergency_close_files(e_data);
 				return (debug(DBG("Failed to dup_or_cut_tree()")), false);
 			}
 			*node = (*node)->left;
 			data->cmd_count--;
 			check_and_exec_builtin(*node, data);
-			dup2(og_stdout, STDOUT_FILENO);
-			close(og_stdout);
-			return (true);
+			return (dup2(og_stdout, STDOUT_FILENO), close(og_stdout), true);
 		}
 	}
 	return (false);
@@ -65,9 +67,11 @@ bool	handle_redir_builtin(t_data *data, t_ast **node, t_exec_data *e_data)
 
 int	handle_node(t_data *data, t_ast *node, t_exec_data *e_data)
 {
-	if (handle_pipe_or_builtin(data, &node, e_data))
+	if (check_and_exec_builtin(node, data))
 		return (true);
-	else if (handle_redir_builtin(data, &node, e_data))
+	else if (check_and_handle_pipe(data, &node, e_data))
+		return (true);
+	else if (check_and_handle_builtin_w_redir(data, &node, e_data))
 		return (true);
 	data->pids[data->cmd_idx] = fork();
 	if (data->pids[data->cmd_idx] < 0)

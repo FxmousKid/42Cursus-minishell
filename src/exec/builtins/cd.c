@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:05:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 07:09:40 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:04:33 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	handle_cd_aux(t_data *data, t_ast *node)
 	ret = 1;
 	if (node->ast_cmd.cmd_args[1] && node->ast_cmd.cmd_args[2])
 	{
-		custom_name_error("cd", "too many arguments");
+		custom_name_error("cd", TOO_MANY_ARGS);
 		data->exit_code = 1;
 		return (-1);
 	}

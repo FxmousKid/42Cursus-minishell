@@ -21,13 +21,15 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 
 	if (!readline_input || !*readline_input)
 		return (debug(DBG("Received null in readline")), 0);
-	free_and_init_data(&data, NULL);
-	lexer(&data.lex, readline_input);
 	data.env = data_env;
+	if (data.env->global_cmd_number == 0)
+		free_and_init_data(&data, NULL);
+	data.env->global_cmd_number++;
+	lexer(&data.lex, readline_input);
 	print_lexems(&data.lex, &data);
+	printf("Data>prev_exit_code = %d\n", data.prev_exit_code);
 	if (!parser(&data, &data.lex))
 	{
-		free_and_init_data(&data, readline_input);
 		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parser()")), 0);
 	}
@@ -35,8 +37,10 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 	if (!exec(&data))
 	{
 		free_and_init_data(&data, readline_input);
+		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to exec()")), 0);
 	}
+	data.prev_exit_code = data.exit_code;
 	*exit_code_dspl = data.exit_code;
 	free_and_init_data(&data, readline_input);
 	return (0);

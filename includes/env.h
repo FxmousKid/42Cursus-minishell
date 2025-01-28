@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:04:27 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 04:21:25 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:15:56 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_env
 	t_env_pair	env_pairs[ENV_MAX];
 	int			env_len;
 	char		*paths[128];
+	int			global_cmd_number;
 }				t_env;
 
 /* fills up out custom made structure with the system provided env */

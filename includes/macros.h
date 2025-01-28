@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 13:23:19 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:48:26 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 
 # define CMD_NOT_FOUND "command not found...\n"
 # define FILE_NOT_FOUND "No such file or directory\n"
+# define TOO_MANY_ARGS "Too many arguments\n"
 
 # define EXIT_COMMAND_NOT_FOUND 127
 # define EXIT_PERMISSION_ERROR 1

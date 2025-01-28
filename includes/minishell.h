@@ -22,19 +22,21 @@
 # include "utils.h"
 # include "exec.h"
 #include <fcntl.h>
+#include <stdio.h>
 
 typedef struct s_data
 {
-	t_env		*env;
-	t_lexer		lex;
-	t_ast		*ast;
-	pid_t		pids[MAX_PIDS];
-	int			cmd_idx;
-	int			cmd_count;
-	char		*heredocs[MAX_HEREDOCS];
-	char		*heredocs_dq[MAX_HEREDOCS];
-	int			exit_code;
-}				t_data;
+	t_env			*env;
+	t_lexer			lex;
+	t_ast			*ast;
+	pid_t			pids[MAX_PIDS];
+	int				cmd_idx;
+	int				cmd_count;
+	char			*heredocs[MAX_HEREDOCS];
+	char			*heredocs_dq[MAX_HEREDOCS];
+	unsigned char	exit_code;
+	unsigned char	prev_exit_code;
+}					t_data;
 
 
 // Free functions

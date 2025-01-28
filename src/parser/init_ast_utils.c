@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:22:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 05:09:31 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:08:18 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_cmd_arg_count(t_lexem *lexems, int start_idx)
  * extracts the env variable when necessary
  * */
 
-char	*get_arg_value(t_data *data, int cmd_lexem_idx)
+char	*get_arg_value(struct s_ast_cmd *cmd, t_data *data, int cmd_lexem_idx)
 {
 	int		hdoc_num;
 	t_lexem *lexems;
@@ -50,11 +50,13 @@ char	*get_arg_value(t_data *data, int cmd_lexem_idx)
 	hdoc_num = 0;
 	if (lexems[cmd_lexem_idx + 1].token == Q_LIMITER)
 	{
+		cmd->is_hdoc = true;
 		hdoc_num = get_token_count_to_idx_n(data->lex, cmd_lexem_idx, Q_LIMITER); 
 		return (expand_env_var_in_str(data->heredocs_dq[hdoc_num], data));
 	}
 	else if (lexems[cmd_lexem_idx + 1].token == LIMITER)
 	{
+		cmd->is_hdoc = true;
 		hdoc_num = get_token_count_to_idx_n(data->lex, cmd_lexem_idx, LIMITER);
 		return (expand_env_var_in_str(data->heredocs[hdoc_num], data));
 	}
@@ -81,9 +83,9 @@ bool	fill_cmd_node(t_ast *ast_child, t_data *data, int cmd_idx)
 	if (!ast_cmd->cmd_args)
 		return (debug(DBG("Failed to allocate cmd_args")), false);
 	idx = 0;
-	ast_cmd->cmd_args[idx++] = get_arg_value(data, cmd_idx++);
+	ast_cmd->cmd_args[idx++] = get_arg_value(ast_cmd, data, cmd_idx++);
 	while (arg_count-- > 0)
-		ast_cmd->cmd_args[idx++] = get_arg_value(data, cmd_idx++);
+		ast_cmd->cmd_args[idx++] = get_arg_value(ast_cmd, data, cmd_idx++);
 	ast_cmd->cmd_args[idx] = NULL;
 	return (true);
 }

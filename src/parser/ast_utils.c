@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:04:03 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 07:49:46 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:32:20 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	handle_special_dollar(char *new_str, char *str, t_data *data, int *idx)
 	}
 	else if (str[0] == '?')
 	{
-		tmp = ft_itoa(data->exit_code);
+		tmp = ft_itoa(data->prev_exit_code);
 		ft_strlcat(new_str, tmp, 4096);
 		free(tmp);
 		*idx += 1;
@@ -70,7 +70,7 @@ void	handle_dollar_sign(char *new_str, char *str, t_data *data, int *idx)
 		ft_strlcat(new_str, "", 4096);
 	else
 		ft_strlcat(new_str, access_env_value(data->env, tmp), 4096);
-	*idx += ft_strlen(tmp) + 1;
+	*idx += ft_strlen(tmp);
 	free(tmp);
 }
 
@@ -101,6 +101,8 @@ char	*expand_env_var_in_str(char *str, t_data *data)
 				continue;
 			new_str[ft_strlen(new_str)] = str[idx];
 		}
+		if (!str[idx])
+			break;
 	}	
 	return ft_strdup(new_str);
 }
@@ -120,7 +122,6 @@ char	*extract_str_or_env_var(t_lexem lexem, t_data *data)
 		|| lexem.token == SQ_WORD \
 		|| (lexem.token == CMD && lexem.value[0] == '"'))
 		return (expand_env_var_in_str(lexem.value, data));
-	// if (lexem.token == SQ_WORD || lexem.token == CMD)
 	if (lexem.token == CMD)
 		return (ft_strdup(lexem.value));
 	return (NULL);

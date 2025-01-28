@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 03:14:29 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:30:55 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	print_old_read_fds(int fds[MAX_PIDS])
 
 void	close_old_read_fds(t_exec_data *e_data, t_data *data)
 {
-	fprintf(stderr, "cmd_idx: %d\n", data->cmd_idx);
-	print_old_read_fds(e_data->old_read_fds);
 	if (data->cmd_idx == data->cmd_count - 1)
 	{
 		if (!e_data->old_read_fds[data->cmd_idx - 1])
@@ -81,7 +79,6 @@ void	close_old_read_fds(t_exec_data *e_data, t_data *data)
 			debug(DBG("Failed to close old_read_fds"));
 		e_data->old_read_fds[data->cmd_idx - 1] = 0;
 	}
-
 }
 
 void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
@@ -89,14 +86,17 @@ void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 	char	**comp_env;
 	char	**args;
 	
+	if (check_and_exec_builtin(cmd_node, data))
+		exit_from_child("Executed Builtin Succesfully", data);
 	comp_env = NULL;
 	convert_custom_env_to_compliant_env(data->env, &comp_env);
 	args = cmd_node->ast_cmd.cmd_args;
-	if (!handle_finding_path(data, args, e_data->curr_cmd_path))
+	if (!handle_finding_path(data, args, e_data->curr_cmd_path) || \
+		!write_dup_heredoc_stdin(cmd_node, e_data))
 	{
 		close_old_read_fds(e_data, data);
 		free_split(comp_env);
-		exit_from_child("Failed to handle_finding_path()", data);
+		exit_from_child("Failed to find_path or make hereodoc work", data);
 	}
 	close_old_read_fds(e_data, data);
 	execve(e_data->curr_cmd_path, args, comp_env);

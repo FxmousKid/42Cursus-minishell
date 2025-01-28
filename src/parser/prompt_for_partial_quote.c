@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 08:01:11 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:45:38 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ bool	prompt_for_partial_sq_dq(t_lexer *lex)
 
 	ft_bzero(partial_fill, 4096);
 	fill_quotes_states(lex->input, dq_sq);
-	printf("\n\ndq_sq[0] = %d, dq_sq[1] = %d\n", dq_sq[0], dq_sq[1]);
 	line = NULL;
 	p_fill_quote(line, partial_fill, dq_sq, lex);
 	free(line);

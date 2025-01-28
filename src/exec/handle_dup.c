@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 20:38:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 02:10:01 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/27 01:40:51 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <unistd.h>
 
 /* Checks if parent node redirects the same flow as the current node ;
- * if curr_node->token == REDIR_OUT && curr_node->parent_node->toke == (|, >>, >, ....)
+ * if curr_node->token == REDIR_OUT && 
+ *	curr_node->parent_node->toke == (|, >>, >, ....)
  * then we return true, but if say curr_node = <, and parent_node = >, then false
  * return false if parent is Null */
 bool	check_if_parent_same_flow(t_ast *node)
@@ -24,7 +25,8 @@ bool	check_if_parent_same_flow(t_ast *node)
 		return (false);
 	if (node->token == REDIR_IN && node->parent_node->token == REDIR_IN)	
 		return (true);
-	if (is_tok_dual_cmd_type(node->token) || is_tok_redir_out_type(node->token))
+	if (is_tok_dual_cmd_type(node->token) || \
+		is_tok_redir_out_type(node->token))
 	{
 		if (is_tok_redir_out_type(node->parent_node->token))
 			return (true);

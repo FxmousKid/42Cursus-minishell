@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 04:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 01:48:03 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:02:23 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	wait_loop(t_data *data)
 	int	stat_loc;
 
 	idx = 0;
-	while (idx < data->cmd_count)
+	while (idx < data->cmd_count && data->pids[idx])
 	{
 		waitpid(data->pids[idx], &stat_loc, 0);
 		if (WIFEXITED(stat_loc))

@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2025/01/25 07:42:14 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/28 16:34:28 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC_FILES_NAMES += exec/exec_cmd.c
 SRC_FILES_NAMES += exec/handle_pipe.c
 SRC_FILES_NAMES += exec/handle_redir.c
 SRC_FILES_NAMES += exec/handle_dup.c
+SRC_FILES_NAMES += exec/handle_heredoc.c
 SRC_FILES_NAMES += exec/errors.c
 SRC_FILES_NAMES += exec/builtins/builtins.c
 SRC_FILES_NAMES += exec/builtins/export.c
@@ -59,16 +60,10 @@ SRC_FILES_NAMES += exec/builtins/unset.c
 SRC_FILES_NAMES += exec/builtins/exit.c
 SRC_FILES_NAMES += exec/builtins/echo.c
 
-
-# SRC_FILES_NAMES += exec/builtin.c
-# SRC_FILES_NAMES += exec/process.c
-# SRC_FILES_NAMES += exec/test.c
-
 SRC_FILES_NAMES += env/init_free_env.c
 SRC_FILES_NAMES += env/manipulate_env_entries.c
 SRC_FILES_NAMES += env/print_env.c
 SRC_FILES_NAMES += env/convert_env.c
-
 
 SRC_FILES_NAMES += utils/prepare_t_data.c
 SRC_FILES_NAMES += utils/prompt.c
