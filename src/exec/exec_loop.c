@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 17:46:00 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:41:40 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "exec.h"
 #include "minishell.h"
 #include <unistd.h>
@@ -77,12 +76,10 @@ int	handle_node(t_data *data, t_ast *node, t_exec_data *e_data)
 	if (data->pids[data->cmd_idx] < 0)
 		return (debug(DBG("Failed to fork()")), false);
 	if (data->pids[data->cmd_idx] != 0)
+		// return (check_and_cut_tree_ true);
 		return (true);
 	if (is_tok_redir_type(node->token))
-	{
 		handle_redir(data, node, e_data);
-		node = node->left;
-	}
 	else if (node->parent_node && node->parent_node->token == PIPE)
 		correct_pipe_dup(node, data, e_data);
 	exec_cmd(node, data, e_data);

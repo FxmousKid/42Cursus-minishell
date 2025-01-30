@@ -15,7 +15,8 @@
 # define MINISHELL_H
 
 # include "dependencies.h"
-# include "analysis.h"
+# include "lexer.h"
+# include "parser.h"
 # include "error_manager.h"
 # include "macros.h"
 # include "env.h"

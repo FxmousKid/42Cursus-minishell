@@ -6,17 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:02:06 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 20:08:21 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:38:34 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
-#include "error_manager.h"
-#include "macros.h"
 #include "minishell.h"
-#include "utils.h"
-#include <stdbool.h>
-#include <stdio.h>
 
 char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read);
 

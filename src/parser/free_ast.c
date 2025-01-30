@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 00:45:18 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/03 01:36:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:47 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 
 void	free_leaf(t_ast *node)

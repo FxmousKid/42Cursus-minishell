@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 11:59:48 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:35 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 
 void	print_parse_error(char *unexpected_token)

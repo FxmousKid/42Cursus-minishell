@@ -6,14 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:28:14 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/02 21:44:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:04 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
-#include <stdbool.h>
-#include <stdio.h>
 
 bool	has_token(t_lexem *lexems, t_token token)
 {

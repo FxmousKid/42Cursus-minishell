@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 01:22:50 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 18:33:29 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/30 13:42:08 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	init_t_data(t_data *data)
 	ft_bzero(&data->ast, sizeof(t_ast));
 	data->cmd_idx = 0;
 	data->cmd_count = 0;
-	printf("global_cmd_number: %d\n", data->env->global_cmd_number);
-	printf("Data->exit_code = %d\n", data->exit_code);
 	if (data->env->global_cmd_number == 0)
 		data->prev_exit_code = 0;
 	data->exit_code = 0;

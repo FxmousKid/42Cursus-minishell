@@ -12,6 +12,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
+#include "utils.h"
 
 // Every return code starting from here and down, will signify a exit code
 
@@ -19,31 +21,34 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 {
 	static t_data	data = {0};
 
-	if (!readline_input || !*readline_input)
+	if (!readline_input || !*readline_input || !(data.env = data_env))
 		return (debug(DBG("Received null in readline")), 0);
-	data.env = data_env;
 	if (data.env->global_cmd_number == 0)
 		free_and_init_data(&data, NULL);
 	data.env->global_cmd_number++;
 	lexer(&data.lex, readline_input);
-	print_lexems(&data.lex, &data);
-	printf("Data>prev_exit_code = %d\n", data.prev_exit_code);
 	if (!parser(&data, &data.lex))
 	{
 		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parser()")), 0);
 	}
+
+
 	print_ast(data.ast);
-	if (!exec(&data))
-	{
-		free_and_init_data(&data, readline_input);
-		*exit_code_dspl = data.exit_code;
-		return (debug(DBG("Failed to exec()")), 0);
-	}
+	t_ast *node = data.ast->parent_node;
+	cut_tree_one_level_and_free(&node);
+	print_ast(node);
+
+
+	// if (!exec(&data))
+	// {
+	// 	free_and_init_data(&data, readline_input);
+	// 	*exit_code_dspl = data.exit_code;
+	// 	return (debug(DBG("Failed to exec()")), 0);
+	// }
 	data.prev_exit_code = data.exit_code;
-	*exit_code_dspl = data.exit_code;
-	free_and_init_data(&data, readline_input);
-	return (0);
+	*exit_code_dspl = data.exit_code;	
+	return (free_and_init_data(&data, readline_input), 0);
 }
 
 int	launch_minishell(char *env[])

@@ -14,7 +14,8 @@
 # define EXEC_H
 
 # include "macros.h"
-# include "analysis.h"
+# include "lexer.h"
+# include "parser.h"
 # include "dependencies.h"
 
 typedef struct s_exec_data

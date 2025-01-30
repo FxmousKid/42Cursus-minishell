@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:05:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 17:04:33 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:33:18 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	builtin_cd(t_data *data, t_ast *node)
 			return (custom_name_perror(access_env_value(data->env, "-")), \
 			false);
 	}
-	if (chdir(target_path))
+	else if (chdir(target_path))
 	{
 		custom_name_perror(target_path);
 		return (false);

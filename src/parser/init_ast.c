@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:55:44 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 12:01:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:41 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 
 /* before allocating we check if the child has a parent already allocated,

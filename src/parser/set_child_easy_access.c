@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_easy_child_access.c                            :+:      :+:    :+:   */
+/*   set_child_easy_access.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 11:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 11:58:58 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:38:41 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 
 void	set_child_access_aux(t_ast *node)

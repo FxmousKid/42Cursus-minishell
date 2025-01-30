@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 21:48:21 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 20:25:55 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:37:16 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "analysis.h"
 #include "minishell.h"
 #include <stdbool.h>
 

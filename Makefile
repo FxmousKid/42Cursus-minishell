@@ -6,7 +6,7 @@
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2025/01/28 16:34:28 by inazaria         ###   ########.fr        #
+#    Updated: 2025/01/30 12:13:47 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
 SRC_FILES_NAMES += parser/heredocs_expansion.c
 SRC_FILES_NAMES += parser/set_child_easy_access.c
 SRC_FILES_NAMES += parser/ast_expand_words.c
-
+SRC_FILES_NAMES += parser/token_utils.c
+SRC_FILES_NAMES += parser/cut_tree.c
 
 SRC_FILES_NAMES += exec.c
 SRC_FILES_NAMES += exec/exec_loop.c
