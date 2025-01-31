@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 20:38:59 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/27 17:45:38 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:10:20 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read)
 
 void	p_fill_quote(char *line, char *p_fill, bool dq_sq[2], t_lexer *lex)
 {
-	strlcat(p_fill, "\n", 4096);
+	ft_strlcat(p_fill, "\n", 4096);
 	if (dq_sq[0])
 	{
 		line = readline_fancy_ps_two(lex, PS2_DQ, true);
-		strlcat(p_fill, line, 4096);
+		ft_strlcat(p_fill, line, 4096);
 		while (!is_occ_aux('"', line))
 		{
-			strlcat(p_fill, "\n", 4096);
+			ft_strlcat(p_fill, "\n", 4096);
 			free(line);
 			line = readline_fancy_ps_two(lex, PS2_DQ, true);
-			strlcat(p_fill, line, 4096);
+			ft_strlcat(p_fill, line, 4096);
 		}
 	}
 	else if (dq_sq[1])
 	{
 		line = readline_fancy_ps_two(lex, PS2_SQ, true);
-		strlcat(p_fill, line, 4096);
+		ft_strlcat(p_fill, line, 4096);
 		while (!is_occ_aux('\'', line))
 		{
-			strlcat(p_fill, "\n", 4096);
+			ft_strlcat(p_fill, "\n", 4096);
 			free(line);
 			line = readline_fancy_ps_two(lex, PS2_SQ, true);
-			strlcat(p_fill, line, 4096);
+			ft_strlcat(p_fill, line, 4096);
 		}
 	}
 }
