@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:45:43 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:33:29 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ bool	cut_tree(t_ast **node, bool in_c, t_exec_data *e_data, t_data *data)
 		(void)data;
 		cut_tree_one_level_and_free(node);
 	}
-	if (!in_c && is_tok_dual_cmd_type((*node)->token))
-		(*node)->status++;
 	if (in_c && !open_files(*node, e_data))
 		return (debug(DBG("Failed to open_files()")), false);
 	return (true);

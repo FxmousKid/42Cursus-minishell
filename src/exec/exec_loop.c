@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 20:21:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:33:34 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	handle_node(t_data *data, t_ast **node, t_exec_data *e_data)
 			return (debug(DBG("Failed to write_dup_heredoc_stdin()")), false);
 		if (!check_and_exec_builtin(*node, data))
 			return (debug(DBG("Failed to check_and_exec_builtin()")), false);
+		return (true);
 	}
 	if (handle_pipe(data, node, e_data))
 		return (true);
