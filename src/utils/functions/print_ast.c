@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:36:08 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:42:10 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:31:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	print_ast_node_2(t_ast *node, int depth)
 void	print_ast_node(t_ast *node, int depth)
 {
 	if (!node)
-		return;
+		return ;
 	print_indentation(depth);
 	if (node->token == CMD)
 	{
@@ -99,7 +99,7 @@ void	print_ast(t_ast *root)
 	if (!root)
 	{
 		printf("Empty AST\n");
-		return;
+		return ;
 	}
 	while (root->parent_node)
 		root = root->parent_node;
@@ -107,4 +107,3 @@ void	print_ast(t_ast *root)
 	print_ast_node(root, 0);
 	printf("===================\n\n");
 }
-

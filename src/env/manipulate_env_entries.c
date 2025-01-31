@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 22:19:39 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 06:28:19 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:34:31 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	add_env_entry(t_env *env, char *key, char *value)
 void	remove_env_entry(t_env *env, char *key)
 {
 	int	idx;
-	
+
 	idx = 0;
 	while (idx < env->env_len)
 	{

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 11:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:38:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:40:58 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ void	set_child_access(t_ast *node)
 		node->left = node->ast_pipe.left;
 		node->right = node->ast_pipe.right;
 	}
-	else 
+	else
 		set_child_access_aux(node);
 }
-
-
 
 void	set_child_easy_access(t_ast *node)
 {

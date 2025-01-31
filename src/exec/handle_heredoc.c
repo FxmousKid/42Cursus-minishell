@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:09:19 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:38:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:46:08 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	write_dup_heredoc_stdin(t_ast *cmd_node, t_exec_data *e_data)
 	char	*hdoc;
 
 	if (!cmd_node->ast_cmd.is_hdoc)
-		return true;
+		return (true);
 	hdoc = cmd_node->ast_cmd.cmd_args[1];
 	if (pipe(e_data->pipefd) < 0)
 		return (debug(DBG("Failed to pipe()")), false);

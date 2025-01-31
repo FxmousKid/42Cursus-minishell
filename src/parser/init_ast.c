@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:55:44 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:37:41 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:37:59 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	fill_ast(t_data *data)
 	t_ast	*ast_tmp;
 
 	ast_tmp = data->ast;
-	lex_idx	 = get_next_cmd_or_metachar_idx(data->lex.lexems, 0);
+	lex_idx = get_next_cmd_or_metachar_idx(data->lex.lexems, 0);
 	while (lex_idx < (int) data->lex.lexem_count && lex_idx != -1)
 	{
 		if (!fill_current_node(&ast_tmp, data, lex_idx))

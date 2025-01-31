@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:08:52 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/27 18:36:27 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:49:02 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	builtin_exit_aux(t_data *data, t_ast *cmd_node)
 	{
 		if (!ft_isalnum(cmd_node->ast_cmd.cmd_args[1][idx]))
 		{
-
 			printf("%s: %s: %s: %s\n", SH_NAME, "exit", \
 				cmd_node->ast_cmd.cmd_args[1], "numeric argument required");
 			code = 2;
@@ -46,7 +45,7 @@ void	builtin_exit(t_data *data, t_ast *cmd_node)
 	if (code > INT_MAX || code < 0)
 	{
 		printf("%s: %s: %s: %s\n", SH_NAME, "exit", \
-		 cmd_node->ast_cmd.cmd_args[1], "numeric argument required");
+		cmd_node->ast_cmd.cmd_args[1], "numeric argument required");
 		code = 2;
 		free_data_w_env(data, NULL);
 		exit(code);

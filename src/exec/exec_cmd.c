@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:34:17 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:45:15 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ int	handle_finding_path(t_data *data, char **args, char *cmd_path)
 	return (true);
 }
 
-void	print_old_read_fds(int fds[MAX_PIDS])
-{
-	fprintf(stderr, "data->old_read_fds = [");
-	int i = -1;
-	while (++i < MAX_PIDS)
-	{
-		if (fds[i] == 0)
-			continue ;
-		fprintf(stderr, "%d, ", fds[i]);
-	}
-	fprintf(stderr, "]\n");
-}
+// void	print_old_read_fds(int fds[MAX_PIDS])
+// {
+// 	fprintf(stderr, "data->old_read_fds = [");
+// 	int i = -1;
+// 	while (++i < MAX_PIDS)
+// 	{
+// 		if (fds[i] == 0)
+// 			continue ;
+// 		fprintf(stderr, "%d, ", fds[i]);
+// 	}
+// 	fprintf(stderr, "]\n");
+// }
 
 void	close_old_read_fds(t_exec_data *e_data, t_data *data)
 {
@@ -84,7 +84,7 @@ void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 {
 	char	**comp_env;
 	char	**args;
-	
+
 	if (check_if_builtin(cmd_node) && \
 		!write_dup_heredoc_stdin(cmd_node, e_data))
 		if (check_and_exec_builtin(cmd_node, data))

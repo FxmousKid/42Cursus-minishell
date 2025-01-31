@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 00:07:09 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 01:37:53 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:36:06 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	prompt_for_partial_pipe(t_lexer *lex)
 
 	if (lex->lexems[lex->lexem_count - 1].token == PIPE)
 	{
-		line = readline_fancy_ps_two(lex, PS2, true);	 
+		line = readline_fancy_ps_two(lex, PS2, true);
 		ft_strlcat(lex->input, line, PATH_MAX);
 		free(line);
 		return (true);

@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:29:38 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/30 16:08:15 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:53:43 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_lexer
 	size_t	lexem_count;
 }			t_lexer;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 // Lex Utils
 int		is_meta_char(char *str);
@@ -92,10 +92,6 @@ bool	is_tok_redir_out_type(t_token tok);
  * else returns -1 if none are found */
 int		get_next_cmd_or_metachar_idx(t_lexem *lexems, int curr_idx);
 
-/* returns the index of the first lexem of given token, or the next meta if 
- * given true as last param */
-int		get_next_tok_idx(t_lexem *lexems, t_token token, int start, bool getmeta);
-
 /* if the given lexem has to be expanded then we expand the value of it
  * else we return a char * containing the original lexem value
  * both cases return a malloced char *
@@ -111,7 +107,6 @@ void	offset_lexems_right(t_lexer *lex, size_t i);
 /* start_idx is the idx of the CMD lexem, and counts all the arguments of 
  * that command, so all WORD, SQ_WORD, DQ_WORD of that command */
 int		get_cmd_arg_count(t_lexem *lexems, int start_idx);
-
 
 // Lexer
 bool	lex_if_meta_chars(t_lexem *lexem, char *str);

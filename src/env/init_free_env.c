@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:45:09 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 17:16:33 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:35:23 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static inline char	*join_value_strings(char **env_line)
 
 	ft_bzero(values, sizeof(char) * ARG_MAX);
 	while (*++env_line)
-		ft_strlcat(values, *env_line, ARG_MAX);	
+		ft_strlcat(values, *env_line, ARG_MAX);
 	return (ft_strdup(values));
 }
 

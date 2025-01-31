@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:08:21 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 17:48:26 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:50:48 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@
 # define IN_N_OUT_REDIR 0b11
 
 # define PARSE_ERROR SH_NAME": syntax error near unexpected token "
-
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 05:20:22 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:39:07 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:42:49 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 bool	handle_pipe(t_data *data, t_ast **node, t_exec_data *e_data)
-{	
+{
 	if ((*node)->token == REDIR_IN)
 	{
 		if (!cut_tree(node, false, e_data, data))
@@ -49,7 +49,6 @@ bool	check_and_handle_builtin_w_redir( \
 				return (debug(DBG("Failed to dup_or_cut_tree()")), false);
 			}
 			*node = (*node)->left;
-			// data->cmd_count--;
 			check_and_exec_builtin(*node, data);
 			return (dup2(og_stdout, STDOUT_FILENO), close(og_stdout), true);
 		}
@@ -82,7 +81,7 @@ int	exec_loop(t_data *data)
 {
 	t_ast		*node;
 	t_exec_data	exec_data;
-	
+
 	node = data->ast;
 	ft_bzero(&exec_data, sizeof(t_exec_data));
 	if (node->parent_node)
@@ -92,7 +91,7 @@ int	exec_loop(t_data *data)
 		if (node && node->status == 2)
 			node = node->parent_node;
 		if (!node)
-			break;
+			break ;
 		handle_node(data, &node, &exec_data);
 		data->cmd_idx++;
 		if (node)

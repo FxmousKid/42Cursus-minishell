@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 20:38:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 12:48:20 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:45:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	dup_for_redir(t_ast *node, t_exec_data *e_data)
 {
 	if (node->token == REDIR_IN)
 	{
-		if (dup2(e_data->fd_in, STDIN_FILENO) < 0) 
+		if (dup2(e_data->fd_in, STDIN_FILENO) < 0)
 			return (debug(DBG("Failed to dup2 stdout")), false);
 		if (close(e_data->fd_in) < 0)
 			return (debug(DBG("Failed to close fd_in")), false);

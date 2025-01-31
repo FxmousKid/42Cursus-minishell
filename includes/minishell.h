@@ -61,6 +61,4 @@ void	free_and_init_data(t_data *data, char *readline_input);
 /* free all the allocated char * pointers to store the heredocs */
 void	free_env_heredocs(t_data *data);
 
-
-
 #endif

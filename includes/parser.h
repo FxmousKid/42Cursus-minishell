@@ -1,12 +1,12 @@
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.h                                         :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 22:45:27 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/28 10:47:35 by inazaria         ###   ########.fr       */
-/*   Updated: 2024/10/27 21:17:16 by inazaria         ###   ########.fr       */
+/*   Created: 2025/01/31 18:53:59 by inazaria          #+#    #+#             */
+/*   Updated: 2025/01/31 18:54:59 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_ast	t_ast;
  *		- if 2, we are finished with this node
  * 
  * */
-
 
 struct s_ast
 {
@@ -95,7 +94,6 @@ struct s_ast
 	};
 };
 
-
 // Parser
 bool	parser(t_data *data, t_lexer *lex);
 bool	search_parse_error(t_lexer *lex);
@@ -107,7 +105,6 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq);
 
 /* takes a function, and iterates on all children of given node */
 void	iterate_ast(t_ast *ast, void (*f)(t_ast *ast));
-
 
 /* Takes a allocated t_ast and fill it's command node :
  * uses malloc to allocate char *cmd_name (null terminated)
@@ -121,9 +118,9 @@ bool	fill_cmd_node(t_ast *ast_child, t_data *data, int cmd_idx);
  * return false if any allocation fails */
 bool	init_and_fill_ast(t_data *data);
 
-/* takes a pointer to the allocated left child, allocate the right child using malloc
- * for the correct struct based on the token tok, and makes the right child's 
- * parent_node the same as the left child's. and makes the parent_node's
+/* takes a pointer to the allocated left child, allocate the right child using
+ * malloc for the correct struct based on the token tok, and makes the right 
+ * child's parent_node the same as the left child's. and makes the parent_node's
  * left and right tree link to the left and right children 
  * P.S. the lchild will point to the right child if the token is :
  * PIPE, OR, AND. because we expect to fill a command node next.
@@ -139,9 +136,7 @@ t_ast	*get_root_node(t_ast *ast);
  */
 char	*expand_env_var_in_str(char *str, t_data *data);
 
-
 void	set_child_easy_access(t_ast *node);
-
 
 void	free_ast(t_ast *ast);
 
@@ -154,10 +149,8 @@ void	cut_tree_one_level_and_free(t_ast **node);
 /* returns true if the current node needs to be removed and trimed */
 bool	need_to_cut_tree(t_ast *node);
 
-
 /* returns true if we need to close previously opened files after we cut
  * the current level */
 bool	need_to_close_after_cut(t_ast *node);
-
 
 #endif

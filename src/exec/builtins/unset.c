@@ -6,13 +6,13 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:05:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 06:07:38 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:48:16 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int builtin_unset(t_data *data, t_ast *node)
+int	builtin_unset(t_data *data, t_ast *node)
 {
 	char	*key;
 

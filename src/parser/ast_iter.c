@@ -6,12 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 01:13:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:38:19 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:40:45 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	iterate_ast_aux(t_ast *ast, void (*f)(t_ast *ast))
 {

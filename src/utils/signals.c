@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:06:52 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:28:18 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ static void	signal_handler(int signo)
 	{
 		if (isatty(STDIN_FILENO))
 			return ;
-			
 	}
 }
 
 void	setup_signals(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = signal_handler;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGQUIT, &sa, NULL);
-	sigaction(SIGINT, &sa, NULL); }
+	sigaction(SIGINT, &sa, NULL);
+}

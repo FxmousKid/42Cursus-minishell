@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:05:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 14:33:18 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:48:38 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_cd_aux(t_data *data, t_ast *node)
 int	builtin_cd(t_data *data, t_ast *node)
 {
 	char	*target_path;
-	
+
 	if (handle_cd_aux(data, node) != 1)
 		return (true);
 	target_path = node->ast_cmd.cmd_args[1];

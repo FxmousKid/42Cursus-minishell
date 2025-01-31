@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 18:04:03 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:38:08 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:36:54 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_env_key_name(char *str)
 }
 
 void	handle_special_dollar(char *new_str, char *str, t_data *data, int *idx)
-{	
+{
 	int		pid;
 	char	*tmp;
 
@@ -94,16 +94,16 @@ char	*expand_env_var_in_str(char *str, t_data *data)
 		else
 		{
 			if (idx == 0 && (str[idx] == '"' || str[idx] == '\''))
-				continue;
+				continue ;
 			if ((size_t) idx == ft_strlen(str) - 1 && \
 				(str[idx] == '"' || str[idx] == '\''))
-				continue;
+				continue ;
 			new_str[ft_strlen(new_str)] = str[idx];
 		}
 		if (!str[idx])
-			break;
-	}	
-	return ft_strdup(new_str);
+			break ;
+	}
+	return (ft_strdup(new_str));
 }
 
 /* if the given lexem has to be expanded then we expand the value of it
@@ -124,5 +124,4 @@ char	*extract_str_or_env_var(t_lexem lexem, t_data *data)
 	if (lexem.token == CMD)
 		return (ft_strdup(lexem.value));
 	return (NULL);
-
 }

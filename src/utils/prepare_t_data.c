@@ -6,14 +6,15 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 01:22:50 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/30 13:42:08 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:29:09 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* We use this instead of free_split() because we only want to free 
- * the content of the heredocs, not the heredocs itself since it's on the stack */
+ * the content of the heredocs, not the heredocs itself since 
+ * it's on the stack */
 void	free_heredocs(t_data *data)
 {
 	int	idx;
@@ -33,7 +34,6 @@ void	free_data(t_data *data, char *readline_input)
 	free_heredocs(data);
 	free_ast(data->ast);
 }
-
 
 void	free_data_w_env(t_data *data, char *readline_input)
 {
@@ -57,7 +57,6 @@ void	init_t_data(t_data *data)
 
 void	free_and_init_data(t_data *data, char *readline_input)
 {
-	free_data(data,	readline_input);
+	free_data(data, readline_input);
 	init_t_data(data);
 }
-

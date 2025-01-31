@@ -6,10 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:39:16 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:45:43 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- 
+
 #include "minishell.h"
 
 int	open_files(t_ast *node, t_exec_data *e_data)

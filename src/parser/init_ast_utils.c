@@ -6,12 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:22:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:38:01 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:39:14 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdint.h>
 
 int	get_cmd_arg_count(t_lexem *lexems, int start_idx)
 {
@@ -41,7 +40,7 @@ int	get_cmd_arg_count(t_lexem *lexems, int start_idx)
 char	*get_arg_value(struct s_ast_cmd *cmd, t_data *data, int cmd_lexem_idx)
 {
 	int		hdoc_num;
-	t_lexem *lexems;
+	t_lexem	*lexems;
 
 	lexems = data->lex.lexems;
 	if (lexems[cmd_lexem_idx].token != HEREDOC)
@@ -50,7 +49,8 @@ char	*get_arg_value(struct s_ast_cmd *cmd, t_data *data, int cmd_lexem_idx)
 	if (lexems[cmd_lexem_idx + 1].token == Q_LIMITER)
 	{
 		cmd->is_hdoc = true;
-		hdoc_num = get_token_count_to_idx_n(data->lex, cmd_lexem_idx, Q_LIMITER); 
+		hdoc_num = \
+			get_token_count_to_idx_n(data->lex, cmd_lexem_idx, Q_LIMITER);
 		return (expand_env_var_in_str(data->heredocs_dq[hdoc_num], data));
 	}
 	else if (lexems[cmd_lexem_idx + 1].token == LIMITER)
@@ -61,7 +61,6 @@ char	*get_arg_value(struct s_ast_cmd *cmd, t_data *data, int cmd_lexem_idx)
 	}
 	return (NULL);
 }
-
 
 /* We allocate sizeof(char *) * (arg_count + 2), why 2 ? 1 for the
  * command name, and one for a NULL byte
@@ -136,7 +135,6 @@ bool	fill_relation(t_ast **lchild, t_lexem *lexems, int idx, t_token tok)
 		*lchild = (*lchild)->parent_node;
 	}
 	if (tok == REDIR_IN)
-		*lchild = (*lchild)->ast_redir_in.left;	
-		
+		*lchild = (*lchild)->ast_redir_in.left;
 	return (true);
 }

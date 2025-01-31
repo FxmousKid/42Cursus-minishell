@@ -1,7 +1,16 @@
 /* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lex_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/31 18:31:41 by inazaria          #+#    #+#             */
+/*   Updated: 2025/01/31 18:31:45 by inazaria         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
-#include "utils.h"
 
 void	fill_lexem(t_lexem *lexem, char *str, t_token token, bool meta)
 {

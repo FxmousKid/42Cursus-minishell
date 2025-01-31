@@ -1,12 +1,12 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/03 04:49:02 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 02:24:28 by inazaria         ###   ########.fr       */
+/*   Created: 2025/01/31 18:55:33 by inazaria          #+#    #+#             */
+/*   Updated: 2025/01/31 18:56:31 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,9 @@ void	close_prev_command_fds(t_exec_data *e_data);
 
 bool	write_dup_heredoc_stdin(t_ast *cmd_node, t_exec_data *e_data);
 
-
 bool	handle_pipe(t_data *data, t_ast **node, t_exec_data *e_data);
 
-
-bool	cut_tree(t_ast **node, bool in_child, t_exec_data *e_data, t_data *data);
+bool	cut_tree(t_ast **node, bool in_c, t_exec_data *e_data, t_data *data);
 
 // BUILT-INS
 

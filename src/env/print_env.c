@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 23:00:51 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/02 16:22:57 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:34:43 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_env(t_env env)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	printf("%s===Environement Variables Status %s", YELLOW_TXT, END_TXT);

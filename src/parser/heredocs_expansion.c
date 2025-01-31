@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:02:06 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:38:34 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:37:35 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ bool	check_if_heredocs_done(t_lexer *lex, char **hdocs, char **hdocs_dq)
 {
 	int	len_hdocs;
 	int	len_hdocs_dq;
-	
+
 	len_hdocs = strptr_len(hdocs, MAX_HEREDOCS);
 	len_hdocs_dq = strptr_len(hdocs_dq, MAX_HEREDOCS);
-
 	return (!(get_token_count(*lex, HEREDOC) == len_hdocs_dq + len_hdocs));
 }
-
 
 void	read_heredoc(char *limiter, char *prompt, char **heredoc)
 {
@@ -73,7 +71,7 @@ void	start_correct_heredoc(t_lexer *lex, int *idx, char **hd, char **hd1)
 {
 	size_t	len_hdocs;
 	size_t	len_hdocs_dq;
-	
+
 	len_hdocs = strptr_len(hd, MAX_HEREDOCS);
 	len_hdocs_dq = strptr_len(hd1, MAX_HEREDOCS);
 	if (len_hdocs_dq + len_hdocs == 0)
@@ -103,7 +101,7 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq)
 	while (has_token(lex->lexems + idx, HEREDOC))
 	{
 		while (lex->lexems[idx].token != HEREDOC)
-			idx++; 
+			idx++;
 		prompt = readline_fancy_ps_two(lex, PS2_HDOC, false);
 		if (!prompt)
 			return (debug(DBG("heredoc prompt is null")), false);

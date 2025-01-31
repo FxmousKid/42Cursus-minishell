@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 22:03:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 16:41:11 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:30:07 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "minishell.h"
 #include <linux/limits.h>
 
-void	init_readline()
+void	init_readline(void)
 {
- 	rl_bind_key('\t', rl_insert);
+	rl_bind_key('\t', rl_insert);
 	rl_bind_key('!', rl_insert);
 	using_history();
 }
@@ -24,7 +24,7 @@ void	init_readline()
 /* copy the PS1 prompt in the passed array, assumes the passed char *
  * is at least of sizeof(PATH_MAX) */
 
-static inline void add_exit_code_to_prompt(char *arr, int code)
+static inline void	add_exit_code_to_prompt(char *arr, int code)
 {
 	ft_strlcat(arr, BOLD_RED_TXT, PATH_MAX);
 	arr += ft_strlen(BOLD_RED_TXT);
@@ -40,7 +40,6 @@ static inline void add_exit_code_to_prompt(char *arr, int code)
 	}
 	else if (code <= 127)
 	{
-		
 		*arr++ = 1 + '0';
 		code -= 100;
 		*arr++ = code / 10 + '0';

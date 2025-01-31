@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 17:48:54 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 17:20:46 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:44:36 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	dup_stdout_pipe_correct(t_ast *node, t_exec_data *e_data)
 	return (true);
 }
 
-int handle_dup_status_zero(t_data *data, t_exec_data *e_data)
+int	handle_dup_status_zero(t_data *data, t_exec_data *e_data)
 {
 	if (e_data->old_read_fds[data->cmd_idx + 1])
 		if (close(e_data->old_read_fds[data->cmd_idx + 1]) < 0)
@@ -95,18 +95,18 @@ int handle_dup_status_zero(t_data *data, t_exec_data *e_data)
 		if (close(e_data->fd_in) < 0)
 			return (debug(DBG("Failed to close stdnin")), false);
 	}
-	return (true); 
+	return (true);
 }
 
+/* node->status == 0 means we're on the left node
+ * node->status == 1 means we're on the right node*/
 int	correct_pipe_dup(t_ast *node, t_data *data, t_exec_data *e_data)
 {
-	// if we're on the left node
 	if (node->parent_node->status == 0)
 	{
 		if (!handle_dup_status_zero(data, e_data))
 			return (debug(DBG("Failed to dup_stdin_pipe_correct()")), false);
 	}
-	// if we're on the right node
 	else if (node->parent_node->status == 1)
 	{
 		if (e_data->old_read_fds[data->cmd_idx + 1])

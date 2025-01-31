@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:24:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 16:46:59 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:44:49 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exit_from_child(char *debug_text, t_data *data)
 void	close_e_data(t_exec_data *e_data)
 {
 	int	idx;
-	
+
 	if (e_data->pipefd[0] > 0 && close(e_data->pipefd[0]) < 0)
 		debug(DBG("Failed to close pipefd[0]"));
 	if (e_data->pipefd[1] > 0 && close(e_data->pipefd[1]) < 0)

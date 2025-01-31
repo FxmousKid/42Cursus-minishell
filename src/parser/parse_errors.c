@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:37:35 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:40:29 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	verify_meta_char_parse(t_lexer *lex, int idx, char **unexpected_token)
 		*unexpected_token = lex->lexems[idx + 1].value;
 		return (debug(DBG("Two meta chars in a row")), false);
 	}
-	return ((void) unexpected_token, true); 
+	return ((void) unexpected_token, true);
 }
 
 bool	verify_pipe_parse(t_lexer *lex, int idx, char **unexpected_token)
@@ -60,8 +60,7 @@ bool	verifiy_trailing_meta_char(t_lexer *lex, char **unexpected_token)
 		*unexpected_token = lexem.value;
 		return (false);
 	}
-	return ((void) unexpected_token, true);
-
+	return (true);
 }
 
 /* parse_status = cond1 && cond2 && ... because it will check for all 
@@ -76,7 +75,7 @@ bool	search_parse_error(t_lexer *lex)
 	i = -1;
 	unexpected_tok = NULL;
 	parse_status = verifiy_trailing_meta_char(lex, &unexpected_tok);
-	while ((size_t) ++i < lex->lexem_count)
+	while ((size_t)++i < lex->lexem_count)
 	{
 		if (!parse_status)
 			return (print_parse_error(unexpected_tok), false);

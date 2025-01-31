@@ -6,12 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:14:24 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/24 17:38:30 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:35:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	**convert_custom_env_to_compliant_env(t_env *env, char ***env_p)
 {
@@ -25,7 +24,7 @@ char	**convert_custom_env_to_compliant_env(t_env *env, char ***env_p)
 	idx = -1;
 	comp_env = *env_p;
 	while (++idx < env->env_len)
-	{	
+	{
 		ft_bzero(pair, 4096);
 		ft_strlcat(pair, env->env_pairs[idx].key, 4096);
 		ft_strlcat(pair, "=", 4096);

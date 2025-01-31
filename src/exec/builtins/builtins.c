@@ -6,14 +6,14 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:02:36 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 16:59:49 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:47:17 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	check_if_builtin(t_ast *cmd_node)
-{	
+{
 	char	*cmd_name;
 
 	if (cmd_node->token != CMD)
@@ -47,5 +47,5 @@ int	check_and_exec_builtin(t_ast *cmd_node, t_data *data)
 		builtin_echo(data, cmd_node);
 	else if (!strcmp_ex(cmd_node->ast_cmd.cmd_name, "cd"))
 		builtin_cd(data, cmd_node);
-	return (true);	
+	return (true);
 }
