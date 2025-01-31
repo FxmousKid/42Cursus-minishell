@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 10:43:31 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:40:29 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 23:31:35 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ bool	search_parse_error(t_lexer *lex)
 			return (print_parse_error(unexpected_tok), false);
 		if (lex->lexems[i].is_meta)
 		{
-			parse_status = verify_meta_char_parse(lex, i, &unexpected_tok) && \
-			verify_pipe_parse(lex, i, &unexpected_tok);
+			parse_status = verify_meta_char_parse(lex, i, &unexpected_tok);
+			parse_status &= verify_pipe_parse(lex, i, &unexpected_tok);
 		}
 	}
 	return (parse_status);

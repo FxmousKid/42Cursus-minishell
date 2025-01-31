@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:54:47 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/11 15:47:14 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 23:30:19 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	count_words_mod(char *str, char *sep)
 		fchange = (is_occ_aux(*str, sep) && !in_dq && !in_sq);
 		quote_conditions(*str, &in_dq, &in_sq);
 		if (!*(str + 1))
-			wc += fchange && is_occ_aux(*str, sep);
+			wc += (fchange && is_occ_aux(*str, sep));
 		if (is_escaped(str))
 			str++;
 		str++;
