@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 20:38:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/27 01:40:51 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 12:48:20 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	check_if_parent_same_flow(t_ast *node)
 {
 	if (!node->parent_node)
 		return (false);
-	if (node->token == REDIR_IN && node->parent_node->token == REDIR_IN)	
+	if (node->token == REDIR_IN && node->parent_node->token == REDIR_IN)
 		return (true);
 	if (is_tok_dual_cmd_type(node->token) || \
 		is_tok_redir_out_type(node->token))
@@ -35,13 +35,8 @@ bool	check_if_parent_same_flow(t_ast *node)
 	return (false);
 }
 
-int	dup_or_cut_tree(t_ast *node, t_exec_data *e_data)
+int	dup_for_redir(t_ast *node, t_exec_data *e_data)
 {
-	if (check_if_parent_same_flow(node))
-	{
-		// call cut_tree;
-		return (true);
-	}
 	if (node->token == REDIR_IN)
 	{
 		if (dup2(e_data->fd_in, STDIN_FILENO) < 0) 

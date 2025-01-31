@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:42:14 by inazaria          #+#    #+#             */
-/*   Updated: 2024/11/17 16:57:37 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:06:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-extern int g_signal_received;
+extern int	g_signal_received;
 
 void	restore_signals(void)
 {
@@ -34,7 +34,7 @@ static void	signal_handler(int signo)
 			rl_on_new_line();
 			ft_err("\n");
 			ft_err("\n");
-			print_formatted_cwd();		
+			print_formatted_cwd();
 			rl_redisplay();
 		}
 		else

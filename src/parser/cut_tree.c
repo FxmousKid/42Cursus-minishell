@@ -6,28 +6,11 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:13:30 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/30 13:50:16 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:14:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
- * Takes the addr of the node, and 'cuts' the current level :
- *
- *
- *				 >					  node -->		>
- *			   /   \							   / \
- *			  /     \			becomes		      /   \
- *           /       \						     /     \
- *node --> >		  b							pwd     b
- *		   /\
- *		  /  \
- *		 /    \
- *		pwd    a
- *
- * all the correct free calls are called,
- * all the links between parent-child are adjusted
-*/
 
 static void	modif_s_ast_left_child(t_ast *parent, t_ast *new_child)
 {
@@ -52,6 +35,24 @@ static void	modif_s_ast_left_child(t_ast *parent, t_ast *new_child)
 		parent->left = new_child;
 	}
 }
+
+/*
+ * Takes the addr of the node, and 'cuts' the current level :
+ *
+ *
+ *				 >					  node -->		>
+ *			   /   \							   / \
+ *			  /     \			becomes		      /   \
+ *           /       \						     /     \
+ *node --> >		  b							pwd     b
+ *		   /\
+ *		  /  \
+ *		 /    \
+ *		pwd    a
+ *
+ * all the correct free calls are called,
+ * all the links between parent-child are adjusted
+*/
 
 void	cut_tree_one_level_and_free(t_ast **node)
 {

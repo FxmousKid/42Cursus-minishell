@@ -33,15 +33,17 @@ int		exec(t_data *data);
 /* This is function that will loop over each node and execute them */
 int		exec_loop(t_data *data);
 
-int		handle_pipe(t_ast *node, t_data *data, t_exec_data *e_data);
+int		handle_pipe_parent(t_ast *node, t_data *data, t_exec_data *e_data);
 
 int		correct_pipe_dup(t_ast *node, t_data *data, t_exec_data *e_data);
 
 int		open_files(t_ast *node, t_exec_data *e_data);
 
-int		handle_redir(t_data *data, t_ast *node, t_exec_data *e_data);
+void	emergency_close_files(t_exec_data *e_data);
 
-int		dup_or_cut_tree(t_ast *node, t_exec_data *e_data);
+int		handle_redir(t_data *data, t_ast **node, t_exec_data *e_data);
+
+int		dup_for_redir(t_ast *node, t_exec_data *e_data);
 
 void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data);
 
@@ -58,6 +60,12 @@ void	close_e_data(t_exec_data *e_data);
 void	close_prev_command_fds(t_exec_data *e_data);
 
 bool	write_dup_heredoc_stdin(t_ast *cmd_node, t_exec_data *e_data);
+
+
+bool	handle_pipe(t_data *data, t_ast **node, t_exec_data *e_data);
+
+
+bool	cut_tree(t_ast **node, bool in_child, t_exec_data *e_data, t_data *data);
 
 // BUILT-INS
 

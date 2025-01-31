@@ -6,11 +6,10 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:30:29 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 22:53:21 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:39:16 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "exec.h"
+ 
 #include "minishell.h"
 
 int	open_files(t_ast *node, t_exec_data *e_data)
@@ -38,10 +37,18 @@ int	open_files(t_ast *node, t_exec_data *e_data)
 
 void	emergency_close_files(t_exec_data *e_data)
 {
-	if (e_data->fd_out)
-		close(e_data->fd_out);
-	else if (e_data->fd_in)
-		close(e_data->fd_in);
+	if (e_data->fd_in > 0)
+	{
+		if (close(e_data->fd_in) < 0)
+			debug(DBG("Failed to close fd_in"));
+		e_data->fd_in = -1;
+	}
+	if (e_data->fd_out > 0)
+	{
+		if (close(e_data->fd_out) < 0)
+			debug(DBG("Failed to close fd_out"));
+		e_data->fd_out = -1;
+	}
 }
 
 /* This function will be both called in the child and the parent,
@@ -54,7 +61,7 @@ void	emergency_close_files(t_exec_data *e_data)
  *			   /   \							   / \
  *			  /     \			becomes		      /   \
  *           /       \						     /     \
- *node --> >		  b							pwd     b
+ *node -->  >		  b							pwd     b
  *		   /\
  *		  /  \
  *		 /    \
@@ -63,44 +70,44 @@ void	emergency_close_files(t_exec_data *e_data)
  * and all the correct free calls are called,
  * all the links between parent-child are adjusted
  *
+ * return false if something failed to open
  * */
-bool	cut_curr_tree_level(t_ast **node, bool in_child, t_exec_data e_data)
+bool	cut_tree(t_ast **node, bool in_c, t_exec_data *e_data, t_data *data)
 {
-	(void)e_data;
-	(void)in_child;
-
-	if (!(*node)->parent_node)
-		return (false);
-
-	while ((*node)->parent_node)
+	if (!(*node)->parent_node || !need_to_cut_tree(*node))
 	{
-		// if (in_child && !open_files(*node, e_data))
-		//		return (debug(DBG("Failed to open_files()")), false);
-		//
-
-		
+		if (in_c && !open_files(*node, e_data))
+			return (debug(DBG("Failed to open_files()")), false);
+		return (true);
 	}
-	
-	// *node = (*node)->parent_node;
+	while ((*node)->parent_node && need_to_cut_tree(*node))
+	{
+		if (in_c || (*node)->token == REDIR_IN)
+		{
+			if (!open_files(*node, e_data))
+				return (debug(DBG("Failed to open_files()")), false);
+			if (need_to_close_after_cut(*node))
+				emergency_close_files(e_data);
+		}
+		(void)data;
+		cut_tree_one_level_and_free(node);
+	}
+	if (!in_c && is_tok_dual_cmd_type((*node)->token))
+		(*node)->status++;
+	if (in_c && !open_files(*node, e_data))
+		return (debug(DBG("Failed to open_files()")), false);
 	return (true);
 }
 
-int	handle_redir(t_data *data, t_ast *node, t_exec_data *e_data)
+int	handle_redir(t_data *data, t_ast **node, t_exec_data *e_data)
 {
-	// while ()
-	//{
-	//	if (!open_files(node, e_data))
-	//		exit_from_child("Failed to open_files()", data);
-	// 	cut_curr_tree_level(&node);
-	//}
-
-	if (!open_files(node, e_data))
-		exit_from_child("Failed to open_files()", data);
-	if (!dup_or_cut_tree(node, e_data))
+	if (!cut_tree(node, true, e_data, data))
+		exit_from_child("Failed to cut_curr_tree_level()", data);
+	if (!is_tok_dual_cmd_type((*node)->token) && !dup_for_redir(*node, e_data))
 	{
 		emergency_close_files(e_data);
 		exit_from_child("Failed to dup_or_cut_tree()", data);
 	}
-	node = node->left;
+	*node = (*node)->left;
 	return (true);
 }

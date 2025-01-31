@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 13:24:01 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/26 02:25:04 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:46:59 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	close_e_data(t_exec_data *e_data)
 	if (e_data->pipefd[1] > 0 && close(e_data->pipefd[1]) < 0)
 		debug(DBG("Failed to close pipefd[1]"));
 	idx = -1;
-	while (e_data->old_read_fds[++idx])
+	while (++idx < FD_MAX)
 	{
-		if (e_data->old_read_fds[idx] > 0 && \
+		if (e_data->old_read_fds[idx] <= 0)
+			continue ;
+		if (fcntl(e_data->old_read_fds[idx], F_GETFD) != -1 && \
 			close(e_data->old_read_fds[idx]) < 0)
 			debug(DBG("Failed to close old_read_fds"));
+		e_data->old_read_fds[idx] = -1;
 	}
-	if (e_data->fd_in > 0 && close(e_data->fd_in) < 0)
-		debug(DBG("Failed to close fd_in"));
-	if (e_data->fd_out > 0 && close(e_data->fd_out) < 0)
-		debug(DBG("Failed to close fd_out"));
+	emergency_close_files(e_data);
 }
 
 void	close_prev_command_fds(t_exec_data *e_data)

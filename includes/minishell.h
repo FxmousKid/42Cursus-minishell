@@ -22,8 +22,8 @@
 # include "env.h"
 # include "utils.h"
 # include "exec.h"
-#include <fcntl.h>
-#include <stdio.h>
+
+/* data.ast points to the leftmost node in the ast */
 
 typedef struct s_data
 {
@@ -38,7 +38,6 @@ typedef struct s_data
 	unsigned char	exit_code;
 	unsigned char	prev_exit_code;
 }					t_data;
-
 
 // Free functions
 

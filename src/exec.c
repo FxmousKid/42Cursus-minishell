@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 04:42:05 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 17:02:23 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 18:00:07 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,5 @@ int	exec(t_data *data)
 		return (debug(DBG("Failed to exec_loop()")), false);
 	if (!wait_loop(data))
 		return (debug(DBG("Failed to wait_loop()")), false);
-
 	return (true);
 }

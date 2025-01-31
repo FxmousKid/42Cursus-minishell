@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 18:36:25 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:37:23 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:59:52 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	handle_partial_prompt(t_data *data, t_lexer *lex)
 	if (!search_parse_error(lex))
 	{
 		data->exit_code = 2;
-		debug(DBG("Failed to search_parse_error()"));	
+		debug(DBG("Failed to search_parse_error()"));
 	}
 }
 
@@ -64,7 +64,7 @@ bool	parser(t_data *data, t_lexer *lex)
 	if (!search_parse_error(lex))
 	{
 		data->exit_code = 2;
-		return (debug(DBG("Failed to search_parse_error()")), false);	
+		return (debug(DBG("Failed to search_parse_error()")), false);
 	}
 	if (!prompt_for_partials_and_heredoc(data, lex))
 		return (debug(DBG("Failed to prompt_for_partials()")), false);

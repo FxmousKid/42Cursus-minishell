@@ -95,8 +95,6 @@ struct s_ast
 	};
 };
 
-typedef struct s_data t_data;
-
 
 // Parser
 bool	parser(t_data *data, t_lexer *lex);
@@ -110,9 +108,6 @@ bool	prompt_for_heredocs(t_lexer *lex, char **heredocs, char **heredocs_dq);
 /* takes a function, and iterates on all children of given node */
 void	iterate_ast(t_ast *ast, void (*f)(t_ast *ast));
 
-/* start_idx is the idx of the CMD lexem, and counts all the arguments of 
- * that command, so all WORD, SQ_WORD, DQ_WORD of that command */
-int		get_cmd_arg_count(t_lexem *lexems, int start_idx);
 
 /* Takes a allocated t_ast and fill it's command node :
  * uses malloc to allocate char *cmd_name (null terminated)
@@ -144,21 +139,25 @@ t_ast	*get_root_node(t_ast *ast);
  */
 char	*expand_env_var_in_str(char *str, t_data *data);
 
-/* if the given lexem has to be expanded then we expand the value of it
- * else we return a char * containing the original lexem value
- * both cases return a malloced char *
- * */
-char	*extract_str_or_env_var(t_lexem lexem, t_data *data);
-
 
 void	set_child_easy_access(t_ast *node);
 
 
 void	free_ast(t_ast *ast);
 
-/* takes a node X, frees its right child, its left child becomes the left child of X's parent
- * and all the linking is arranged. Frees X at the end, and makes the passed node point to 
- * X's parent */
+/* takes a node X, frees its right child, its left child becomes the 
+ * left child of X's parent and all the linking is arranged. 
+ * Frees X at the end, and makes the passed node point to X's parent 
+ * */
 void	cut_tree_one_level_and_free(t_ast **node);
+
+/* returns true if the current node needs to be removed and trimed */
+bool	need_to_cut_tree(t_ast *node);
+
+
+/* returns true if we need to close previously opened files after we cut
+ * the current level */
+bool	need_to_close_after_cut(t_ast *node);
+
 
 #endif

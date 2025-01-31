@@ -21,7 +21,8 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 {
 	static t_data	data = {0};
 
-	if (!readline_input || !*readline_input || !(data.env = data_env))
+	data.env = data_env;
+	if (!readline_input || !*readline_input || !data.env)
 		return (debug(DBG("Received null in readline")), 0);
 	if (data.env->global_cmd_number == 0)
 		free_and_init_data(&data, NULL);
@@ -32,22 +33,14 @@ int	minishell(char *readline_input, t_env *data_env, int *exit_code_dspl)
 		*exit_code_dspl = data.exit_code;
 		return (debug(DBG("Failed to parser()")), 0);
 	}
-
-
-	print_ast(data.ast);
-	t_ast *node = data.ast->parent_node;
-	cut_tree_one_level_and_free(&node);
-	print_ast(node);
-
-
-	// if (!exec(&data))
-	// {
-	// 	free_and_init_data(&data, readline_input);
-	// 	*exit_code_dspl = data.exit_code;
-	// 	return (debug(DBG("Failed to exec()")), 0);
-	// }
+	if (!exec(&data))
+	{
+		free_and_init_data(&data, readline_input);
+		*exit_code_dspl = data.exit_code;
+		return (debug(DBG("Failed to exec()")), 0);
+	}
 	data.prev_exit_code = data.exit_code;
-	*exit_code_dspl = data.exit_code;	
+	*exit_code_dspl = data.exit_code;
 	return (free_and_init_data(&data, readline_input), 0);
 }
 
@@ -71,13 +64,13 @@ int	launch_minishell(char *env[])
 		input = read_command(exit_code_display);
 	}
 	printf("exit\n");
- 	return (free_env(data_env), 0);
+	return (free_env(data_env), 0);
 }
 
-int g_signal_received = 0;
+int		g_signal_received = 0;
 
-// Remember what this is for...
-extern int rl_catch_signals;
+// extern int	rl_catch_signals;
+// to check when veryging singnals
 
 int	main(int argc, char *argv[], char *env[])
 {

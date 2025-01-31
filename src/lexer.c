@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:25:52 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/29 15:36:35 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:46:30 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	lex_general(t_lexer *lex)
 		if (lex_if_meta_chars(&lex->lexems[lex_idx], lex->words[lex_idx]))
 			continue ;
 		if (*lex->words[lex_idx] == '$')
-			fill_lexem(&lex->lexems[lex_idx], lex->words[lex_idx], ENV_VAR, false);
+			fill_lexem(&lex->lexems[lex_idx], \
+				lex->words[lex_idx], ENV_VAR, false);
 		else
 			fill_lexem(&lex->lexems[lex_idx], lex->words[lex_idx], WORD, false);
 	}
@@ -97,7 +98,7 @@ void	lex_words_into_sq_dq(t_lexer *lex)
 
 bool	lexer(t_lexer *lex, char *input)
 {
- 	if (!*input)
+	if (!*input)
 		return (debug(DBG("Null string")), false);
 	ft_strlcpy(lex->input, input, sizeof(lex->input));
 	if (!split_cl(lex))

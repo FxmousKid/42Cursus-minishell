@@ -35,7 +35,6 @@ void	print_start_text(void)
 	printf("%s%s%s", START_TEXT63, START_TEXT64, START_TEXT65);
 }
 
-
 /* shortens the /home/user/... cwd with a tilde  ~/... 
  * if /home/user not found, copies the passed cwd as is */
 static void	reduce_home_into_tilde(char *cwd, char *new_cwd)
@@ -55,7 +54,7 @@ static void	reduce_home_into_tilde(char *cwd, char *new_cwd)
 bool	append_cwd_in_arr(char *cwd)
 {
 	char	unshortemed_cwd[PATH_MAX];
-	
+
 	ft_bzero(unshortemed_cwd, sizeof(char) * PATH_MAX);
 	if (!getcwd(unshortemed_cwd, PATH_MAX))
 		return (debug(DBG("Failed to getcwd")), false);

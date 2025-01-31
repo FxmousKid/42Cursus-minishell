@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/28 16:30:55 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:34:17 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	find_path(t_env *env_t, char *cmd, char *cmd_path_to_fill)
 		return (debug(DBG("Error : Path not found ")), 0);
 	while (*path)
 	{
-		len_till_colon = ft_strlen_till_char(path, ':');// ft_strlen(path);
+		len_till_colon = ft_strlen_till_char(path, ':');
 		if (ft_strchr(path, ':') == 0)
 			len_till_colon = 0;
 		path[len_till_colon] = 0;
@@ -57,7 +57,6 @@ int	handle_finding_path(t_data *data, char **args, char *cmd_path)
 
 void	print_old_read_fds(int fds[MAX_PIDS])
 {
-
 	fprintf(stderr, "data->old_read_fds = [");
 	int i = -1;
 	while (++i < MAX_PIDS)
@@ -86,8 +85,10 @@ void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 	char	**comp_env;
 	char	**args;
 	
-	if (check_and_exec_builtin(cmd_node, data))
-		exit_from_child("Executed Builtin Succesfully", data);
+	if (check_if_builtin(cmd_node) && \
+		!write_dup_heredoc_stdin(cmd_node, e_data))
+		if (check_and_exec_builtin(cmd_node, data))
+			exit_from_child("Executed Builtin Succesfully", data);
 	comp_env = NULL;
 	convert_custom_env_to_compliant_env(data->env, &comp_env);
 	args = cmd_node->ast_cmd.cmd_args;
