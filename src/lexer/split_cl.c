@@ -6,14 +6,24 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 19:21:40 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:57:56 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/11/10 23:42:32 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_escaped(char *str);
-void	quote_conditions(char c, bool *in_dq, bool *in_sq);
+extern bool	is_escaped(char *str);
+extern void	quote_conditions(char c, bool *in_dq, bool *in_sq);
+
+static inline void	set_lexems_count(t_lexer *lex)
+{
+	int	lexem_count;
+
+	lexem_count = 0;
+	while (lex->words[lexem_count])
+		lexem_count++;
+	lex->lexem_count = lexem_count;
+}
 
 static inline int	get_len_word_aux(char *str, bool *in_sq, bool *in_dq)
 {
@@ -80,9 +90,10 @@ bool	split_mod(char *str, char **words)
 	return (true);
 }
 
-bool	split_cl(char *str, t_lexer *lex)
+bool	split_cl(t_lexer *lex)
 {
-	if (!split_mod(str, lex->words))
+	if (!split_mod(lex->input, lex->words))
 		return (debug(DBG("Failed to split_mod()")), false);
+	set_lexems_count(lex);
 	return (true);
 }

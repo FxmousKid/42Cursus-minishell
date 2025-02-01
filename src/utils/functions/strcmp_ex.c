@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debugging_functions.c                              :+:      :+:    :+:   */
+/*   strcmp_ex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 02:01:52 by inazaria         ###   ########.fr       */
+/*   Created: 2024/10/28 22:39:08 by inazaria          #+#    #+#             */
+/*   Updated: 2025/02/01 14:18:30 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Function used to debug errors flow, will only trigger when building 
- * project with 'make debug'*/
-#ifdef DEBUG
-
-void	debug(char *str)
+int	strcmp_ex(const char *s1, const char *s2)
 {
-	fprintf(stderr, "%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
-}
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-#else
-
-void	debug(char *str)
-{
-	(void) str;
-}
-#endif
-
-void	ft_err(char *str)
-{
-	ft_putstr_fd(str, STDERR_FILENO);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (*str1 && *str2 && *str1 == *str2)
+	{
+		str1++;
+		str2++;
+	}
+	return (*str1 - *str2);
 }

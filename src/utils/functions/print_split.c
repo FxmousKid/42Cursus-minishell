@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debugging_functions.c                              :+:      :+:    :+:   */
+/*   print_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 02:01:52 by inazaria         ###   ########.fr       */
+/*   Created: 2024/10/15 15:57:58 by inazaria          #+#    #+#             */
+/*   Updated: 2024/12/18 07:01:06 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Function used to debug errors flow, will only trigger when building 
- * project with 'make debug'*/
-#ifdef DEBUG
-
-void	debug(char *str)
+void	print_split(char **split, char *name)
 {
-	fprintf(stderr, "%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
-}
+	int		idx;
 
-#else
-
-void	debug(char *str)
-{
-	(void) str;
-}
-#endif
-
-void	ft_err(char *str)
-{
-	ft_putstr_fd(str, STDERR_FILENO);
+	printf("%s%s%s : [", GREEN_TXT, name, END_TXT);
+	idx = 0;
+	while (split[idx + 1])
+	{
+		printf("%s%s%s, ", YELLOW_TXT, split[idx], END_TXT);
+		idx++;
+	}
+	printf("%s%s%s]\n", YELLOW_TXT, split[idx], END_TXT);
 }

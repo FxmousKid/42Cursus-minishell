@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debugging_functions.c                              :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 02:01:52 by inazaria         ###   ########.fr       */
+/*   Created: 2025/01/25 06:01:16 by inazaria          #+#    #+#             */
+/*   Updated: 2025/02/01 14:35:58 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Function used to debug errors flow, will only trigger when building 
- * project with 'make debug'*/
-#ifdef DEBUG
-
-void	debug(char *str)
+int	builtin_pwd(t_data *data, t_ast *node)
 {
-	fprintf(stderr, "%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
-}
+	char	*pwd;
 
-#else
-
-void	debug(char *str)
-{
-	(void) str;
-}
-#endif
-
-void	ft_err(char *str)
-{
-	ft_putstr_fd(str, STDERR_FILENO);
+	(void)node;
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+	{
+		custom_name_error("pwd", strerror(errno));
+		data->exit_code = EXIT_FAILURE;
+		return (false);
+	}
+	printf("%s\n", pwd);
+	free(pwd);
+	return (true);
 }
