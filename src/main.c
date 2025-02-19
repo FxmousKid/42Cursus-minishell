@@ -4,8 +4,11 @@
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:30:29 by inazaria          #+#    #+#             */
+/*   Updated: 2024/10/25 18:41:45 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:49:56 by ptheo            ###   ########.fr       */
 /*   Updated: 2024/10/25 18:41:45 by inazaria         ###   ########.fr       */
 /*   Updated: 2024/10/24 14:49:56 by ptheo            ###   ########.fr       */
 /*                                                                            */

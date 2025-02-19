@@ -4,8 +4,11 @@
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 15:35:10 by inazaria          #+#    #+#             */
+/*   Updated: 2024/10/27 16:09:29 by inazaria         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:46:36 by ptheo            ###   ########.fr       */
 /*   Updated: 2024/10/27 16:09:29 by inazaria         ###   ########.fr       */
 /*   Updated: 2024/10/24 14:46:36 by ptheo            ###   ########.fr       */
 /*                                                                            */

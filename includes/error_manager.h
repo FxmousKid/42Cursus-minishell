@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   error_manager.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:39:46 by inazaria          #+#    #+#             */
 /*   Updated: 2025/01/20 15:56:21 by inazaria         ###   ########.fr       */
