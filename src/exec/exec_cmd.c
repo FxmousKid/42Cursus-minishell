@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:01:49 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:45:15 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:36:18 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	exec_cmd(t_ast *cmd_node, t_data *data, t_exec_data *e_data)
 	char	**args;
 
 	if (check_if_builtin(cmd_node) && \
-		!write_dup_heredoc_stdin(cmd_node, e_data))
+		write_dup_heredoc_stdin(cmd_node, e_data))
 		if (check_and_exec_builtin(cmd_node, data))
 			exit_from_child("Executed Builtin Succesfully", data);
 	comp_env = NULL;
