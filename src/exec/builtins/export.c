@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 04:07:10 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:46:47 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:21:11 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	builtin_export(t_data *data, t_ast *node)
 	char	*expanded_value;
 
 	pair = node->ast_cmd.cmd_args[1];
+	if (!pair)
+	{
+		print_env(*data->env);
+		return (true);
+	}
 	ft_bzero(key, sizeof(key));
 	ft_bzero(value, sizeof(value));
 	equal_sign_pos = ft_strlen_till_char(pair, '=');

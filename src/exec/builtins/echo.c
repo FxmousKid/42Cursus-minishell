@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:29:37 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:47:43 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:22:46 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	builtin_echo(t_data *data, t_ast *node)
 
 	(void)data;
 	args = node->ast_cmd.cmd_args;
-	trail = strcmp_ex(args[1], "-n");
+	trail = (args[1] && strcmp_ex(args[1], "-n"));
 	i = 1 + (trail == 0);
 	while (args[i])
 	{
