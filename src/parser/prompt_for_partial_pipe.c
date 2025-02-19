@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debugging_functions.c                              :+:      :+:    :+:   */
+/*   prompt_for_partial_pipe.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 02:01:52 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/11 00:07:09 by inazaria          #+#    #+#             */
+/*   Updated: 2025/01/31 18:36:06 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Function used to debug errors flow, will only trigger when building 
- * project with 'make debug'*/
-#ifdef DEBUG
+char	*readline_fancy_ps_two(t_lexer *lex, char *ps_two, bool to_read);
 
-void	debug(char *str)
+bool	prompt_for_partial_pipe(t_lexer *lex)
 {
-	fprintf(stderr, "%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
-}
+	char	*line;
 
-#else
-
-void	debug(char *str)
-{
-	(void) str;
-}
-#endif
-
-void	ft_err(char *str)
-{
-	ft_putstr_fd(str, STDERR_FILENO);
+	if (lex->lexems[lex->lexem_count - 1].token == PIPE)
+	{
+		line = readline_fancy_ps_two(lex, PS2, true);
+		ft_strlcat(lex->input, line, PATH_MAX);
+		free(line);
+		return (true);
+	}
+	return (false);
 }

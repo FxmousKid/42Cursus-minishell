@@ -4,10 +4,10 @@
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
+#    By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:41:21 by inazaria          #+#    #+#              #
-#    Updated: 2024/10/27 16:07:57 by inazaria         ###   ########.fr        #
-#    Updated: 2024/10/21 19:17:22 by ptheo            ###   ########.fr        #
+#    Updated: 2025/01/31 20:24:51 by inazaria         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,62 @@ DEBUG_BUILD_PATH = ./build/error_manager/debugging_functions
 
 # .c files for source code
 SRC_FILES_NAMES = main.c
-SRC_FILES_NAMES += lexer.c
 
+SRC_FILES_NAMES += lexer.c
 SRC_FILES_NAMES += lexer/lex_utils.c
+SRC_FILES_NAMES += lexer/lex_utils_2.c
+SRC_FILES_NAMES += lexer/lex_utils_3.c
 SRC_FILES_NAMES += lexer/lex_meta_chars.c
 SRC_FILES_NAMES += lexer/split_cl.c
 
+SRC_FILES_NAMES += parser.c
+SRC_FILES_NAMES += parser/parse_errors.c
+SRC_FILES_NAMES += parser/init_ast.c
+SRC_FILES_NAMES += parser/free_ast.c
+SRC_FILES_NAMES += parser/init_ast_utils.c
+SRC_FILES_NAMES += parser/ast_utils.c
+SRC_FILES_NAMES += parser/ast_iter.c
+SRC_FILES_NAMES += parser/prompt_for_partial_pipe.c
+SRC_FILES_NAMES += parser/prompt_for_partial_quote.c
+SRC_FILES_NAMES += parser/heredocs_expansion.c
+SRC_FILES_NAMES += parser/set_child_easy_access.c
+SRC_FILES_NAMES += parser/ast_expand_words.c
+SRC_FILES_NAMES += parser/token_utils.c
+SRC_FILES_NAMES += parser/cut_tree.c
+
+SRC_FILES_NAMES += exec.c
+SRC_FILES_NAMES += exec/exec_loop.c
+SRC_FILES_NAMES += exec/exec_cmd.c
+SRC_FILES_NAMES += exec/handle_pipe.c
+SRC_FILES_NAMES += exec/handle_redir.c
+SRC_FILES_NAMES += exec/handle_dup.c
+SRC_FILES_NAMES += exec/handle_heredoc.c
+SRC_FILES_NAMES += exec/errors.c
+SRC_FILES_NAMES += exec/builtins/builtins.c
+SRC_FILES_NAMES += exec/builtins/export.c
+SRC_FILES_NAMES += exec/builtins/pwd.c
+SRC_FILES_NAMES += exec/builtins/cd.c
+SRC_FILES_NAMES += exec/builtins/unset.c
+SRC_FILES_NAMES += exec/builtins/exit.c
+SRC_FILES_NAMES += exec/builtins/echo.c
+
+SRC_FILES_NAMES += env/init_free_env.c
+SRC_FILES_NAMES += env/manipulate_env_entries.c
+SRC_FILES_NAMES += env/print_env.c
+SRC_FILES_NAMES += env/convert_env.c
+
+SRC_FILES_NAMES += utils/prepare_t_data.c
 SRC_FILES_NAMES += utils/prompt.c
-SRC_FILES_NAMES += utils/is_occ.c
-SRC_FILES_NAMES += utils/print_split.c
-SRC_FILES_NAMES += utils/quote_utils.c
+SRC_FILES_NAMES += utils/signals.c
+SRC_FILES_NAMES += utils/readline_utils.c
+SRC_FILES_NAMES += utils/functions/is_occ.c
+SRC_FILES_NAMES += utils/functions/print_split.c
+SRC_FILES_NAMES += utils/functions/quote_utils.c
+SRC_FILES_NAMES += utils/functions/strcmp_ex.c
+SRC_FILES_NAMES += utils/functions/free_split.c
+SRC_FILES_NAMES += utils/functions/strptr_len.c
+SRC_FILES_NAMES += utils/functions/print_ast.c
+
 
 # Full path to .c files
 SRC_FILES = $(addprefix $(SRC_DIR), $(SRC_FILES_NAMES))
@@ -47,7 +93,7 @@ DEP_FILES = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.d, $(SRC_FILES))
 #<><><><><><><> Variables <><><><><><><><><><><><><><><><><>
 
 NAME := minishell
-CC := gcc
+CC := clang
 CFLAGS := -gdwarf-4 -Wall -Wextra -Werror -I $(INC_DIR) -MMD -MP
 LFLAGS := libft/libft.a -lreadline
 MKDIR := mkdir -p
@@ -96,6 +142,18 @@ debug : $(OBJ_FILES)
 	@$(ECHO) "$(BROWN)[BLD] Building executable...$(NC)"
 	@$(CC) $(CFLAGS) $(OBJ_FILES) $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
 	@$(ECHO) "$(GREEN)[BLD] Executable built successfully.$(NC)"
+
+force : $(OBJ_FILES)
+	@$(ECHO) "$(RED)[DBG] Making in FORCED mode...$(NC)"
+	@$(ECHO) "$(BROWN)[BLD] Building libft static library...$(NC)"
+	@$(MAKE) --no-print-directory -s -C ./libft all
+	@$(ECHO) "$(GREEN)[BLD] successfully built libft.$(NC)"	
+	@$(ECHO) "$(BROWN)[BLD] Building $(NAME) executable...$(NC)"
+	@$(MKDIR) ./build/error_manager/
+	@$(CC) $(CFLAGS) -c $(DEBUG_FILE_PATH).c -o $(DEBUG_BUILD_PATH).o
+	@$(CC) $(CFLAGS) $^ $(DEBUG_BUILD_PATH).o -o $(NAME) $(LFLAGS)
+	@$(ECHO) "$(GREEN)[BLD] Executable built in FORCED mode successfully.$(NC)"
+
 
 clean : 
 	@$(ECHO) "$(BROWN)[CLN] Cleaning object and dependency files...$(NC)"

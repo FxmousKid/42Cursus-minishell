@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debugging_functions.c                              :+:      :+:    :+:   */
+/*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/29 16:06:11 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/25 02:01:52 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/17 03:58:33 by inazaria          #+#    #+#             */
+/*   Updated: 2024/11/17 04:18:00 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Function used to debug errors flow, will only trigger when building 
- * project with 'make debug'*/
-#ifdef DEBUG
-
-void	debug(char *str)
+void	free_split(char **split)
 {
-	fprintf(stderr, "%s==%d== %s%s", RED_TXT, getpid(), str, END_TXT);
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
 }
 
-#else
-
-void	debug(char *str)
+void	free_sub_split_only(char **split)
 {
-	(void) str;
-}
-#endif
+	int	i;
 
-void	ft_err(char *str)
-{
-	ft_putstr_fd(str, STDERR_FILENO);
+	i = 0;
+	while (split[i])
+		free(split[i++]);
 }

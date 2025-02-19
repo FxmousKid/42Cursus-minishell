@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ptheo <ptheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 15:09:45 by inazaria          #+#    #+#             */
-/*   Updated: 2024/10/27 21:17:32 by inazaria         ###   ########.fr       */
+/*   Created: 2024/11/12 16:39:46 by inazaria          #+#    #+#             */
+/*   Updated: 2025/01/20 15:56:21 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 # define DBG(reason) reason " at line " \
 TOSTRING(__LINE__) " in file " __FILE__ "\n"
 
-// Freeing functions
-
 // Error Handling
+void		ft_err(char *str);
 
 // Debugging
 void		debug(char *str);

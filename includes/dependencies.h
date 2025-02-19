@@ -14,8 +14,6 @@
 #ifndef DEPENDENCIES_H
 # define DEPENDENCIES_H
 
-# include "../libft/includes/libft.h"
-
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -31,6 +29,7 @@
 # include <time.h>
 # include <termios.h>
 
+# include "../libft/includes/libft.h"
 # include <readline/readline.h>
 # include <readline/rltypedefs.h>
 # include <readline/history.h>
