@@ -6,7 +6,7 @@
 /*   By: inazaria <inazaria@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 06:08:52 by inazaria          #+#    #+#             */
-/*   Updated: 2025/01/31 18:49:02 by inazaria         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:46:28 by inazaria         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtin_exit_aux(t_data *data, t_ast *cmd_node)
 	idx = 0;
 	while ((size_t) idx < ft_strlen(cmd_node->ast_cmd.cmd_args[1]))
 	{
-		if (!ft_isalnum(cmd_node->ast_cmd.cmd_args[1][idx]))
+		if (!ft_isdigit(cmd_node->ast_cmd.cmd_args[1][idx]))
 		{
 			printf("%s: %s: %s: %s\n", SH_NAME, "exit", \
 				cmd_node->ast_cmd.cmd_args[1], "numeric argument required");
