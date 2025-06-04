@@ -101,11 +101,11 @@ RM_RF := rm -rf
 ECHO  := echo -e
 
 
-BLUE	:= \e[34m
-BROWN	:= \e[33m
-GREEN	:= \e[32m
-RED		:= \e[31m
-NC		:= \e[0m
+BLUE	:= $(shell echo -e "\033[34m") 
+BROWN	:= $(shell echo -e "\033[33m")
+GREEN	:= $(shell echo -e "\033[32m")
+RED		:= $(shell echo -e "\033[31m")
+NC		:= $(shell echo -e "\033[0m")
 
 #<><><><><><><> Recipes <><><><><><><><><><><><><><><><><><>
 
